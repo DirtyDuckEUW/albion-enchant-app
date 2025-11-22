@@ -1,0 +1,49 @@
+.prices-page {
+  padding: 1.5rem;
+}
+
+.prices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.price-block {
+  background: var(--panel);
+  padding: 1rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 8px;
+}
+
+.price-block h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--foreground);
+}
+
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0.5rem;
+}
+
+.tier-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tier-field input {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 6px;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+}
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}

@@ -1,8 +1,46 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Catppuccin Mocha palette */
+  --cp-rosewater: #f5e0dc;
+  --cp-flamingo:  #f2cdcd;
+  --cp-pink:      #f5c2e7;
+  --cp-mauve:     #cba6f7;
+  --cp-red:       #f38ba8;
+  --cp-maroon:    #eba0ac;
+  --cp-peach:     #fab387;
+  --cp-yellow:    #f9e2af;
+  --cp-green:     #a6e3a1;
+  --cp-teal:      #94e2d5;
+  --cp-sky:       #89dceb;
+  --cp-sapphire:  #74c7ec;
+  --cp-blue:      #89b4fa;
+  --cp-lavender:  #b4befe;
+
+  --cp-text:      #cdd6f4;
+  --cp-subtext0:  #a6adc8;
+  --cp-subtext1:  #bac2de;
+  --cp-overlay0:  #6c7086;
+  --cp-overlay1:  #7f849c;
+  --cp-overlay2:  #9399b2;
+  --cp-surface0:  #313244;
+  --cp-surface1:  #45475a;
+  --cp-surface2:  #585b70;
+  --cp-base:      #1f1d2e;
+  --cp-mantle:    #191724;
+  --cp-crust:     #11111b;
+
+  /* Map generic vars for app usage */
+  --background: var(--cp-base);
+  --background-2: var(--cp-mantle);
+  --panel: var(--cp-surface0);
+  --foreground: var(--cp-text);
+  --muted: var(--cp-subtext0);
+  --accent: var(--cp-blue);
+  --primary: var(--cp-mauve);
+  /* additional convenience mappings */
+  --crust: var(--cp-crust);
+  --overlay2: var(--cp-overlay2);
 }
 
 @theme inline {
@@ -12,15 +50,61 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Header / navigation */
+.site-header {
+  background: var(--background-2);
+  color: var(--foreground);
+}
+.site-header nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+}
+.site-header nav a:hover {
+  color: var(--foreground);
+}
+
+/* Buttons using palette (global defaults) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  background: var(--primary);
+  color: var(--crust, #111);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn:hover {
+  filter: brightness(0.95);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.7rem;
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--overlay2);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+/* Utility */
+.muted { color: var(--muted); }
+.error { color: var(--cp-red); }

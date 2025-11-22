@@ -1,0 +1,73 @@
+.calculate-page {
+  padding: 1.5rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.calc-form {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+  margin-top: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field input,
+.field select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.btn {
+  padding: 0.5rem 0.9rem;
+  background: var(--primary);
+  color: var(--crust, #111);
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--cp-overlay2);
+}
+
+.result {
+  margin-top: 1.25rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  background: var(--panel);
+  border: 1px solid var(--cp-overlay2);
+}
+
+.result .sep {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cp-overlay2), transparent);
+  margin: 0.6rem 0;
+  opacity: 0.9;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.error {
+  color: var(--cp-red);
+}
