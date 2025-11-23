@@ -8,7 +8,11 @@ interface TierSelectProps {
   label?: string;
 }
 
-export default function TierSelect({ value, onChange, label = "Tier" }: TierSelectProps) {
+export default function TierSelect({
+  value,
+  onChange,
+  label = "Tier",
+}: TierSelectProps) {
   return (
     <label className="field">
       <span>{label}</span>

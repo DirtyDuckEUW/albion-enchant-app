@@ -1,0 +1,90 @@
+[
+  {
+    "Name": "Scholar Sandals",
+    "UniqueName": "SHOES_CLOTH_SET1",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Cleric Sandals",
+    "UniqueName": "SHOES_CLOTH_SET2",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Mage Sandals",
+    "UniqueName": "SHOES_CLOTH_SET3",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Druid Sandals",
+    "UniqueName": "SHOES_CLOTH_KEEPER",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_CLOTH_KEEPER"
+    }
+  },
+  {
+    "Name": "Fiend Sandals",
+    "UniqueName": "SHOES_CLOTH_HELL",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_CLOTH_HELL"
+    }
+  },
+  {
+    "Name": "Cultist Sandals",
+    "UniqueName": "SHOES_CLOTH_MORGANA",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_CLOTH_MORGANA"
+    }
+  },
+  {
+    "Name": "Feyscale Sandals",
+    "UniqueName": "SHOES_CLOTH_FEY",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_CLOTH_FEY"
+    }
+  },
+  {
+    "Name": "Sandals of Purity",
+    "UniqueName": "SHOES_CLOTH_AVALON",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_CLOTH_AVALON"
+    }
+  }
+]

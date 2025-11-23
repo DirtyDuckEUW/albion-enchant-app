@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { getAllResourcePrices } from '@/lib/supabase';
-import type { Tier, ResourcePriceMap } from '@/types';
+import { useState, useEffect } from "react";
+import { getAllResourcePrices } from "@/lib/supabase";
+import type { Tier, ResourcePriceMap } from "@/types";
 
 export function useResourcePrices() {
   const [prices, setPrices] = useState<ResourcePriceMap>({

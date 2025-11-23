@@ -1,42 +1,42 @@
 [
-{
-  "LocalizationNameVariable": "@ITEMS_T5_ARMOR_PLATE_KEEPER",
-  "LocalizationDescriptionVariable": "@ITEMS_T5_ARMOR_PLATE_KEEPER_DESC",
-  "LocalizedNames": {
-    "EN-US": "Expert's Judicator Armor",
-    "DE-DE": "Rechtssprecherrüstung des Experten",
-    "FR-FR": "Armure de judicateur de l'expert",
-    "RU-RU": "Броня вершителя (эксперт)",
-    "PL-PL": "Zbroja Rozjemcy Znawcy",
-    "ES-ES": "Armadura de juez del experto",
-    "PT-BR": "Armadura Judicante do Perito",
-    "IT-IT": "Armatura da giudicatore dell'esperto",
-    "ZH-CN": "专家级审判盔甲",
-    "KO-KR": "전문가의 심판관 아머",
-    "JA-JP": "法官のアーマー（達人）",
-    "ZH-TW": "專家級審判者護甲",
-    "ID-ID": "Armor Hakim Ahli",
-    "TR-TR": "Uzman Yargı Dağıtan Zırhı",
-    "AR-SA": "درع القضاة للأخصائي"
-  },
-  "LocalizedDescriptions": {
-    "EN-US": "Equipment Item\nPlate Armors offer high defense, but are low on offense.",
-    "DE-DE": "Ausrüstungsgegenstand\nPlattenrüstungen bieten hohe Verteidigung, sind aber schwach beim Angriff",
-    "FR-FR": "Pièce d'équipement\n Les armures de plaques offrent une défense élevée mais sont faibles pour l'attaque",
-    "RU-RU": "Снаряжение\n Железная броня надежно защищает вас, но мешает атаковать",
-    "PL-PL": "Przedmiot do wyposażenia\n Zbroje płytowe oferują doskonałą obronę i słaby atak",
-    "ES-ES": "Objeto de equipo\n Las armaduras de placas ofrecen mucha defensa pero poco ataque",
-    "PT-BR": "Item de Equipamento\nArmaduras de Placas têm defesa aumentada, mas ataque reduzido",
-    "IT-IT": "Oggetto d'equipaggiamento\nLe armature a piastre offrono un'elevata difesa, ma lasciano a desiderare in quanto a potenziale offensivo.",
-    "ZH-CN": "装备物品\n板甲防御效果好，攻击效果较差。",
-    "KO-KR": "장비 아이템\n플레이트 아머는 방어에 뛰어나지만, 공격이 약합니다.",
-    "JA-JP": "装備アイテム\nプレートアーマーは高い防御力を持ちますが、攻撃力は低くなっています。",
-    "ZH-TW": "裝備物品\n金屬護甲的特點是防禦能力卓越，但攻擊能力相對遜色。",
-    "ID-ID": "Item Perlengkapan\nArmor Pelat memiliki pertahanan yang tinggi, tapi lemah dalam serangan.",
-    "TR-TR": "Ekipman Eşyası\nPlaka Zırhlar savunmada oldukça iyidir ancak saldırı konusunda yetersizlerdir.",
-    "AR-SA": "عنصر معدات\nتمنح الدروع الصفيحية قدرات دفاعية قوية، لكنها ضعيفة عند الهجوم."
-  },
-  "Index": "3795",
-  "UniqueName": "T5_ARMOR_PLATE_KEEPER@3"
-}
+  {
+    "LocalizationNameVariable": "@ITEMS_T5_ARMOR_PLATE_KEEPER",
+    "LocalizationDescriptionVariable": "@ITEMS_T5_ARMOR_PLATE_KEEPER_DESC",
+    "LocalizedNames": {
+      "EN-US": "Expert's Judicator Armor",
+      "DE-DE": "Rechtssprecherrüstung des Experten",
+      "FR-FR": "Armure de judicateur de l'expert",
+      "RU-RU": "Броня вершителя (эксперт)",
+      "PL-PL": "Zbroja Rozjemcy Znawcy",
+      "ES-ES": "Armadura de juez del experto",
+      "PT-BR": "Armadura Judicante do Perito",
+      "IT-IT": "Armatura da giudicatore dell'esperto",
+      "ZH-CN": "专家级审判盔甲",
+      "KO-KR": "전문가의 심판관 아머",
+      "JA-JP": "法官のアーマー（達人）",
+      "ZH-TW": "專家級審判者護甲",
+      "ID-ID": "Armor Hakim Ahli",
+      "TR-TR": "Uzman Yargı Dağıtan Zırhı",
+      "AR-SA": "درع القضاة للأخصائي"
+    },
+    "LocalizedDescriptions": {
+      "EN-US": "Equipment Item\nPlate Armors offer high defense, but are low on offense.",
+      "DE-DE": "Ausrüstungsgegenstand\nPlattenrüstungen bieten hohe Verteidigung, sind aber schwach beim Angriff",
+      "FR-FR": "Pièce d'équipement\n Les armures de plaques offrent une défense élevée mais sont faibles pour l'attaque",
+      "RU-RU": "Снаряжение\n Железная броня надежно защищает вас, но мешает атаковать",
+      "PL-PL": "Przedmiot do wyposażenia\n Zbroje płytowe oferują doskonałą obronę i słaby atak",
+      "ES-ES": "Objeto de equipo\n Las armaduras de placas ofrecen mucha defensa pero poco ataque",
+      "PT-BR": "Item de Equipamento\nArmaduras de Placas têm defesa aumentada, mas ataque reduzido",
+      "IT-IT": "Oggetto d'equipaggiamento\nLe armature a piastre offrono un'elevata difesa, ma lasciano a desiderare in quanto a potenziale offensivo.",
+      "ZH-CN": "装备物品\n板甲防御效果好，攻击效果较差。",
+      "KO-KR": "장비 아이템\n플레이트 아머는 방어에 뛰어나지만, 공격이 약합니다.",
+      "JA-JP": "装備アイテム\nプレートアーマーは高い防御力を持ちますが、攻撃力は低くなっています。",
+      "ZH-TW": "裝備物品\n金屬護甲的特點是防禦能力卓越，但攻擊能力相對遜色。",
+      "ID-ID": "Item Perlengkapan\nArmor Pelat memiliki pertahanan yang tinggi, tapi lemah dalam serangan.",
+      "TR-TR": "Ekipman Eşyası\nPlaka Zırhlar savunmada oldukça iyidir ancak saldırı konusunda yetersizlerdir.",
+      "AR-SA": "عنصر معدات\nتمنح الدروع الصفيحية قدرات دفاعية قوية، لكنها ضعيفة عند الهجوم."
+    },
+    "Index": "3795",
+    "UniqueName": "T5_ARMOR_PLATE_KEEPER@3"
+  }
 ]

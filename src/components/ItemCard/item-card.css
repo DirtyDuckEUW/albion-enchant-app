@@ -1,12 +1,17 @@
 .item-card {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  padding: 0.4rem 0.5rem;
-  align-items: flex-start;
+  padding: 0.5rem;
   border-radius: 8px;
   background: var(--panel);
   border: 1px solid var(--cp-overlay2);
-  vertical-align: middle;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .thumb img {
@@ -28,16 +33,16 @@
   font-size: 0.75rem;
 }
 
-.content {
+.card-body {
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  gap: 0.25rem;
 }
 
 .title {
   font-weight: 600;
-  margin-bottom: 0.15rem;
   font-size: 0.95rem;
+  flex: 1;
 }
 
 .prices {
@@ -57,5 +62,9 @@
   font-weight: 700;
 }
 
-.profit.positive { color: var(--cp-green); }
-.profit.negative { color: var(--cp-red); }
+.profit.positive {
+  color: var(--cp-green);
+}
+.profit.negative {
+  color: var(--cp-red);
+}

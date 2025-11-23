@@ -25,11 +25,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
+      <head>
+        <script src="http://localhost:8097"></script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="site-header" style={{ padding: '1rem', borderBottom: '1px solid var(--cp-overlay2)' }}>
-          <nav style={{ display: 'flex', gap: '1rem' }}>
+        <header
+          className="site-header"
+          style={{
+            padding: "1rem",
+            borderBottom: "1px solid var(--cp-overlay2)",
+          }}
+        >
+          <nav style={{ display: "flex", gap: "1rem" }}>
             <Link href="/">Dashboard</Link>
             <Link href="/discovery">Discovery</Link>
             <Link href="/my-enchants">My Enchants</Link>

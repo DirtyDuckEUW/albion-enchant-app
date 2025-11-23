@@ -94,7 +94,12 @@
 .result .sep {
   border: none;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--cp-overlay2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--cp-overlay2),
+    transparent
+  );
   margin: 0.6rem 0;
   opacity: 0.9;
 }

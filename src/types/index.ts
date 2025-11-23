@@ -2,7 +2,14 @@
 
 export type Tier = "T4" | "T5" | "T6" | "T7" | "T8";
 
-export type ResourceType = "runes" | "souls" | "relics" | "cloth" | "leather" | "metalBar" | "planks";
+export type ResourceType =
+  | "runes"
+  | "souls"
+  | "relics"
+  | "cloth"
+  | "leather"
+  | "metalBar"
+  | "planks";
 
 export type ItemKey =
   | "head_boots_offhand_cape"
@@ -31,9 +38,14 @@ export interface ResourcePrice {
 }
 
 export interface ItemData {
+  Name: string;
   UniqueName: string;
-  LocalizedNames?: {
-    "EN-US": string;
+  Crafting: {
+    Cloth: number;
+    Leather: number;
+    Metal_Bars: number;
+    Planks: number;
+    Artifact: string;
   };
 }
 

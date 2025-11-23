@@ -1,5 +1,5 @@
-import { MARKET_TAX } from './constants';
-import type { ItemKey, Tier, ResourceType } from '@/types';
+import { MARKET_TAX } from "./constants";
+import type { ItemKey, Tier, ResourceType } from "@/types";
 
 // Calculate sell price after market tax
 export function calculateSellAfterTax(sellPrice: number): number {
@@ -16,7 +16,7 @@ export function calculateTaxAmount(sellPrice: number): number {
 
 // Parse string or number to a valid number
 export function parseNumber(value: string | number): number {
-  if (typeof value === 'number') return value;
+  if (typeof value === "number") return value;
   const n = Number(value.replaceAll(",", "."));
   return Number.isFinite(n) ? n : NaN;
 }
@@ -40,12 +40,12 @@ export const TIERS: Tier[] = ["T4", "T5", "T6", "T7", "T8"];
 // All resource types
 export const RESOURCE_TYPES: ResourceType[] = [
   "runes",
-  "souls", 
+  "souls",
   "relics",
   "cloth",
   "leather",
   "metalBar",
-  "planks"
+  "planks",
 ];
 
 // Create default tier values
