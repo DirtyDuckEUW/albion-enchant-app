@@ -1,0 +1,46 @@
+.price-block {
+  background: var(--cp-surface0);
+  border-radius: 8px;
+  padding: 0.75rem;
+  border: 1px solid var(--cp-overlay2);
+}
+
+.price-block h2 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
+  color: var(--foreground);
+}
+
+.price-block .tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.price-block .tier-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.price-block .tier-field span {
+  min-width: 45px;
+  font-weight: 500;
+  color: var(--cp-subtext1);
+  font-size: 0.9rem;
+}
+
+.price-block .tier-field input {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 4px;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+  font-size: 0.9rem;
+}
+
+.price-block .tier-field input:focus {
+  outline: none;
+  border-color: var(--primary);
+}

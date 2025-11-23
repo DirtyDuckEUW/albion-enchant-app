@@ -2,102 +2,49 @@
 
 import { useState } from "react";
 import "./calculate.css";
-import { MARKET_TAX } from "../../lib/constants";
-
-type ItemKey =
-	| "head_boots_offhand_cape"
-	| "armor_bag"
-	| "one_handed_weapon"
-	| "two_handed_weapon";
+import { useResourcePrices } from "@/hooks/useResourcePrices";
+import { calculateProfit } from "@/lib/calculations";
+import type { ItemKey, Tier, PriceBreakdown } from "@/types";
+import ItemSelect from "@/components/ItemSelect/ItemSelect";
+import TierSelect from "@/components/TierSelect/TierSelect";
 
 export default function CalculatePage() {
 	const [item, setItem] = useState<ItemKey>("head_boots_offhand_cape");
-	const [tier, setTier] = useState<"T4" | "T5" | "T6" | "T7" | "T8">("T4");
+	const [tier, setTier] = useState<Tier>("T4");
 	const [itemCost, setItemCost] = useState<string>("");
 	const [sellPrice, setSellPrice] = useState<string>("");
+	const [clothCount, setClothCount] = useState<string>("");
+	const [leatherCount, setLeatherCount] = useState<string>("");
+	const [metalBarCount, setMetalBarCount] = useState<string>("");
+	const [planksCount, setPlanksCount] = useState<string>("");
+	const [artifactCount, setArtifactCount] = useState<string>("");
 	const [result, setResult] = useState<number | null>(null);
-	const [breakdown, setBreakdown] = useState<{
-		runeCost: number;
-		soulCost: number;
-		relicCost: number;
-		resourceTotal: number;
-		manualCost: number;
-		totalCost: number;
-		taxAmount: number;
-		sellAfterTax: number;
-	} | null>(null);
+	const [breakdown, setBreakdown] = useState<PriceBreakdown | null>(null);
 
-	function parseNumber(value: string) {
-		const n = Number(value.replaceAll(",", "."));
-		return Number.isFinite(n) ? n : NaN;
-	}
+	const { prices } = useResourcePrices();
 
 	function calculate() {
-		const cost = parseNumber(itemCost);
-		const sell = parseNumber(sellPrice);
+		const calculationResult = calculateProfit({
+			itemCost,
+			sellPrice,
+			item,
+			tier,
+			clothCount,
+			leatherCount,
+			metalBarCount,
+			planksCount,
+			artifactCount,
+			prices,
+		});
 
-		if (Number.isNaN(cost) || Number.isNaN(sell)) {
+		if (!calculationResult) {
 			setResult(NaN);
+			setBreakdown(null);
 			return;
 		}
 
-		// load prices from localStorage (preferred)
-		const storageKey = (r: string) => `ae_prices_${r}`;
-		function loadPrices(key: string) {
-			try {
-				const raw = localStorage.getItem(storageKey(key));
-				if (!raw) return null;
-				const parsed = JSON.parse(raw) as Record<string, string>;
-				return parsed;
-			} catch (e) {
-				return null;
-			}
-		}
-
-		const runePrices = loadPrices("runes");
-		const soulPrices = loadPrices("souls");
-		const relicPrices = loadPrices("relics");
-
-		// counts per item category
-		const counts: Record<ItemKey, number> = {
-			head_boots_offhand_cape: 96,
-			armor_bag: 192,
-			one_handed_weapon: 288,
-			two_handed_weapon: 384,
-		};
-
-		const count = counts[item] ?? 0;
-
-		const runePriceForTier = runePrices ? parseNumber(runePrices[tier] ?? "0") : 0;
-		const soulPriceForTier = soulPrices ? parseNumber(soulPrices[tier] ?? "0") : 0;
-		const relicPriceForTier = relicPrices ? parseNumber(relicPrices[tier] ?? "0") : 0;
-
-		const runeCost = runePriceForTier * count;
-		const soulCost = soulPriceForTier * count;
-		const relicCost = relicPriceForTier * count;
-
-		const resourceTotal = runeCost + soulCost + relicCost;
-
-		const manual = Number.isFinite(cost) ? cost : 0;
-		const totalCost = manual + resourceTotal;
-
-		// apply market tax to sell price (from global constants)
-		const taxAmount = Number.isFinite(sell) ? sell * MARKET_TAX : 0;
-		const sellAfterTax = Number.isFinite(sell) ? sell - taxAmount : 0;
-
-		const profitPer = sellAfterTax - totalCost;
-		setResult(profitPer);
-
-		setBreakdown({
-			runeCost,
-			soulCost,
-			relicCost,
-			resourceTotal,
-			manualCost: manual,
-			totalCost,
-			taxAmount,
-			sellAfterTax,
-		});
+		setResult(calculationResult.profit);
+		setBreakdown(calculationResult.breakdown);
 	}
 
 	return (
@@ -111,26 +58,61 @@ export default function CalculatePage() {
 				}}
 				className="calc-form"
 			>
-				<label className="field">
-					<span>Item-Kategorie</span>
-					<select value={item} onChange={(e) => setItem(e.target.value as ItemKey)}>
-						<option value="head_boots_offhand_cape">Helmet / Boots / Off-Hand / Cape</option>
-						<option value="armor_bag">Armor / Bag</option>
-						<option value="one_handed_weapon">One Handed Weapon</option>
-						<option value="two_handed_weapon">Two Handed Weapon</option>
-					</select>
-				</label>
+				<div className="field-row">
+					<ItemSelect value={item} onChange={setItem} />
+					<TierSelect value={tier} onChange={setTier} />
+				</div>
 
-				<label className="field">
-					<span>Tier</span>
-					<select value={tier} onChange={(e) => setTier(e.target.value as "T4" | "T5" | "T6" | "T7" | "T8") }>
-						<option value="T4">T4</option>
-						<option value="T5">T5</option>
-						<option value="T6">T6</option>
-						<option value="T7">T7</option>
-						<option value="T8">T8</option>
-					</select>
-				</label>
+				<div className="resource-counts">
+					<p className="muted">Resource quantities</p>
+					<div className="resource-grid">
+						<label className="resource-field">
+							<span>Cloth</span>
+							<input
+								inputMode="decimal"
+								value={clothCount}
+								onChange={(e) => setClothCount(e.target.value)}
+								placeholder="0"
+							/>
+						</label>
+						<label className="resource-field">
+							<span>Leather</span>
+							<input
+								inputMode="decimal"
+								value={leatherCount}
+								onChange={(e) => setLeatherCount(e.target.value)}
+								placeholder="0"
+							/>
+						</label>
+						<label className="resource-field">
+							<span>Metal Bar</span>
+							<input
+								inputMode="decimal"
+								value={metalBarCount}
+								onChange={(e) => setMetalBarCount(e.target.value)}
+								placeholder="0"
+							/>
+						</label>
+						<label className="resource-field">
+							<span>Planks</span>
+							<input
+								inputMode="decimal"
+								value={planksCount}
+								onChange={(e) => setPlanksCount(e.target.value)}
+								placeholder="0"
+							/>
+						</label>
+						<label className="resource-field">
+							<span>Artifact</span>
+							<input
+								inputMode="decimal"
+								value={artifactCount}
+								onChange={(e) => setArtifactCount(e.target.value)}
+								placeholder="0"
+							/>
+						</label>
+					</div>
+				</div>
 
 				<label className="field">
 					<span>Item Cost</span>
@@ -158,6 +140,11 @@ export default function CalculatePage() {
 						onClick={() => {
 							setItemCost("");
 							setSellPrice("");
+							setClothCount("");
+							setLeatherCount("");
+							setMetalBarCount("");
+							setPlanksCount("");
+							setArtifactCount("");
 							setResult(null);
 						}}
 					>
@@ -175,6 +162,9 @@ export default function CalculatePage() {
 					<>
 						<p>
 							Artifact total: <strong>{breakdown ? breakdown.resourceTotal.toLocaleString() : '0'}</strong>
+						</p>
+						<p>
+							Resource costs: <strong>{breakdown ? breakdown.materialTotal.toLocaleString() : '0'}</strong>
 						</p>
 						<p>
 							Total cost: <strong>{breakdown ? breakdown.totalCost.toLocaleString() : '0'}</strong>

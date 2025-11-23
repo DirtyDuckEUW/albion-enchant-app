@@ -1,6 +1,6 @@
 .calculate-page {
   padding: 1.5rem;
-  max-width: 720px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -11,24 +11,15 @@
   margin-top: 1rem;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.field input,
-.field select {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--cp-overlay2);
-  border-radius: 6px;
-  font-size: 1rem;
-  background: var(--cp-surface1);
-  color: var(--foreground);
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
 }
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 0.5rem;
 }
@@ -40,12 +31,56 @@
   border-radius: 6px;
   border: none;
   cursor: pointer;
+  flex: 1 1 auto;
+  min-width: 100px;
 }
 
 .btn-ghost {
   background: transparent;
   color: var(--foreground);
   border: 1px solid var(--cp-overlay2);
+}
+
+.resource-counts {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: var(--cp-surface0);
+  border-radius: 6px;
+  border: 1px solid var(--cp-overlay2);
+}
+
+.resource-counts p {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--foreground);
+}
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+}
+
+.resource-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.resource-field span {
+  font-weight: 500;
+  color: var(--cp-subtext0);
+  font-size: 0.85rem;
+}
+
+.resource-field input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 4px;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+  font-size: 0.9rem;
 }
 
 .result {

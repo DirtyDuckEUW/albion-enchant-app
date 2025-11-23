@@ -32,8 +32,8 @@ export default function RootLayout({
           <nav style={{ display: 'flex', gap: '1rem' }}>
             <Link href="/">Dashboard</Link>
             <Link href="/discovery">Discovery</Link>
-            <Link href="/calculate">Calculate</Link>
             <Link href="/my-enchants">My Enchants</Link>
+            <Link href="/calculate">Calculate</Link>
             <Link href="/prices">Prices</Link>
           </nav>
         </header>

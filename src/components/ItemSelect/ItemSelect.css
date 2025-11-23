@@ -1,0 +1,31 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.field span {
+  font-weight: 500;
+  color: var(--foreground);
+  font-size: 0.95rem;
+}
+
+.field select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.field select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.field select:hover {
+  border-color: var(--cp-overlay1);
+}

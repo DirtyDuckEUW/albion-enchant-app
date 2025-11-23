@@ -2,70 +2,102 @@
 
 import { useEffect, useState } from "react";
 import "./prices.css";
-
-type Tier = "T4" | "T5" | "T6" | "T7" | "T8";
-type ResourceKey = "runes" | "souls" | "relics";
-
-const TIERS: Tier[] = ["T4", "T5", "T6", "T7", "T8"];
-
-function storageKey(resource: ResourceKey) {
-	return `ae_prices_${resource}`;
-}
+import { getAllResourcePrices, upsertMultipleResourcePrices } from "@/lib/supabase";
+import type { ResourceType, Tier, ResourceInputMap } from "@/types";
+import { TIERS, RESOURCE_TYPES, createDefaultTierValues, parseNumber } from "@/lib/utility";
+import PriceInputSection from "@/components/PriceInputSection/PriceInputSection";
 
 export default function PricesPage() {
-	const defaultTierValues: Record<Tier, string> = { T4: "0", T5: "0", T6: "0", T7: "0", T8: "0" };
-	const [runes, setRunes] = useState<Record<Tier, string>>(defaultTierValues);
-	const [souls, setSouls] = useState<Record<Tier, string>>(defaultTierValues);
-	const [relics, setRelics] = useState<Record<Tier, string>>(defaultTierValues);
+	const defaultTierValues = createDefaultTierValues();
+	
+	const [resourcePrices, setResourcePrices] = useState<ResourceInputMap>({
+		runes: { ...defaultTierValues },
+		souls: { ...defaultTierValues },
+		relics: { ...defaultTierValues },
+		cloth: { ...defaultTierValues },
+		leather: { ...defaultTierValues },
+		metalBar: { ...defaultTierValues },
+		planks: { ...defaultTierValues },
+	});
+	const [loading, setLoading] = useState(true);
 
-	// Load saved values from localStorage on mount
+	// Load prices from Supabase on mount
 	useEffect(() => {
-		try {
-			const r = localStorage.getItem(storageKey("runes"));
-			const s = localStorage.getItem(storageKey("souls"));
-			const re = localStorage.getItem(storageKey("relics"));
-			if (r) {
-				const parsed = JSON.parse(r);
-				setRunes({ ...defaultTierValues, ...parsed });
-			}
-			if (s) {
-				const parsed = JSON.parse(s);
-				setSouls({ ...defaultTierValues, ...parsed });
-			}
-			if (re) {
-				const parsed = JSON.parse(re);
-				setRelics({ ...defaultTierValues, ...parsed });
-			}
-		} catch (e) {
-			// ignore
+		async function loadPrices() {
+			setLoading(true);
+			const prices = await getAllResourcePrices();
+			
+			const newPrices: ResourceInputMap = {
+				runes: { ...defaultTierValues },
+				souls: { ...defaultTierValues },
+				relics: { ...defaultTierValues },
+				cloth: { ...defaultTierValues },
+				leather: { ...defaultTierValues },
+				metalBar: { ...defaultTierValues },
+				planks: { ...defaultTierValues },
+			};
+
+			prices.forEach((p) => {
+				if (newPrices[p.resource_type]) {
+					newPrices[p.resource_type][p.tier] = p.price.toString();
+				}
+			});
+
+			setResourcePrices(newPrices);
+			setLoading(false);
 		}
+
+		loadPrices();
 	}, []);
 
-	function handleChange(resource: ResourceKey, tier: Tier, value: string) {
-		const setter = resource === "runes" ? setRunes : resource === "souls" ? setSouls : setRelics;
-		setter((prev) => ({ ...prev, [tier]: value }));
+	function handleChange(resource: ResourceType, tier: Tier, value: string) {
+		setResourcePrices((prev) => ({
+			...prev,
+			[resource]: {
+				...prev[resource],
+				[tier]: value,
+			},
+		}));
 	}
 
-	function saveAll() {
-		try {
-			localStorage.setItem(storageKey("runes"), JSON.stringify(runes));
-			localStorage.setItem(storageKey("souls"), JSON.stringify(souls));
-			localStorage.setItem(storageKey("relics"), JSON.stringify(relics));
-			alert("Prices saved to localStorage.");
-		} catch (e) {
-			alert("Failed to save prices.");
+	async function saveAll() {
+		const allPrices: Array<{ resourceType: ResourceType; tier: Tier; price: number }> = [];
+
+		RESOURCE_TYPES.forEach((resourceType) => {
+			TIERS.forEach((tier) => {
+				const price = parseNumber(resourcePrices[resourceType][tier]);
+				if (Number.isFinite(price)) {
+					allPrices.push({ resourceType, tier, price });
+				}
+			});
+		});
+
+		if (allPrices.length === 0) {
+			alert('No valid prices to save.');
+			return;
+		}
+
+		console.log('Saving prices:', allPrices);
+		const success = await upsertMultipleResourcePrices(allPrices);
+		console.log('Save result:', success);
+		
+		if (success) {
+			alert(`Successfully saved ${allPrices.length} prices to database.`);
+		} else {
+			alert('Failed to save prices. Check console for errors.');
 		}
 	}
 
 	function resetAll() {
-		setRunes(defaultTierValues);
-		setSouls(defaultTierValues);
-		setRelics(defaultTierValues);
-		try {
-			localStorage.removeItem(storageKey("runes"));
-			localStorage.removeItem(storageKey("souls"));
-			localStorage.removeItem(storageKey("relics"));
-		} catch (e) {}
+		setResourcePrices({
+			runes: { ...defaultTierValues },
+			souls: { ...defaultTierValues },
+			relics: { ...defaultTierValues },
+			cloth: { ...defaultTierValues },
+			leather: { ...defaultTierValues },
+			metalBar: { ...defaultTierValues },
+			planks: { ...defaultTierValues },
+		});
 	}
 
 	return (
@@ -73,60 +105,68 @@ export default function PricesPage() {
 			<h1>Prices</h1>
 			<h2>Manual resource price input for artifacts (T4–T8).</h2>
 
+			{loading && <p className="muted">Loading prices from database...</p>}
+
 			<div className="prices-grid">
-				<section className="price-block">
-					<h2>Runes</h2>
-					<div className="tiers">
-						{TIERS.map((t) => (
-							<label key={`runes-${t}`} className="tier-field">
-								<span>{t}</span>
-								<input
-									inputMode="decimal"
-									value={runes[t]}
-									onChange={(e) => handleChange("runes", t, e.target.value)}
-								/>
-							</label>
-						))}
-					</div>
-				</section>
+				<PriceInputSection
+					title="Runes"
+					resourceKey="runes"
+					values={resourcePrices.runes}
+					onChange={(tier, value) => handleChange("runes", tier, value)}
+				/>
+				<PriceInputSection
+					title="Souls"
+					resourceKey="souls"
+					values={resourcePrices.souls}
+					onChange={(tier, value) => handleChange("souls", tier, value)}
+				/>
+				<PriceInputSection
+					title="Relics"
+					resourceKey="relics"
+					values={resourcePrices.relics}
+					onChange={(tier, value) => handleChange("relics", tier, value)}
+				/>
+			</div>
+			<br/>
+			<h2>Manual resource price input.</h2>
 
-				<section className="price-block">
-					<h2>Souls</h2>
-					<div className="tiers">
-						{TIERS.map((t) => (
-							<label key={`souls-${t}`} className="tier-field">
-								<span>{t}</span>
-								<input
-									inputMode="decimal"
-									value={souls[t]}
-									onChange={(e) => handleChange("souls", t, e.target.value)}
-								/>
-							</label>
-						))}
-					</div>
-				</section>
-
-				<section className="price-block">
-					<h2>Relics</h2>
-					<div className="tiers">
-						{TIERS.map((t) => (
-							<label key={`relics-${t}`} className="tier-field">
-								<span>{t}</span>
-								<input
-									inputMode="decimal"
-									value={relics[t]}
-									onChange={(e) => handleChange("relics", t, e.target.value)}
-								/>
-							</label>
-						))}
-					</div>
-				</section>
+			<div className="prices-grid">
+				<PriceInputSection
+					title="Cloth"
+					resourceKey="cloth"
+					values={resourcePrices.cloth}
+					onChange={(tier, value) => handleChange("cloth", tier, value)}
+					showDecimal
+				/>
+				<PriceInputSection
+					title="Leather"
+					resourceKey="leather"
+					values={resourcePrices.leather}
+					onChange={(tier, value) => handleChange("leather", tier, value)}
+					showDecimal
+				/>
+				<PriceInputSection
+					title="Metal Bar"
+					resourceKey="metalBar"
+					values={resourcePrices.metalBar}
+					onChange={(tier, value) => handleChange("metalBar", tier, value)}
+					showDecimal
+				/>
+				<PriceInputSection
+					title="Planks"
+					resourceKey="planks"
+					values={resourcePrices.planks}
+					onChange={(tier, value) => handleChange("planks", tier, value)}
+					showDecimal
+				/>
 			</div>
 
 			<div className="actions">
 				<button className="btn" onClick={saveAll}>Save</button>
 				<button className="btn btn-ghost" onClick={resetAll}>Reset</button>
 			</div>
+
+			
 		</main>
 	);
 }
