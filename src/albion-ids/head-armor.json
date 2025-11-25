@@ -1,0 +1,266 @@
+[
+  {
+    "Name": "Scholar Cowl",
+    "UniqueName": "HEAD_CLOTH_SET1",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Cleric Cowl",
+    "UniqueName": "HEAD_CLOTH_SET2",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Mage Cowl",
+    "UniqueName": "HEAD_CLOTH_SET3",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Druid Cowl",
+    "UniqueName": "HEAD_CLOTH_KEEPER",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_CLOTH_KEEPER"
+    }
+  },
+  {
+    "Name": "Fiend Cowl",
+    "UniqueName": "HEAD_CLOTH_HELL",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_CLOTH_HELL"
+    }
+  },
+  {
+    "Name": "Cultist Cowl",
+    "UniqueName": "HEAD_CLOTH_MORGANA",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_CLOTH_MORGANA"
+    }
+  },
+  {
+    "Name": "Feyscale Cowl",
+    "UniqueName": "HEAD_CLOTH_FEY",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_CLOTH_FEY"
+    }
+  },
+  {
+    "Name": "Cowl of Purity",
+    "UniqueName": "HEAD_CLOTH_AVALON",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_CLOTH_AVALON"
+    }
+  },
+  {
+    "Name": "Mercenary Hood",
+    "UniqueName": "HEAD_LEATHER_SET1",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Hunter Hood",
+    "UniqueName": "HEAD_LEATHER_SET2",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Assassin Hood",
+    "UniqueName": "HEAD_LEATHER_SET3",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Stalker Hood",
+    "UniqueName": "HEAD_LEATHER_MORGANA",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_LEATHER_MORGANA"
+    }
+  },
+  {
+    "Name": "Hellion Hood",
+    "UniqueName": "HEAD_LEATHER_HELL",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_LEATHER_HELL"
+    }
+  },
+  {
+    "Name": "Specter Hood",
+    "UniqueName": "HEAD_LEATHER_UNDEAD",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_LEATHER_UNDEAD"
+    }
+  },
+  {
+    "Name": "Mistwalker Hood",
+    "UniqueName": "HEAD_LEATHER_FEY",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_LEATHER_FEY"
+    }
+  },
+  {
+    "Name": "Hood of Tenacity",
+    "UniqueName": "HEAD_LEATHER_AVALON",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_LEATHER_AVALON"
+    }
+  },
+  {
+    "Name": "Soldier Helmet",
+    "UniqueName": "HEAD_PLATE_SET1",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Knight Helmet",
+    "UniqueName": "HEAD_PLATE_SET2",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Guardian Helmet",
+    "UniqueName": "HEAD_PLATE_SET3",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Graveguard Helmet",
+    "UniqueName": "HEAD_PLATE_UNDEAD",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_PLATE_UNDEAD"
+    }
+  },
+  {
+    "Name": "Demon Helmet",
+    "UniqueName": "HEAD_PLATE_HELL",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_PLATE_HELL"
+    }
+  },
+  {
+    "Name": "Judicator Helmet",
+    "UniqueName": "HEAD_PLATE_KEEPER",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_PLATE_KEEPER"
+    }
+  },
+  {
+    "Name": "Duskweaver Helmet",
+    "UniqueName": "HEAD_PLATE_FEY",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_PLATE_FEY"
+    }
+  },
+  {
+    "Name": "Boots of Valor",
+    "UniqueName": "HEAD_PLATE_AVALON",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_HEAD_PLATE_AVALON"
+    }
+  }
+]

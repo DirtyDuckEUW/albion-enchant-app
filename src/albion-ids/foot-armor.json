@@ -86,5 +86,181 @@
       "Planks": 0,
       "Artifact": "ARTEFACT_SHOES_CLOTH_AVALON"
     }
+  },
+  {
+    "Name": "Mercenary Shoes",
+    "UniqueName": "SHOES_LEATHER_SET1",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Hunter Shoes",
+    "UniqueName": "SHOES_LEATHER_SET2",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Assassin Shoes",
+    "UniqueName": "SHOES_LEATHER_SET3",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Stalker Shoes",
+    "UniqueName": "SHOES_LEATHER_MORGANA",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_LEATHER_MORGANA"
+    }
+  },
+  {
+    "Name": "Hellion Shoes",
+    "UniqueName": "SHOES_LEATHER_HELL",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_LEATHER_HELL"
+    }
+  },
+  {
+    "Name": "Specter Shoes",
+    "UniqueName": "SHOES_LEATHER_UNDEAD",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_LEATHER_UNDEAD"
+    }
+  },
+  {
+    "Name": "Mistwalker Shoes",
+    "UniqueName": "SHOES_LEATHER_FEY",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_LEATHER_FEY"
+    }
+  },
+  {
+    "Name": "Shoes of Tenacity",
+    "UniqueName": "SHOES_LEATHER_AVALON",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_LEATHER_AVALON"
+    }
+  },
+  {
+    "Name": "Soldier Boots",
+    "UniqueName": "SHOES_PLATE_SET1",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Knight Boots",
+    "UniqueName": "SHOES_PLATE_SET2",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Guardian Boots",
+    "UniqueName": "SHOES_PLATE_SET3",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Graveguard Boots",
+    "UniqueName": "SHOES_PLATE_UNDEAD",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_PLATE_UNDEAD"
+    }
+  },
+  {
+    "Name": "Demon Boots",
+    "UniqueName": "SHOES_PLATE_HELL",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_PLATE_HELL"
+    }
+  },
+  {
+    "Name": "Judicator Boots",
+    "UniqueName": "SHOES_PLATE_KEEPER",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_PLATE_KEEPER"
+    }
+  },
+  {
+    "Name": "Duskweaver Boots",
+    "UniqueName": "SHOES_PLATE_FEY",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_PLATE_FEY"
+    }
+  },
+  {
+    "Name": "Boots of Valor",
+    "UniqueName": "SHOES_PLATE_AVALON",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_SHOES_PLATE_AVALON"
+    }
   }
 ]

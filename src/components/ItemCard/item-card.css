@@ -57,8 +57,14 @@
   white-space: nowrap;
 }
 
-.profit {
+.profit-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-top: 0.25rem;
+}
+
+.profit {
   font-weight: 700;
 }
 

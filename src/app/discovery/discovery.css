@@ -17,7 +17,11 @@
   flex-direction: column;
   gap: 0.5rem;
   flex: 1;
-  min-width: 0;
+  min-width: 0px;
+}
+
+.filter-field:has(button) {
+  flex: 0 0 auto;
 }
 
 .filter-field label {

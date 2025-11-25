@@ -1,0 +1,200 @@
+[
+  {
+    "Name": "Shield",
+    "UniqueName": "OFF_SHIELD",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 4,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Sarcophagus",
+    "UniqueName": "OFF_TOWERSHIELD_UNDEAD",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 4,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_OFF_TOWERSHIELD_UNDEAD"
+    }
+  },
+  {
+    "Name": "Caitiff Shield",
+    "UniqueName": "OFF_SHIELD_HELL",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 4,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_OFF_SHIELD_HELL"
+    }
+  },
+  {
+    "Name": "Facebreaker",
+    "UniqueName": "OFF_SPIKEDSHIELD_MORGANA",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 4,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_OFF_SPIKEDSHIELD_MORGANA"
+    }
+  },
+  {
+    "Name": "Astral Aegis",
+    "UniqueName": "OFF_SHIELD_AVALON",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 4,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_OFF_SHIELD_AVALON"
+    }
+  },
+  {
+    "Name": "Unbreakable Ward",
+    "UniqueName": "OFF_SHIELD_CRYSTAL",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 4,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_OFF_SHIELD_CRYSTAL"
+    }
+  },
+  {
+    "Name": "Torch",
+    "UniqueName": "OFF_TORCH",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 4,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Mistcaller",
+    "UniqueName": "OFF_HORN_KEEPER",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 4,
+      "Artifact": "ARTEFACT_OFF_HORN_KEEPER"
+    }
+  },
+  {
+    "Name": "Leering Cane",
+    "UniqueName": "OFF_JESTERCANE_HELL",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 4,
+      "Artifact": "ARTEFACT_OFF_JESTERCANE_HELL"
+    }
+  },
+  {
+    "Name": "Cryptcandle",
+    "UniqueName": "OFF_LAMP_UNDEAD",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 4,
+      "Artifact": "ARTEFACT_OFF_LAMP_UNDEAD"
+    }
+  },
+  {
+    "Name": "Sacred Scepter",
+    "UniqueName": "OFF_TALISMAN_AVALON",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 4,
+      "Artifact": "ARTEFACT_OFF_TALISMAN_AVALON"
+    }
+  },
+  {
+    "Name": "Blueflame Torch",
+    "UniqueName": "OFF_TORCH_CRYSTAL",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 4,
+      "Artifact": "ARTEFACT_OFF_TORCH_CRYSTAL"
+    }
+  },
+  {
+    "Name": "Tome of Spells",
+    "UniqueName": "OFF_BOOK",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 4,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Eye of Secrets",
+    "UniqueName": "OFF_ORB_MORGANA",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 4,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_OFF_ORB_MORGANA"
+    }
+  },
+  {
+    "Name": "Muisak",
+    "UniqueName": "OFF_DEMONSKULL_HELL",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 4,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_OFF_DEMONSKULL_HELL"
+    }
+  },
+  {
+    "Name": "Taproot",
+    "UniqueName": "OFF_TOTEM_KEEPER",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 4,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_OFF_TOTEM_KEEPER"
+    }
+  },
+  {
+    "Name": "Celestial Censer",
+    "UniqueName": "OFF_CENSER_AVALON",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 4,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_OFF_CENSER_AVALON"
+    }
+  },
+  {
+    "Name": "Timelocked Grimoire",
+    "UniqueName": "OFF_TOME_CRYSTAL",
+    "Crafting": {
+      "Cloth": 4,
+      "Leather": 4,
+      "Metal_Bars": 0,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_OFF_TOME_CRYSTAL"
+    }
+  }
+]

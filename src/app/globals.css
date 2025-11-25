@@ -82,7 +82,7 @@ body {
   border-radius: 0.5rem;
   cursor: pointer;
   font-weight: 600;
-  max-width: 300px;
+  max-width: 200px;
 }
 .btn:hover {
   filter: brightness(0.95);
