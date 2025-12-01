@@ -8,13 +8,12 @@ interface ItemSelectProps {
 }
 
 const ITEM_OPTIONS: Array<{ value: ItemKey; label: string }> = [
-  {
-    value: "head_boots_offhand_cape",
-    label: "Helmet / Boots / Off-Hand / Cape",
-  },
-  { value: "armor_bag", label: "Armor / Bag" },
-  { value: "one_handed_weapon", label: "One Handed Weapon" },
-  { value: "two_handed_weapon", label: "Two Handed Weapon" },
+  { value: "head_armor", label: "Head Armor" },
+  { value: "chest_armor", label: "Chest Armor" },
+  { value: "foot_armor", label: "Foot Armor" },
+  { value: "off_hands", label: "Off-Hands" },
+  { value: "onehand_weapons", label: "One Handed Weapon" },
+  { value: "twohand_weapons", label: "Two Handed Weapon" },
 ];
 
 export default function ItemSelect({

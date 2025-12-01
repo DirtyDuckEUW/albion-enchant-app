@@ -1,0 +1,83 @@
+.mp-chance-page {
+  padding: 1.5rem;
+}
+
+.field-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.field span {
+  font-weight: 500;
+  color: var(--cp-subtext0);
+  font-size: 0.9rem;
+}
+
+.field input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 6px;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+  font-size: 1rem;
+  width: 100%;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(137, 180, 250, 0.2);
+}
+
+.field input:hover {
+  border-color: var(--cp-overlay1);
+}
+
+.result {
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  background: var(--panel);
+  border: 1px solid var(--cp-overlay2);
+}
+
+.result h2 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.1rem;
+  color: var(--foreground);
+}
+
+.result p {
+  margin: 0.5rem 0;
+  color: var(--foreground);
+}
+
+.result ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  color: var(--foreground);
+}
+
+.result li {
+  margin: 0.25rem 0;
+}
+
+.result .sep {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--cp-overlay2),
+    transparent
+  );
+  margin: 0.75rem 0;
+}

@@ -2,6 +2,8 @@
 
 export type Tier = "T4" | "T5" | "T6" | "T7" | "T8";
 
+export type Enchantment = "0" | "1" | "2" | "3" | "4";
+
 export type ResourceType =
   | "runes"
   | "souls"
@@ -12,16 +14,15 @@ export type ResourceType =
   | "planks";
 
 export type ItemKey =
-  | "head_boots_offhand_cape"
-  | "armor_bag"
-  | "one_handed_weapon"
-  | "two_handed_weapon";
+  | "onehand_weapons"
+  | "twohand_weapons"
+  | "head_armor"
+  | "chest_armor"
+  | "foot_armor"
+  | "off_hands";
 
 export interface PriceBreakdown {
-  runeCost: number;
-  soulCost: number;
-  relicCost: number;
-  resourceTotal: number;
+  artifactTotal: number;
   materialTotal: number;
   manualCost: number;
   totalCost: number;
@@ -33,6 +34,7 @@ export interface ResourcePrice {
   id?: string;
   resource_type: ResourceType;
   tier: Tier;
+  enchantment: Enchantment;
   price: number;
   updated_at?: string;
 }
@@ -63,5 +65,11 @@ export interface PriceData {
   buy_price_max_date: string;
 }
 
-export type ResourcePriceMap = Record<ResourceType, Record<Tier, number>>;
-export type ResourceInputMap = Record<ResourceType, Record<Tier, string>>;
+export type ResourcePriceMap = Record<
+  ResourceType,
+  Record<Tier, Record<Enchantment, number>>
+>;
+export type ResourceInputMap = Record<
+  ResourceType,
+  Record<Tier, Record<Enchantment, string>>
+>;

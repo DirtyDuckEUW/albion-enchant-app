@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import type { ResourceType, Tier, ResourcePrice } from "@/types";
+import type { ResourceType, Tier, ResourcePrice, Enchantment } from "@/types";
 
 export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -21,16 +21,37 @@ export async function getAllResourcePrices(): Promise<ResourcePrice[]> {
   return data || [];
 }
 
+export async function getResourcePrice(
+  resourceType: ResourceType,
+  tier: Tier,
+  enchantment: Enchantment
+): Promise<number | null> {
+  const { data, error } = await supabase
+    .from("resource_prices")
+    .select("price")
+    .eq("resource_type", resourceType)
+    .eq("tier", tier)
+    .eq("enchantment", enchantment)
+    .single();
+
+  if (error || !data) {
+    return null;
+  }
+
+  return data.price;
+}
+
 export async function upsertResourcePrice(
   resourceType: ResourceType,
   tier: Tier,
+  enchantment: Enchantment,
   price: number
 ): Promise<boolean> {
   const { error } = await supabase
     .from("resource_prices")
     .upsert(
-      { resource_type: resourceType, tier, price },
-      { onConflict: "resource_type,tier" }
+      { resource_type: resourceType, tier, enchantment, price },
+      { onConflict: "resource_type,tier,enchantment" }
     );
 
   if (error) {
@@ -42,11 +63,17 @@ export async function upsertResourcePrice(
 }
 
 export async function upsertMultipleResourcePrices(
-  prices: Array<{ resourceType: ResourceType; tier: Tier; price: number }>
+  prices: Array<{
+    resourceType: ResourceType;
+    tier: Tier;
+    enchantment: Enchantment;
+    price: number;
+  }>
 ): Promise<boolean> {
   const records = prices.map((p) => ({
     resource_type: p.resourceType,
     tier: p.tier,
+    enchantment: p.enchantment,
     price: p.price,
   }));
 
@@ -54,7 +81,7 @@ export async function upsertMultipleResourcePrices(
 
   const { data, error } = await supabase
     .from("resource_prices")
-    .upsert(records, { onConflict: "resource_type,tier" })
+    .upsert(records, { onConflict: "resource_type,tier,enchantment" })
     .select();
 
   if (error) {

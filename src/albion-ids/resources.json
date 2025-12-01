@@ -1,0 +1,506 @@
+{
+  "Resources": {
+    "Cloth": [
+      {
+        "Name": "Simple Cloth",
+        "UniqueName": "T2_CLOTH"
+      },
+      {
+        "Name": "Neat Cloth",
+        "UniqueName": "T3_CLOTH"
+      },
+      {
+        "Name": "Fine Cloth",
+        "UniqueName": "T4_CLOTH"
+      },
+      {
+        "Name": "Uncommon Fine Cloth",
+        "UniqueName": "T4_CLOTH_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Fine Cloth",
+        "UniqueName": "T4_CLOTH_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Fine Cloth",
+        "UniqueName": "T4_CLOTH_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Fine Cloth",
+        "UniqueName": "T4_CLOTH_LEVEL4@4"
+      },
+      {
+        "Name": "Ornate Cloth",
+        "UniqueName": "T5_CLOTH"
+      },
+      {
+        "Name": "Uncommon Ornate Cloth",
+        "UniqueName": "T5_CLOTH_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Ornate Cloth",
+        "UniqueName": "T5_CLOTH_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Ornate Cloth",
+        "UniqueName": "T5_CLOTH_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Ornate Cloth",
+        "UniqueName": "T5_CLOTH_LEVEL4@4"
+      },
+      {
+        "Name": "Lavish Cloth",
+        "UniqueName": "T6_CLOTH"
+      },
+      {
+        "Name": "Uncommon Lavish Cloth",
+        "UniqueName": "T6_CLOTH_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Lavish Cloth",
+        "UniqueName": "T6_CLOTH_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Lavish Cloth",
+        "UniqueName": "T6_CLOTH_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Lavish Cloth",
+        "UniqueName": "T6_CLOTH_LEVEL4@4"
+      },
+      {
+        "Name": "Opulent Cloth",
+        "UniqueName": "T7_CLOTH"
+      },
+      {
+        "Name": "Uncommon Opulent Cloth",
+        "UniqueName": "T7_CLOTH_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Opulent Cloth",
+        "UniqueName": "T7_CLOTH_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Opulent Cloth",
+        "UniqueName": "T7_CLOTH_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Opulent Cloth",
+        "UniqueName": "T7_CLOTH_LEVEL4@4"
+      },
+      {
+        "Name": "Baroque Cloth",
+        "UniqueName": "T8_CLOTH"
+      },
+      {
+        "Name": "Uncommon Baroque Cloth",
+        "UniqueName": "T8_CLOTH_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Baroque Cloth",
+        "UniqueName": "T8_CLOTH_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Baroque Cloth",
+        "UniqueName": "T8_CLOTH_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Baroque Cloth",
+        "UniqueName": "T8_CLOTH_LEVEL4@4"
+      }
+    ],
+    "Leather": [
+      {
+        "Name": "Stiff Leather",
+        "UniqueName": "T2_LEATHER"
+      },
+      {
+        "Name": "Thick Leather",
+        "UniqueName": "T3_LEATHER"
+      },
+      {
+        "Name": "Worked Leather",
+        "UniqueName": "T4_LEATHER"
+      },
+      {
+        "Name": "Uncommon Worked Leather",
+        "UniqueName": "T4_LEATHER_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Worked Leather",
+        "UniqueName": "T4_LEATHER_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Worked Leather",
+        "UniqueName": "T4_LEATHER_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Worked Leather",
+        "UniqueName": "T4_LEATHER_LEVEL4@4"
+      },
+      {
+        "Name": "Cured Leather",
+        "UniqueName": "T5_LEATHER"
+      },
+      {
+        "Name": "Uncommon Cured Leather",
+        "UniqueName": "T5_LEATHER_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Cured Leather",
+        "UniqueName": "T5_LEATHER_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Cured Leather",
+        "UniqueName": "T5_LEATHER_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Cured Leather",
+        "UniqueName": "T5_LEATHER_LEVEL4@4"
+      },
+      {
+        "Name": "Hardened Leather",
+        "UniqueName": "T6_LEATHER"
+      },
+      {
+        "Name": "Uncommon Hardened Leather",
+        "UniqueName": "T6_LEATHER_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Hardened Leather",
+        "UniqueName": "T6_LEATHER_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Hardened Leather",
+        "UniqueName": "T6_LEATHER_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Hardened Leather",
+        "UniqueName": "T6_LEATHER_LEVEL4@4"
+      },
+      {
+        "Name": "Reinforced Leather",
+        "UniqueName": "T7_LEATHER"
+      },
+      {
+        "Name": "Uncommon Reinforced Leather",
+        "UniqueName": "T7_LEATHER_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Reinforced Leather",
+        "UniqueName": "T7_LEATHER_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Reinforced Leather",
+        "UniqueName": "T7_LEATHER_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Reinforced Leather",
+        "UniqueName": "T7_LEATHER_LEVEL4@4"
+      },
+      {
+        "Name": "Fortified Leather",
+        "UniqueName": "T8_LEATHER"
+      },
+      {
+        "Name": "Uncommon Fortified Leather",
+        "UniqueName": "T8_LEATHER_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Fortified Leather",
+        "UniqueName": "T8_LEATHER_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Fortified Leather",
+        "UniqueName": "T8_LEATHER_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Fortified Leather",
+        "UniqueName": "T8_LEATHER_LEVEL4@4"
+      }
+    ],
+    "Metal Bars": [
+      {
+        "Name": "Copper Bar",
+        "UniqueName": "T2_METALBAR"
+      },
+      {
+        "Name": "Bronze Bar",
+        "UniqueName": "T3_METALBAR"
+      },
+      {
+        "Name": "Steel Bar",
+        "UniqueName": "T4_METALBAR"
+      },
+      {
+        "Name": "Uncommon Steel Bar",
+        "UniqueName": "T4_METALBAR_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Steel Bar",
+        "UniqueName": "T4_METALBAR_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Steel Bar",
+        "UniqueName": "T4_METALBAR_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Steel Bar",
+        "UniqueName": "T4_METALBAR_LEVEL4@4"
+      },
+      {
+        "Name": "Titanium Steel Bar",
+        "UniqueName": "T5_METALBAR"
+      },
+      {
+        "Name": "Uncommon Titanium Steel Bar",
+        "UniqueName": "T5_METALBAR_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Titanium Steel Bar",
+        "UniqueName": "T5_METALBAR_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Titanium Steel Bar",
+        "UniqueName": "T5_METALBAR_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Titanium Steel Bar",
+        "UniqueName": "T5_METALBAR_LEVEL4@4"
+      },
+      {
+        "Name": "Runite Steel Bar",
+        "UniqueName": "T6_METALBAR"
+      },
+      {
+        "Name": "Uncommon Runite Steel Bar",
+        "UniqueName": "T6_METALBAR_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Runite Steel Bar",
+        "UniqueName": "T6_METALBAR_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Runite Steel Bar",
+        "UniqueName": "T6_METALBAR_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Runite Steel Bar",
+        "UniqueName": "T6_METALBAR_LEVEL4@4"
+      },
+      {
+        "Name": "Meteorite Steel Bar",
+        "UniqueName": "T7_METALBAR"
+      },
+      {
+        "Name": "Uncommon Meteorite Steel Bar",
+        "UniqueName": "T7_METALBAR_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Meteorite Steel Bar",
+        "UniqueName": "T7_METALBAR_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Meteorite Steel Bar",
+        "UniqueName": "T7_METALBAR_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Meteorite Steel Bar",
+        "UniqueName": "T7_METALBAR_LEVEL4@4"
+      },
+      {
+        "Name": "Adamantium Steel Bar",
+        "UniqueName": "T8_METALBAR"
+      },
+      {
+        "Name": "Uncommon Adamantium Steel Bar",
+        "UniqueName": "T8_METALBAR_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Adamantium Steel Bar",
+        "UniqueName": "T8_METALBAR_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Adamantium Steel Bar",
+        "UniqueName": "T8_METALBAR_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Adamantium Steel Bar",
+        "UniqueName": "T8_METALBAR_LEVEL4@4"
+      }
+    ],
+    "Planks": [
+      {
+        "Name": "Birch Planks",
+        "UniqueName": "T2_PLANKS"
+      },
+      {
+        "Name": "Chestnut Planks",
+        "UniqueName": "T3_PLANKS"
+      },
+      {
+        "Name": "Pine Planks",
+        "UniqueName": "T4_PLANKS"
+      },
+      {
+        "Name": "Uncommon Pine Planks",
+        "UniqueName": "T4_PLANKS_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Pine Planks",
+        "UniqueName": "T4_PLANKS_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Pine Planks",
+        "UniqueName": "T4_PLANKS_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Pine Planks",
+        "UniqueName": "T4_PLANKS_LEVEL4@4"
+      },
+      {
+        "Name": "Cedar Planks",
+        "UniqueName": "T5_PLANKS"
+      },
+      {
+        "Name": "Uncommon Cedar Planks",
+        "UniqueName": "T5_PLANKS_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Cedar Planks",
+        "UniqueName": "T5_PLANKS_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Cedar Planks",
+        "UniqueName": "T5_PLANKS_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Cedar Planks",
+        "UniqueName": "T5_PLANKS_LEVEL4@4"
+      },
+      {
+        "Name": "Bloodoak Planks",
+        "UniqueName": "T6_PLANKS"
+      },
+      {
+        "Name": "Uncommon Bloodoak Planks",
+        "UniqueName": "T6_PLANKS_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Bloodoak Planks",
+        "UniqueName": "T6_PLANKS_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Bloodoak Planks",
+        "UniqueName": "T6_PLANKS_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Bloodoak Planks",
+        "UniqueName": "T6_PLANKS_LEVEL4@4"
+      },
+      {
+        "Name": "Ashenbark Planks",
+        "UniqueName": "T7_PLANKS"
+      },
+      {
+        "Name": "Uncommon Ashenbark Planks",
+        "UniqueName": "T7_PLANKS_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Ashenbark Planks",
+        "UniqueName": "T7_PLANKS_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Ashenbark Planks",
+        "UniqueName": "T7_PLANKS_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Ashenbark Planks",
+        "UniqueName": "T7_PLANKS_LEVEL4@4"
+      },
+      {
+        "Name": "Whitewood Planks",
+        "UniqueName": "T8_PLANKS"
+      },
+      {
+        "Name": "Uncommon Whitewood Planks",
+        "UniqueName": "T8_PLANKS_LEVEL1@1"
+      },
+      {
+        "Name": "Rare Whitewood Planks",
+        "UniqueName": "T8_PLANKS_LEVEL2@2"
+      },
+      {
+        "Name": "Exceptional Whitewood Planks",
+        "UniqueName": "T8_PLANKS_LEVEL3@3"
+      },
+      {
+        "Name": "Pristine Whitewood Planks",
+        "UniqueName": "T8_PLANKS_LEVEL4@4"
+      }
+    ]
+  },
+  "Artifacts": [
+    {
+      "Name": "Adept's Rune",
+      "UniqueName": "T4_RUNE"
+    },
+    {
+      "Name": "Expert's Rune",
+      "UniqueName": "T5_RUNE"
+    },
+    {
+      "Name": "Master's Rune",
+      "UniqueName": "T6_RUNE"
+    },
+    {
+      "Name": "Grandmaster's Rune",
+      "UniqueName": "T7_RUNE"
+    },
+    {
+      "Name": "Elder's Rune",
+      "UniqueName": "T8_RUNE"
+    },
+    {
+      "Name": "Adept's Soul",
+      "UniqueName": "T4_SOUL"
+    },
+    {
+      "Name": "Expert's Soul",
+      "UniqueName": "T5_SOUL"
+    },
+    {
+      "Name": "Master's Soul",
+      "UniqueName": "T6_SOUL"
+    },
+    {
+      "Name": "Grandmaster's Soul",
+      "UniqueName": "T7_SOUL"
+    },
+    {
+      "Name": "Elder's Soul",
+      "UniqueName": "T8_SOUL"
+    },
+    {
+      "Name": "Adept's Relic",
+      "UniqueName": "T4_RELIC"
+    },
+    {
+      "Name": "Expert's Relic",
+      "UniqueName": "T5_RELIC"
+    },
+    {
+      "Name": "Master's Relic",
+      "UniqueName": "T6_RELIC"
+    },
+    {
+      "Name": "Grandmaster's Relic",
+      "UniqueName": "T7_RELIC"
+    },
+    {
+      "Name": "Elder's Relic",
+      "UniqueName": "T8_RELIC"
+    }
+  ]
+}

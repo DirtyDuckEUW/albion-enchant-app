@@ -8,8 +8,9 @@ import {
   getArtefactPriceWithCache,
 } from "../../services/priceService";
 import type { ItemData, PriceData } from "@/types";
-import { calculateCraftingCost } from "@/lib/calculations";
+import { calculateTotalCost } from "@/lib/calculations";
 import { useResourcePrices } from "@/hooks/useResourcePrices";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import {
   HEAD_ARMOR,
   CHEST_ARMOR,
@@ -26,17 +27,35 @@ import {
   TIER_6,
   TIER_7,
   TIER_8,
+  ONEHAND_WEAPONS,
+  TWOHAND_WEAPONS,
 } from "@/lib/constants";
 import headArmorData from "../../albion-ids/head-armor.json";
 import chestArmorData from "../../albion-ids/chest-armor.json";
 import footArmorData from "../../albion-ids/foot-armor.json";
 import offHandsData from "../../albion-ids/off-hands.json";
+import onehandWeaponsData from "../../albion-ids/onehand_weapons.json";
+import twohandWeapons from "../../albion-ids/twohand_weapons.json";
+import { ITEM_COUNTS } from "@/lib/utility";
+import type { ItemKey } from "@/types";
 
-const CATEGORY_DATA: Record<string, ItemData[]> = {
+type CategoryKey = Extract<
+  ItemKey,
+  | "head_armor"
+  | "chest_armor"
+  | "foot_armor"
+  | "off_hands"
+  | "onehand_weapons"
+  | "twohand_weapons"
+>;
+
+const CATEGORY_DATA: Record<CategoryKey, ItemData[]> = {
   [HEAD_ARMOR]: headArmorData as ItemData[],
   [CHEST_ARMOR]: chestArmorData as ItemData[],
   [FOOT_ARMOR]: footArmorData as ItemData[],
   [OFF_HANDS]: offHandsData as ItemData[],
+  [ONEHAND_WEAPONS]: onehandWeaponsData as ItemData[],
+  [TWOHAND_WEAPONS]: twohandWeapons as ItemData[],
 };
 
 export default function DiscoveryPage() {
@@ -46,9 +65,18 @@ export default function DiscoveryPage() {
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>(OFF_HANDS);
-  const [selectedTier, setSelectedTier] = useState<string>(TIER_5);
-  const [selectedLocation, setSelectedLocation] = useState<string>(LYMHURST);
+  const [selectedCategory, setSelectedCategory] = useLocalStorage<CategoryKey>(
+    "discovery_category",
+    OFF_HANDS as CategoryKey
+  );
+  const [selectedTier, setSelectedTier] = useLocalStorage<string>(
+    "discovery_tier",
+    TIER_5
+  );
+  const [selectedLocation, setSelectedLocation] = useLocalStorage<string>(
+    "discovery_location",
+    LYMHURST
+  );
   const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
   const [forceUpdate, setForceUpdate] = useState<boolean>(false);
 
@@ -139,12 +167,14 @@ export default function DiscoveryPage() {
           <label>Category</label>
           <select
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            onChange={(e) => setSelectedCategory(e.target.value as CategoryKey)}
           >
             <option value={HEAD_ARMOR}>Head Armor</option>
             <option value={CHEST_ARMOR}>Chest Armor</option>
             <option value={FOOT_ARMOR}>Foot Armor</option>
             <option value={OFF_HANDS}>Off Hands</option>
+            <option value={ONEHAND_WEAPONS}>One Handed Weapons</option>
+            <option value={TWOHAND_WEAPONS}>Two Handed Weapons</option>
           </select>
         </div>
 
@@ -202,8 +232,9 @@ export default function DiscoveryPage() {
           const priceData = prices[itemNameWithTierAndQuality];
           const artifactPrice = artifactPrices[item.UniqueName] || 0;
 
-          const craftCost = calculateCraftingCost(
+          const totalCost = calculateTotalCost(
             `T${selectedTier}` as any,
+            ITEM_COUNTS[selectedCategory],
             {
               cloth: item.Crafting.Cloth,
               leather: item.Crafting.Leather,
@@ -221,7 +252,7 @@ export default function DiscoveryPage() {
               uniqueName={itemNameWithTierAndQuality}
               name={item.Name}
               artefactCost={artifactPrice}
-              craftCost={craftCost}
+              craftCost={totalCost}
               sellPrice={sellPrice}
             />
           );

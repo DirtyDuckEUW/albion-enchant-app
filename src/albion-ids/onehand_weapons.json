@@ -1,0 +1,387 @@
+[
+  {
+    "Name": "Broadsword",
+    "UniqueName": "MAIN_SWORD",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 16,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Clarent Blade",
+    "UniqueName": "MAIN_SCIMITAR_MORGANA",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 16,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_MAIN_SCIMITAR_MORGANA"
+    }
+  },
+  {
+    "Name": "Infinity Blade",
+    "UniqueName": "MAIN_SWORD_CRYSTAL",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 16,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_MAIN_SWORD_CRYSTAL"
+    }
+  },
+  {
+    "Name": "Battleaxe",
+    "UniqueName": "MAIN_AXE",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 16,
+      "Planks": 8,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Mace",
+    "UniqueName": "MAIN_MACE",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 16,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Bedrock Mace",
+    "UniqueName": "MAIN_ROCKMACE_KEEPER",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 16,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_MAIN_ROCKMACE_KEEPER"
+    }
+  },
+  {
+    "Name": "Incubus Mace",
+    "UniqueName": "MAIN_MACE_HELL",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 16,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_MAIN_MACE_HELL"
+    }
+  },
+  {
+    "Name": "Dreadstorm Monarch",
+    "UniqueName": "MAIN_MACE_CRYSTAL",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 16,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_MAIN_MACE_CRYSTAL"
+    }
+  },
+  {
+    "Name": "Hammer",
+    "UniqueName": "MAIN_HAMMER",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 24,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Light Crossbow",
+    "UniqueName": "MAIN_1HCROSSBOW",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_1HCROSSBOW"
+    }
+  },
+  {
+    "Name": "Dagger",
+    "UniqueName": "MAIN_DAGGER",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 12,
+      "Metal_Bars": 12,
+      "Planks": 0,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Bloodletter",
+    "UniqueName": "MAIN_RAPIER_MORGANA",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 8,
+      "Metal_Bars": 16,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_MAIN_RAPIER_MORGANA"
+    }
+  },
+  {
+    "Name": "Demonfang",
+    "UniqueName": "MAIN_DAGGER_HELL",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 12,
+      "Metal_Bars": 12,
+      "Planks": 0,
+      "Artifact": "ARTEFACT_MAIN_DAGGER_HELL"
+    }
+  },
+  {
+    "Name": "Spear",
+    "UniqueName": "MAIN_SPEAR",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Heron Spear",
+    "UniqueName": "MAIN_SPEAR_KEEPER",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_SPEAR_KEEPER"
+    }
+  },
+  {
+    "Name": "Daybreaker",
+    "UniqueName": "MAIN_SPEAR_LANCE_AVALON",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_SPEAR_LANCE_AVALON"
+    }
+  },
+  {
+    "Name": "Nature Staff",
+    "UniqueName": "MAIN_NATURESTAFF",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 16,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Druidic Staff",
+    "UniqueName": "MAIN_NATURESTAFF_KEEPER",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_NATURESTAFF_KEEPER"
+    }
+  },
+  {
+    "Name": "Ironroot Staff",
+    "UniqueName": "MAIN_NATURESTAFF_AVALON",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_NATURESTAFF_AVALON"
+    }
+  },
+  {
+    "Name": "Forgebark Staff",
+    "UniqueName": "MAIN_NATURESTAFF_CRYSTAL",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_NATURESTAFF_CRYSTAL"
+    }
+  },
+  {
+    "Name": "Fire Staff",
+    "UniqueName": "MAIN_FIRESTAFF",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Wildfire Staff",
+    "UniqueName": "MAIN_FIRESTAFF_KEEPER",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_FIRESTAFF_KEEPER"
+    }
+  },
+  {
+    "Name": "Flamewalker Staff",
+    "UniqueName": "MAIN_FIRESTAFF_CRYSTAL",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_FIRESTAFF_CRYSTAL"
+    }
+  },
+  {
+    "Name": "Holy Staff",
+    "UniqueName": "MAIN_HOLYSTAFF",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 16,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Lifetouch Staff",
+    "UniqueName": "MAIN_HOLYSTAFF_MORGANA",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_HOLYSTAFF_MORGANA"
+    }
+  },
+  {
+    "Name": "Hallowfall",
+    "UniqueName": "MAIN_HOLYSTAFF_AVALON",
+    "Crafting": {
+      "Cloth": 8,
+      "Leather": 0,
+      "Metal_Bars": 0,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_HOLYSTAFF_AVALON"
+    }
+  },
+  {
+    "Name": "Arcane Staff",
+    "UniqueName": "MAIN_ARCANESTAFF",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Witchwork Staff",
+    "UniqueName": "MAIN_ARCANESTAFF_UNDEAD",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_ARCANESTAFF_UNDEAD"
+    }
+  },
+  {
+    "Name": "Frost Staff",
+    "UniqueName": "MAIN_FROSTSTAFF",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Hoarfrost Staff",
+    "UniqueName": "MAIN_FROSTSTAFF_KEEPER",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_FROSTSTAFF_KEEPER"
+    }
+  },
+  {
+    "Name": "Chillhowl",
+    "UniqueName": "MAIN_FROSTSTAFF_AVALON",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_FROSTSTAFF_AVALON"
+    }
+  },
+  {
+    "Name": "Cursed Staff",
+    "UniqueName": "MAIN_CURSEDSTAFF",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": ""
+    }
+  },
+  {
+    "Name": "Lifecurse Staff",
+    "UniqueName": "MAIN_CURSEDSTAFF_UNDEAD",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_CURSEDSTAFF_UNDEAD"
+    }
+  },
+  {
+    "Name": "Shadowcaller",
+    "UniqueName": "MAIN_CURSEDSTAFF_AVALON",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_CURSEDSTAFF_AVALON"
+    }
+  },
+  {
+    "Name": "Rotcaller Staff",
+    "UniqueName": "MAIN_CURSEDSTAFF_CRYSTAL",
+    "Crafting": {
+      "Cloth": 0,
+      "Leather": 0,
+      "Metal_Bars": 8,
+      "Planks": 16,
+      "Artifact": "ARTEFACT_MAIN_CURSEDSTAFF_CRYSTAL"
+    }
+  }
+]

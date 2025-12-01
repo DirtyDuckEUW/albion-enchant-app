@@ -6,17 +6,23 @@ import {
   getAllResourcePrices,
   upsertMultipleResourcePrices,
 } from "@/lib/supabase";
-import type { ResourceType, Tier, ResourceInputMap } from "@/types";
+import type {
+  ResourceType,
+  Tier,
+  ResourceInputMap,
+  Enchantment,
+} from "@/types";
 import {
   TIERS,
   RESOURCE_TYPES,
-  createDefaultTierValues,
+  ENCHANTMENTS,
+  createDefaultTierEnchantmentValues,
   parseNumber,
 } from "@/lib/utility";
 import PriceInputSection from "@/components/PriceInputSection/PriceInputSection";
 
 export default function PricesPage() {
-  const defaultTierValues = createDefaultTierValues();
+  const defaultTierValues = createDefaultTierEnchantmentValues();
 
   const [resourcePrices, setResourcePrices] = useState<ResourceInputMap>({
     runes: { ...defaultTierValues },
@@ -35,22 +41,29 @@ export default function PricesPage() {
       setLoading(true);
       const prices = await getAllResourcePrices();
 
+      console.log("Loaded prices from Supabase:", prices);
+
       const newPrices: ResourceInputMap = {
-        runes: { ...defaultTierValues },
-        souls: { ...defaultTierValues },
-        relics: { ...defaultTierValues },
-        cloth: { ...defaultTierValues },
-        leather: { ...defaultTierValues },
-        metalBar: { ...defaultTierValues },
-        planks: { ...defaultTierValues },
+        runes: createDefaultTierEnchantmentValues(),
+        souls: createDefaultTierEnchantmentValues(),
+        relics: createDefaultTierEnchantmentValues(),
+        cloth: createDefaultTierEnchantmentValues(),
+        leather: createDefaultTierEnchantmentValues(),
+        metalBar: createDefaultTierEnchantmentValues(),
+        planks: createDefaultTierEnchantmentValues(),
       };
 
       prices.forEach((p) => {
         if (newPrices[p.resource_type]) {
-          newPrices[p.resource_type][p.tier] = p.price.toString();
+          console.log(
+            `Setting price for ${p.resource_type} ${p.tier}.${p.enchantment}: ${p.price}`
+          );
+          newPrices[p.resource_type][p.tier][p.enchantment] =
+            p.price.toString();
         }
       });
 
+      console.log("Final prices state:", newPrices);
       setResourcePrices(newPrices);
       setLoading(false);
     }
@@ -58,12 +71,20 @@ export default function PricesPage() {
     loadPrices();
   }, []);
 
-  function handleChange(resource: ResourceType, tier: Tier, value: string) {
+  function handleChange(
+    resource: ResourceType,
+    tier: Tier,
+    enchantment: Enchantment,
+    value: string
+  ) {
     setResourcePrices((prev) => ({
       ...prev,
       [resource]: {
         ...prev[resource],
-        [tier]: value,
+        [tier]: {
+          ...prev[resource][tier],
+          [enchantment]: value,
+        },
       },
     }));
   }
@@ -72,15 +93,20 @@ export default function PricesPage() {
     const allPrices: Array<{
       resourceType: ResourceType;
       tier: Tier;
+      enchantment: Enchantment;
       price: number;
     }> = [];
 
     RESOURCE_TYPES.forEach((resourceType) => {
       TIERS.forEach((tier) => {
-        const price = parseNumber(resourcePrices[resourceType][tier]);
-        if (Number.isFinite(price)) {
-          allPrices.push({ resourceType, tier, price });
-        }
+        ENCHANTMENTS.forEach((enchantment) => {
+          const price = parseNumber(
+            resourcePrices[resourceType][tier][enchantment]
+          );
+          if (Number.isFinite(price)) {
+            allPrices.push({ resourceType, tier, enchantment, price });
+          }
+        });
       });
     });
 
@@ -102,13 +128,13 @@ export default function PricesPage() {
 
   function resetAll() {
     setResourcePrices({
-      runes: { ...defaultTierValues },
-      souls: { ...defaultTierValues },
-      relics: { ...defaultTierValues },
-      cloth: { ...defaultTierValues },
-      leather: { ...defaultTierValues },
-      metalBar: { ...defaultTierValues },
-      planks: { ...defaultTierValues },
+      runes: createDefaultTierEnchantmentValues(),
+      souls: createDefaultTierEnchantmentValues(),
+      relics: createDefaultTierEnchantmentValues(),
+      cloth: createDefaultTierEnchantmentValues(),
+      leather: createDefaultTierEnchantmentValues(),
+      metalBar: createDefaultTierEnchantmentValues(),
+      planks: createDefaultTierEnchantmentValues(),
     });
   }
 
@@ -124,19 +150,25 @@ export default function PricesPage() {
           title="Runes"
           resourceKey="runes"
           values={resourcePrices.runes}
-          onChange={(tier, value) => handleChange("runes", tier, value)}
+          onChange={(tier, enchantment, value) =>
+            handleChange("runes", tier, enchantment, value)
+          }
         />
         <PriceInputSection
           title="Souls"
           resourceKey="souls"
           values={resourcePrices.souls}
-          onChange={(tier, value) => handleChange("souls", tier, value)}
+          onChange={(tier, enchantment, value) =>
+            handleChange("souls", tier, enchantment, value)
+          }
         />
         <PriceInputSection
           title="Relics"
           resourceKey="relics"
           values={resourcePrices.relics}
-          onChange={(tier, value) => handleChange("relics", tier, value)}
+          onChange={(tier, enchantment, value) =>
+            handleChange("relics", tier, enchantment, value)
+          }
         />
       </div>
       <br />
@@ -147,29 +179,37 @@ export default function PricesPage() {
           title="Cloth"
           resourceKey="cloth"
           values={resourcePrices.cloth}
-          onChange={(tier, value) => handleChange("cloth", tier, value)}
-          showDecimal
+          onChange={(tier, enchantment, value) =>
+            handleChange("cloth", tier, enchantment, value)
+          }
+          showEnchantments
         />
         <PriceInputSection
           title="Leather"
           resourceKey="leather"
           values={resourcePrices.leather}
-          onChange={(tier, value) => handleChange("leather", tier, value)}
-          showDecimal
+          onChange={(tier, enchantment, value) =>
+            handleChange("leather", tier, enchantment, value)
+          }
+          showEnchantments
         />
         <PriceInputSection
           title="Metal Bar"
           resourceKey="metalBar"
           values={resourcePrices.metalBar}
-          onChange={(tier, value) => handleChange("metalBar", tier, value)}
-          showDecimal
+          onChange={(tier, enchantment, value) =>
+            handleChange("metalBar", tier, enchantment, value)
+          }
+          showEnchantments
         />
         <PriceInputSection
           title="Planks"
           resourceKey="planks"
           values={resourcePrices.planks}
-          onChange={(tier, value) => handleChange("planks", tier, value)}
-          showDecimal
+          onChange={(tier, enchantment, value) =>
+            handleChange("planks", tier, enchantment, value)
+          }
+          showEnchantments
         />
       </div>
 

@@ -1,0 +1,239 @@
+.focus-crafting-page {
+  padding: 1.5rem;
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--panel);
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 8px;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0px;
+}
+
+.filter-field label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--cp-subtext0);
+}
+
+.filter-field select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.filter-field select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(137, 180, 250, 0.2);
+}
+
+.filter-field select:hover {
+  border-color: var(--cp-overlay1);
+}
+
+.filter-field input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+}
+
+.filter-field input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(137, 180, 250, 0.2);
+}
+
+.filter-field input:hover {
+  border-color: var(--cp-overlay1);
+}
+
+.filter-combo {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-combo select {
+  flex: 1;
+}
+
+.filter-combo input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+}
+
+.filter-combo input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(137, 180, 250, 0.2);
+}
+
+.filter-combo input:hover {
+  border-color: var(--cp-overlay1);
+}
+
+.filter-combo input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.resource-counts {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: var(--cp-surface0);
+  border-radius: 6px;
+  border: 1px solid var(--cp-overlay2);
+}
+
+.resource-counts p {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--foreground);
+}
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+}
+
+.resource-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.resource-field span {
+  font-weight: 500;
+  color: var(--cp-subtext0);
+  font-size: 0.85rem;
+}
+
+.resource-field input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 4px;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+  font-size: 0.9rem;
+}
+
+.resource-field input:read-only {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  max-width: 200px;
+}
+
+.field span {
+  font-weight: 500;
+  color: var(--cp-subtext0);
+  font-size: 0.9rem;
+}
+
+.field input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 6px;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+  font-size: 1rem;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(137, 180, 250, 0.2);
+}
+
+.field input:hover {
+  border-color: var(--cp-overlay1);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 0.9rem;
+  background: var(--primary);
+  color: var(--crust, #111);
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  flex: 1 1 auto;
+  min-width: 100px;
+}
+
+.result {
+  margin-top: 1.25rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  background: var(--panel);
+  border: 1px solid var(--cp-overlay2);
+}
+
+.result h2 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.1rem;
+  color: var(--foreground);
+}
+
+.result p {
+  margin: 0.5rem 0;
+  color: var(--foreground);
+}
+
+.result ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  color: var(--foreground);
+}
+
+.result li {
+  margin: 0.25rem 0;
+}
+
+.result .sep {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--cp-overlay2),
+    transparent
+  );
+  margin: 0.75rem 0;
+}

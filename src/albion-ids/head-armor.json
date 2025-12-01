@@ -66,7 +66,7 @@
     }
   },
   {
-    "Name": "Feyscale Cowl",
+    "Name": "Feyscale Hat",
     "UniqueName": "HEAD_CLOTH_FEY",
     "Crafting": {
       "Cloth": 8,
@@ -253,7 +253,7 @@
     }
   },
   {
-    "Name": "Boots of Valor",
+    "Name": "Helmet of Valor",
     "UniqueName": "HEAD_PLATE_AVALON",
     "Crafting": {
       "Cloth": 0,

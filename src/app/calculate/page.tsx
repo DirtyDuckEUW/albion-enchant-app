@@ -9,7 +9,7 @@ import ItemSelect from "@/components/ItemSelect/ItemSelect";
 import TierSelect from "@/components/TierSelect/TierSelect";
 
 export default function CalculatePage() {
-  const [item, setItem] = useState<ItemKey>("head_boots_offhand_cape");
+  const [item, setItem] = useState<ItemKey>("head_armor");
   const [tier, setTier] = useState<Tier>("T4");
   const [itemCost, setItemCost] = useState<string>("");
   const [sellPrice, setSellPrice] = useState<string>("");
@@ -167,7 +167,7 @@ export default function CalculatePage() {
             <p>
               Artifact total:{" "}
               <strong>
-                {breakdown ? breakdown.resourceTotal.toLocaleString() : "0"}
+                {breakdown ? breakdown.artifactTotal.toLocaleString() : "0"}
               </strong>
             </p>
             <p>

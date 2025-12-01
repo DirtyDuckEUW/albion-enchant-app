@@ -27,10 +27,38 @@ interface CraftingCosts {
   artifact: number;
 }
 
+export function calculateTotalCost(
+  tier: Tier,
+  count: number,
+  costs: CraftingCosts,
+  prices: ResourcePriceMap
+) {
+  return (
+    calculateArtifactCost(tier, count, prices) +
+    calculateCraftingCost(tier, costs, prices)
+  );
+}
+
+export function calculateArtifactCost(
+  tier: Tier,
+  count: number,
+  prices: ResourcePriceMap
+): number {
+  const runePriceForTier = parseNumber(prices.runes?.[tier] ?? 0);
+  const soulPriceForTier = parseNumber(prices.souls?.[tier] ?? 0);
+  const relicPriceForTier = parseNumber(prices.relics?.[tier] ?? 0);
+
+  const runeCost = runePriceForTier * count;
+  const soulCost = soulPriceForTier * count;
+  const relicCost = relicPriceForTier * count;
+
+  return runeCost + soulCost + relicCost;
+}
+
 export function calculateCraftingCost(
   tier: Tier,
   costs: CraftingCosts,
-  prices: ResourcePriceMap,
+  prices: ResourcePriceMap
 ): number {
   const clothPriceForTier = parseNumber(prices.cloth?.[tier] ?? 0);
   const leatherPriceForTier = parseNumber(prices.leather?.[tier] ?? 0);
@@ -59,13 +87,6 @@ export function calculateProfit(input: CalculationInput): {
   const count = ITEM_COUNTS[input.item] ?? 0;
 
   // Artifact costs (runes, souls, relics)
-  const runePriceForTier = parseNumber(input.prices.runes?.[input.tier] ?? 0);
-  const soulPriceForTier = parseNumber(input.prices.souls?.[input.tier] ?? 0);
-  const relicPriceForTier = parseNumber(input.prices.relics?.[input.tier] ?? 0);
-
-  const runeCost = runePriceForTier * count;
-  const soulCost = soulPriceForTier * count;
-  const relicCost = relicPriceForTier * count;
 
   // Material costs using extracted function
   const clothQty = parseNumber(input.clothCount);
@@ -73,6 +94,21 @@ export function calculateProfit(input: CalculationInput): {
   const metalBarQty = parseNumber(input.metalBarCount);
   const planksQty = parseNumber(input.planksCount);
   const artifactQty = parseNumber(input.artifactCount);
+
+  calculateTotalCost(
+    input.tier,
+    count,
+    {
+      cloth: Number.isFinite(clothQty) ? clothQty : 0,
+      leather: Number.isFinite(leatherQty) ? leatherQty : 0,
+      metalBar: Number.isFinite(metalBarQty) ? metalBarQty : 0,
+      planks: Number.isFinite(planksQty) ? planksQty : 0,
+      artifact: Number.isFinite(artifactQty) ? artifactQty : 0,
+    },
+    input.prices
+  );
+
+  const artifactTotal = calculateArtifactCost(input.tier, count, input.prices);
 
   const materialTotal = calculateCraftingCost(
     input.tier,
@@ -83,13 +119,11 @@ export function calculateProfit(input: CalculationInput): {
       planks: Number.isFinite(planksQty) ? planksQty : 0,
       artifact: Number.isFinite(artifactQty) ? artifactQty : 0,
     },
-    input.prices,
+    input.prices
   );
 
-  const resourceTotal = runeCost + soulCost + relicCost;
-
   const manual = Number.isFinite(cost) ? cost : 0;
-  const totalCost = manual + resourceTotal + materialTotal;
+  const totalCost = manual + artifactTotal + materialTotal;
 
   const taxAmount = calculateTaxAmount(sell);
   const sellAfterTax = calculateSellAfterTax(sell);
@@ -99,10 +133,7 @@ export function calculateProfit(input: CalculationInput): {
   return {
     profit,
     breakdown: {
-      runeCost,
-      soulCost,
-      relicCost,
-      resourceTotal,
+      artifactTotal,
       materialTotal,
       manualCost: manual,
       totalCost,

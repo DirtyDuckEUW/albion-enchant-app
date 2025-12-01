@@ -9,6 +9,12 @@ export const getArtefactPrice = async (itemIds: string, locations: string) => {
   return getPrice(itemIds, locations, "1");
 };
 
+export const getArtefactMedianPrice = async (itemIds: string) => {
+  // Query all major cities for median calculation
+  const locations = "Bridgewatch,Lymhurst,FortSterling,Martlock,Thetford";
+  return getPrice(itemIds, locations, "1");
+};
+
 /**
  * Convenience helper for the Albion data API price endpoint.
  * Calls GET on `${BASE_URL}/api/v2/stats/prices` with required `itemIds` and `locations` query parameters.
@@ -19,7 +25,7 @@ export const getArtefactPrice = async (itemIds: string, locations: string) => {
 export const getPrice = async (
   itemIds: string,
   locations: string,
-  qualities: string,
+  qualities: string
 ) => {
   if (!itemIds) throw new Error("getPrice: itemId is required");
   if (!locations) throw new Error("getPrice: location is required");
@@ -27,7 +33,7 @@ export const getPrice = async (
 
   console.log("Sending api request for " + itemIds + " in " + locations);
   const response = await fetch(
-    `${BASE_URL}/api/v2/stats/Prices/${encodeURIComponent(itemIds)}.json?locations=${encodeURIComponent(locations)}&qualities=${qualities}`,
+    `${BASE_URL}/api/v2/stats/Prices/${encodeURIComponent(itemIds)}.json?locations=${encodeURIComponent(locations)}&qualities=${qualities}`
   );
   const data = await response.json();
   console.log(data);

@@ -77,7 +77,7 @@
     }
   },
   {
-    "Name": "Cowl of Purity",
+    "Name": "Robe of Purity",
     "UniqueName": "ARMOR_CLOTH_AVALON",
     "Crafting": {
       "Cloth": 16,
@@ -253,7 +253,7 @@
     }
   },
   {
-    "Name": "Boots of Valor",
+    "Name": "Armor of Valor",
     "UniqueName": "ARMOR_PLATE_AVALON",
     "Crafting": {
       "Cloth": 0,

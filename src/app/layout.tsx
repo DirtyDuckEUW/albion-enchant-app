@@ -42,8 +42,11 @@ export default function RootLayout({
             <Link href="/">Dashboard</Link>
             <Link href="/discovery">Discovery</Link>
             <Link href="/my-enchants">My Enchants</Link>
+            <Link href="/focus-crafting">Focus Crafting</Link>
+            <Link href="/long-term">Long Term</Link>
             <Link href="/calculate">Calculate</Link>
             <Link href="/prices">Prices</Link>
+            <Link href="/mp-chance">MP Chance</Link>
           </nav>
         </header>
 
