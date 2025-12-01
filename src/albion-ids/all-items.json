@@ -1,7 +1,119 @@
 {
   "Weapons": {
-    "Bow": {},
-    "Crossbow": {}
+    "Sword": [
+      {
+        "Name": "Broadsword",
+        "UniqueName": "MAIN_SWORD",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 8,
+          "Metal_Bars": 16,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Claymore",
+        "UniqueName": "2H_CLAYMORE",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 12,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Dual Swords",
+        "UniqueName": "2H_DUALSWORD",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 12,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Clarent Blade",
+        "UniqueName": "MAIN_SCIMITAR_MORGANA",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 8,
+          "Metal_Bars": 16,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_MAIN_SCIMITAR_MORGANA"
+        }
+      },
+      {
+        "Name": "Carving Sword",
+        "UniqueName": "2H_CLEAVER_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 12,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_CLEAVER_HELL"
+        }
+      },
+      {
+        "Name": "Galatine Pair",
+        "UniqueName": "2H_DUALSCIMITAR_UNDEAD",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 12,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_DUALSCIMITAR_UNDEAD"
+        }
+      },
+      {
+        "Name": "Kingmaker",
+        "UniqueName": "2H_CLAYMORE_AVALON",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 12,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_CLAYMORE_AVALON"
+        }
+      },
+      {
+        "Name": "Infinity Blade",
+        "UniqueName": "MAIN_SWORD_CRYSTAL",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 8,
+          "Metal_Bars": 16,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_MAIN_SWORD_CRYSTAL"
+        }
+      }
+    ],
+    "Axe": [],
+    "Mace": [],
+    "Hammer": [],
+    "War Gloves": [],
+    "Crossbow": [],
+    "Bow": [],
+    "Dagger": [],
+    "Spear": [],
+    "Quarterstaff": [],
+    "Shapeshifter": [],
+    "Nature Staff": [],
+    "Fire Staff": [],
+    "Holy Staff": [],
+    "Arcane Staff": [],
+    "Frost Staff": [],
+    "Curesed Staff": []
   },
   "Head Armor": {
     "Cloth Helmet": [
@@ -355,7 +467,7 @@
         }
       },
       {
-        "Name": "Cowl of Purity",
+        "Name": "Robe of Purity",
         "UniqueName": "ARMOR_CLOTH_AVALON",
         "Crafting": {
           "Cloth": 16,

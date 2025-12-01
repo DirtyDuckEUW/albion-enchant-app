@@ -44,9 +44,9 @@ export function calculateArtifactCost(
   count: number,
   prices: ResourcePriceMap
 ): number {
-  const runePriceForTier = parseNumber(prices.runes?.[tier] ?? 0);
-  const soulPriceForTier = parseNumber(prices.souls?.[tier] ?? 0);
-  const relicPriceForTier = parseNumber(prices.relics?.[tier] ?? 0);
+  const runePriceForTier = parseNumber(prices.runes?.[tier]?.["0"] ?? 0);
+  const soulPriceForTier = parseNumber(prices.souls?.[tier]?.["0"] ?? 0);
+  const relicPriceForTier = parseNumber(prices.relics?.[tier]?.["0"] ?? 0);
 
   const runeCost = runePriceForTier * count;
   const soulCost = soulPriceForTier * count;
@@ -60,10 +60,10 @@ export function calculateCraftingCost(
   costs: CraftingCosts,
   prices: ResourcePriceMap
 ): number {
-  const clothPriceForTier = parseNumber(prices.cloth?.[tier] ?? 0);
-  const leatherPriceForTier = parseNumber(prices.leather?.[tier] ?? 0);
-  const metalBarPriceForTier = parseNumber(prices.metalBar?.[tier] ?? 0);
-  const planksPriceForTier = parseNumber(prices.planks?.[tier] ?? 0);
+  const clothPriceForTier = parseNumber(prices.cloth?.[tier]?.["0"] ?? 0);
+  const leatherPriceForTier = parseNumber(prices.leather?.[tier]?.["0"] ?? 0);
+  const metalBarPriceForTier = parseNumber(prices.metalBar?.[tier]?.["0"] ?? 0);
+  const planksPriceForTier = parseNumber(prices.planks?.[tier]?.["0"] ?? 0);
 
   const clothCost = costs.cloth * clothPriceForTier;
   const leatherCost = costs.leather * leatherPriceForTier;

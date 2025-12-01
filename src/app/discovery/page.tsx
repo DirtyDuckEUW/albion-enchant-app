@@ -105,8 +105,8 @@ export default function DiscoveryPage() {
         // Sende für jedes Item einen einzelnen API-Request
         for (const item of items) {
           try {
-            const itemNameWithTier = `T${selectedTier}_${item.UniqueName}`;
-            const itemNameWithTierAndQuality = `T${selectedTier}_${item.UniqueName}@3`;
+            const itemNameWithTier = `${selectedTier}_${item.UniqueName}`;
+            const itemNameWithTierAndQuality = `${selectedTier}_${item.UniqueName}@3`;
 
             // Use cached price service (skip cache if force update)
             const data = await getItemPriceWithCache(
@@ -121,7 +121,7 @@ export default function DiscoveryPage() {
 
             // Fetch artifact price if artifact exists
             if (item.Crafting.Artifact) {
-              const artifactNameWithTier = `T${selectedTier}_${item.Crafting.Artifact}`;
+              const artifactNameWithTier = `${selectedTier}_${item.Crafting.Artifact}`;
 
               // Use cached artifact price service (skip cache if force update)
               const artifactPrice = await getArtefactPriceWithCache(
@@ -140,7 +140,6 @@ export default function DiscoveryPage() {
             // Weiter mit nächstem Item
           }
         }
-        console.log(priceMap);
         setPrices(priceMap);
         setArtifactPrices(artifactMap);
       } catch (e: any) {
@@ -228,12 +227,12 @@ export default function DiscoveryPage() {
 
       <section className="example-cards" style={{ marginTop: "1rem" }}>
         {(CATEGORY_DATA[selectedCategory] || []).map((item) => {
-          const itemNameWithTierAndQuality = `T${selectedTier}_${item.UniqueName}@3`;
+          const itemNameWithTierAndQuality = `${selectedTier}_${item.UniqueName}@3`;
           const priceData = prices[itemNameWithTierAndQuality];
           const artifactPrice = artifactPrices[item.UniqueName] || 0;
 
           const totalCost = calculateTotalCost(
-            `T${selectedTier}` as any,
+            selectedTier as any,
             ITEM_COUNTS[selectedCategory],
             {
               cloth: item.Crafting.Cloth,
