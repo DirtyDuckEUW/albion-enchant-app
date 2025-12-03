@@ -1,7 +1,9 @@
 "use client";
 
+import type { ReturnRateOption } from "@/types/shared";
+
 interface ReturnRateInputProps {
-  returnRate: string;
+  returnRate: ReturnRateOption | string;
   setReturnRate: (value: string) => void;
 }
 

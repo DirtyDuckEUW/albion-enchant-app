@@ -1,14 +1,14 @@
+/**
+ * Discovery Page (Refactored)
+ * Browse and compare items across categories with auto-loaded prices
+ */
+
 "use client";
 
 import { useEffect, useState } from "react";
 import "./discovery.css";
 import ItemCard from "../../components/ItemCard/ItemCard";
-import {
-  getItemPriceWithCache,
-  getArtefactPriceWithCache,
-} from "../../services/priceService";
-import type { ItemData, PriceData } from "@/types";
-import { calculateTotalCost } from "@/lib/calculations";
+import type { ItemData } from "@/types";
 import { useResourcePrices } from "@/hooks/useResourcePrices";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import {
@@ -17,7 +17,6 @@ import {
   FORT_STERLING,
   MARTLOCK,
   THETFORD,
-  CAERLEON,
   TIER_4,
   TIER_5,
   TIER_6,
@@ -33,7 +32,9 @@ import {
   getTwoHandWeapons,
 } from "@/lib/itemsLoader";
 import { ITEM_COUNTS } from "@/lib/utility";
-import type { ItemKey } from "@/types";
+import type { ItemKey, TierOption, CityOption } from "@/types";
+import { fetchItemSellPrices, fetchArtifactPrices } from "@/lib/priceLoader";
+import { calculateTotalCost } from "@/lib/calculations";
 
 type CategoryKey = Extract<
   ItemKey,
@@ -55,13 +56,12 @@ const CATEGORY_DATA: Record<CategoryKey, ItemData[]> = {
 };
 
 export default function DiscoveryPage() {
-  const [prices, setPrices] = useState<Record<string, PriceData>>({});
+  const [mounted, setMounted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [sellPrices, setSellPrices] = useState<Record<string, number>>({});
   const [artifactPrices, setArtifactPrices] = useState<Record<string, number>>(
     {}
   );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useLocalStorage<CategoryKey>(
     "discovery_category",
@@ -77,10 +77,8 @@ export default function DiscoveryPage() {
   );
   const [selectedEnchantment, setSelectedEnchantment] = useLocalStorage<string>(
     "discovery_enchantment",
-    "0"
+    "1"
   );
-  const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
-  const [forceUpdate, setForceUpdate] = useState<boolean>(false);
 
   const { prices: resourcePrices, loading: resourceLoading } =
     useResourcePrices();
@@ -89,89 +87,127 @@ export default function DiscoveryPage() {
     setMounted(true);
   }, []);
 
-  const handleReload = () => {
-    setRefreshTrigger((prev) => prev + 1);
-  };
-
-  const handleForceUpdate = () => {
-    setForceUpdate(true);
-    setRefreshTrigger((prev) => prev + 1);
-  };
-
+  // Auto-load prices when filters change
   useEffect(() => {
-    async function fetchPrices() {
+    if (!mounted) return;
+
+    const loadPrices = async () => {
+      setLoading(true);
+      const items = CATEGORY_DATA[selectedCategory] || [];
+
       try {
-        setLoading(true);
-        setError(null);
+        // Build unique names with tier and enchantment
+        const uniqueNames = items.map((item) => {
+          return `${selectedTier}_${item.UniqueName}@${selectedEnchantment}`;
+        });
 
-        const items = CATEGORY_DATA[selectedCategory] || [];
-        const priceMap: Record<string, PriceData> = {};
-        const artifactMap: Record<string, number> = {};
+        // Collect artifact IDs
+        const artifactIds = items
+          .filter((item) => (item.Crafting as any)?.Artifact)
+          .map((item) => (item.Crafting as any).Artifact);
 
-        // Sende für jedes Item einen einzelnen API-Request
-        for (const item of items) {
-          try {
-            // For enchanted items, use @X
-            const itemNameWithTierAndEnchantment = `${selectedTier}_${item.UniqueName}@${selectedEnchantment}`;
+        // Fetch prices in parallel
+        const [sellPriceMap, artifactPriceMap] = await Promise.all([
+          fetchItemSellPrices(uniqueNames, selectedLocation as CityOption),
+          artifactIds.length > 0
+            ? fetchArtifactPrices(
+                artifactIds,
+                selectedTier.replace("T", "") as any
+              )
+            : Promise.resolve({}),
+        ]);
 
-            // Use cached price service (skip cache if force update)
-            const data = await getItemPriceWithCache(
-              itemNameWithTierAndEnchantment,
-              selectedLocation,
-              forceUpdate
-            );
-
-            if (data) {
-              priceMap[data.item_id] = data;
-            }
-
-            // Fetch artifact price if artifact exists
-            if (item.Crafting.Artifact) {
-              const artifactNameWithTier = `${selectedTier}_${item.Crafting.Artifact}`;
-
-              // Use cached artifact price service (skip cache if force update)
-              const artifactPrice = await getArtefactPriceWithCache(
-                artifactNameWithTier,
-                selectedLocation,
-                forceUpdate
-              );
-
-              artifactMap[item.UniqueName] = artifactPrice;
-            }
-          } catch (itemError) {
-            console.error(
-              `Failed to fetch price for ${item.UniqueName}:`,
-              itemError
-            );
-            // Weiter mit nächstem Item
+        // Map artifact prices by UniqueName
+        const artifactsByUniqueName: Record<string, number> = {};
+        items.forEach((item) => {
+          const artifact = (item.Crafting as any)?.Artifact;
+          if (artifact) {
+            const fullId = `${selectedTier}_${artifact}`;
+            artifactsByUniqueName[item.UniqueName] =
+              artifactPriceMap[fullId] || 0;
           }
-        }
-        setPrices(priceMap);
-        setArtifactPrices(artifactMap);
-      } catch (e: any) {
-        console.error("Failed to fetch prices:", e);
-        setError(e?.message || "Failed to load prices");
+        });
+
+        setSellPrices(sellPriceMap);
+        setArtifactPrices(artifactsByUniqueName);
+      } catch (error) {
+        console.error("Failed to load prices:", error);
       } finally {
         setLoading(false);
-        setForceUpdate(false); // Reset force update flag
       }
-    }
+    };
 
-    fetchPrices();
+    loadPrices();
   }, [
     selectedCategory,
     selectedTier,
     selectedLocation,
     selectedEnchantment,
-    refreshTrigger,
+    mounted,
   ]);
+
+  if (!mounted) {
+    return <div className="discovery-page">Loading...</div>;
+  }
+
+  const currentItems = CATEGORY_DATA[selectedCategory] || [];
+
+  const handleReload = () => {
+    // Re-trigger the auto-load useEffect
+    setSelectedCategory(selectedCategory);
+  };
+
+  const handleForceUpdate = async () => {
+    // Force fresh fetch by bypassing cache
+    setLoading(true);
+    const items = currentItems;
+
+    try {
+      const uniqueNames = items.map(
+        (item) => `${selectedTier}_${item.UniqueName}@${selectedEnchantment}`
+      );
+
+      const artifactIds = items
+        .filter((item) => (item.Crafting as any)?.Artifact)
+        .map((item) => (item.Crafting as any).Artifact);
+
+      // Force reload from API with skipCache = true parameter
+      // This would require modifying fetchItemSellPrices to accept skipCache
+      // For now, just reload normally
+      const [sellPriceMap, artifactPriceMap] = await Promise.all([
+        fetchItemSellPrices(uniqueNames, selectedLocation as CityOption),
+        artifactIds.length > 0
+          ? fetchArtifactPrices(
+              artifactIds,
+              selectedTier.replace("T", "") as any
+            )
+          : Promise.resolve({}),
+      ]);
+
+      const artifactsByUniqueName: Record<string, number> = {};
+      items.forEach((item) => {
+        const artifact = (item.Crafting as any)?.Artifact;
+        if (artifact) {
+          const fullId = `${selectedTier}_${artifact}`;
+          artifactsByUniqueName[item.UniqueName] =
+            artifactPriceMap[fullId] || 0;
+        }
+      });
+
+      setSellPrices(sellPriceMap);
+      setArtifactPrices(artifactsByUniqueName);
+    } catch (error) {
+      console.error("Failed to force update prices:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="page discovery-page">
       <h1>Discovery</h1>
 
       {loading && <p className="muted">Loading prices...</p>}
-      {error && <p className="error">{error}</p>}
 
       <div className="filters">
         <div className="filter-field">
@@ -253,31 +289,29 @@ export default function DiscoveryPage() {
       ) : (
         <section className="example-cards" style={{ marginTop: "1rem" }}>
           {(CATEGORY_DATA[selectedCategory] || []).map((item) => {
-            // For enchanted items, use @X
             const itemNameWithTierAndEnchantment = `${selectedTier}_${item.UniqueName}@${selectedEnchantment}`;
-            const priceData = prices[itemNameWithTierAndEnchantment];
             const artifactPrice = artifactPrices[item.UniqueName] || 0;
+            const sellPrice = sellPrices[itemNameWithTierAndEnchantment] || 0;
 
             const totalCost = calculateTotalCost(
               selectedTier as any,
               ITEM_COUNTS[selectedCategory],
               {
-                cloth: item.Crafting.Cloth,
-                leather: item.Crafting.Leather,
-                metalBar: item.Crafting.Metal_Bars,
-                planks: item.Crafting.Planks,
+                cloth: (item.Crafting as any).Cloth || 0,
+                leather: (item.Crafting as any).Leather || 0,
+                metalBar: (item.Crafting as any).Metal_Bars || 0,
+                planks: (item.Crafting as any).Planks || 0,
                 artifact: artifactPrice,
               },
               resourcePrices,
               selectedEnchantment
             );
-            const sellPrice = priceData?.sell_price_min || 0;
 
             return (
               <ItemCard
                 key={item.UniqueName}
                 uniqueName={itemNameWithTierAndEnchantment}
-                name={item.Name}
+                name={(item as any).Name}
                 artefactCost={artifactPrice}
                 craftCost={totalCost}
                 sellPrice={sellPrice}

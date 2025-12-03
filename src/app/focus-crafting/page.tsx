@@ -1,26 +1,35 @@
+/**
+ * Focus Crafting Page (Refactored)
+ * Single-item crafting analysis with focus bonus calculations
+ */
+
 "use client";
 
 import { useState, useEffect } from "react";
 import "./focus-crafting.css";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { getResourcePrice } from "@/lib/supabase";
-import { getArtefactMedianPriceWithCache } from "@/services/priceService";
-import {
-  TIER_4,
-  TIER_5,
-  TIER_6,
-  TIER_7,
-  TIER_8,
-  MARKET_TAX,
-} from "@/lib/constants";
-import type { ItemData, Tier, Enchantment } from "@/types";
+import type {
+  TierOption,
+  EnchantmentOption,
+  ReturnRateOption,
+} from "@/types/shared";
 import { getAllItems } from "@/lib/itemsLoader";
+import {
+  calculateCraftCostWithReturnRate,
+  formatSilver,
+  formatPercentage,
+  getProfitColor,
+} from "@/lib/calculations";
+import { fetchResourcePrices, fetchArtifactPrices } from "@/lib/priceLoader";
 import ReturnRateInput from "@/components/ReturnRateInput/ReturnRateInput";
+import { MARKET_TAX } from "@/lib/constants";
 
-// Combine all items for selection
-const ALL_ITEMS: ItemData[] = getAllItems();
+const ALL_ITEMS = getAllItems();
 
 export default function FocusCraftingPage() {
+  const [mounted, setMounted] = useState(false);
+
+  // Filter states
   const [selectedItem, setSelectedItem] = useLocalStorage<string>(
     "focus_crafting_item",
     ALL_ITEMS[0]?.UniqueName || ""
@@ -29,40 +38,18 @@ export default function FocusCraftingPage() {
     "focus_crafting_amount",
     "1"
   );
-  const [selectedTier, setSelectedTier] = useLocalStorage<string>(
+  const [selectedTier, setSelectedTier] = useLocalStorage<TierOption>(
     "focus_crafting_tier",
-    TIER_8
+    "8"
   );
-  const [selectedEnchantment, setSelectedEnchantment] = useLocalStorage<string>(
-    "focus_crafting_enchantment",
-    "3"
-  );
-  const [returnRate, setReturnRate] = useLocalStorage<string>(
+  const [selectedEnchantment, setSelectedEnchantment] =
+    useLocalStorage<EnchantmentOption>("focus_crafting_enchantment", "3");
+  const [returnRate, setReturnRate] = useLocalStorage<ReturnRateOption>(
     "focus_crafting_return_rate",
     "47.92"
   );
-  const [returnRateInput, setReturnRateInput] = useLocalStorage<string>(
-    "focus_crafting_return_rate_input",
-    ""
-  );
 
-  // Resource price inputs
-  const [clothPrice, setClothPrice] = useLocalStorage<string>(
-    "focus_crafting_cloth_price",
-    ""
-  );
-  const [leatherPrice, setLeatherPrice] = useLocalStorage<string>(
-    "focus_crafting_leather_price",
-    ""
-  );
-  const [metalBarPrice, setMetalBarPrice] = useLocalStorage<string>(
-    "focus_crafting_metalbar_price",
-    ""
-  );
-  const [planksPrice, setPlanksPrice] = useLocalStorage<string>(
-    "focus_crafting_planks_price",
-    ""
-  );
+  // Editable prices
   const [artifactPrice, setArtifactPrice] = useLocalStorage<string>(
     "focus_crafting_artifact_price",
     ""
@@ -72,177 +59,157 @@ export default function FocusCraftingPage() {
     ""
   );
 
-  // Calculation state
-  const [totalCost, setTotalCost] = useState<number | null>(null);
-  const [totalResources, setTotalResources] = useState<{
-    cloth: number;
-    leather: number;
-    metalBar: number;
-    planks: number;
-    artifact: number;
-  } | null>(null);
-  const [profit, setProfit] = useState<number | null>(null);
-  const [sellAfterTax, setSellAfterTax] = useState<number | null>(null);
-  const [taxAmount, setTaxAmount] = useState<number | null>(null);
+  // Loaded prices
+  const [resourcePrices, setResourcePrices] = useState<Record<string, number>>(
+    {}
+  );
 
-  // Find the selected item to get resource quantities
+  // Results
+  const [craftCost, setCraftCost] = useState<number>(0);
+  const [profit, setProfit] = useState<number>(0);
+  const [sellAfterTax, setSellAfterTax] = useState<number>(0);
+
   const currentItem = ALL_ITEMS.find(
     (item) => item.UniqueName === selectedItem
   );
-  const clothQty = currentItem?.Crafting.Cloth || 0;
-  const leatherQty = currentItem?.Crafting.Leather || 0;
-  const metalBarQty = currentItem?.Crafting.Metal_Bars || 0;
-  const planksQty = currentItem?.Crafting.Planks || 0;
-  const hasArtifact = currentItem?.Crafting.Artifact ? true : false;
 
-  // Auto-fetch prices from Supabase when tier or enchantment changes
   useEffect(() => {
-    async function fetchPrices() {
-      const tier = selectedTier as Tier;
-      const enchantment = selectedEnchantment as Enchantment;
+    setMounted(true);
+  }, []);
 
-      console.log(`Fetching prices for ${tier}.${enchantment}`);
+  // Auto-load resource prices
+  useEffect(() => {
+    if (!currentItem || !mounted) return;
 
-      const [cloth, leather, metalBar, planks] = await Promise.all([
-        getResourcePrice("cloth", tier, enchantment),
-        getResourcePrice("leather", tier, enchantment),
-        getResourcePrice("metalBar", tier, enchantment),
-        getResourcePrice("planks", tier, enchantment),
-      ]);
+    const loadPrices = async () => {
+      // For legacy items, we need to load standard resources
+      const resourceIds = ["CLOTH", "LEATHER", "METALBAR", "PLANKS"].filter(
+        (id) => {
+          const qty = (currentItem.Crafting as any)[
+            id === "METALBAR"
+              ? "Metal_Bars"
+              : id.charAt(0) + id.slice(1).toLowerCase()
+          ];
+          return qty > 0;
+        }
+      );
 
-      console.log("Fetched prices:", { cloth, leather, metalBar, planks });
+      if (resourceIds.length > 0) {
+        const prices = await fetchResourcePrices(
+          resourceIds,
+          selectedTier,
+          selectedEnchantment
+        );
+        setResourcePrices(prices);
+      }
+    };
 
-      if (cloth !== null) {
-        console.log("Setting cloth price to:", cloth);
-        setClothPrice(cloth.toString());
-      }
-      if (leather !== null) {
-        console.log("Setting leather price to:", leather);
-        setLeatherPrice(leather.toString());
-      }
-      if (metalBar !== null) {
-        console.log("Setting metalBar price to:", metalBar);
-        setMetalBarPrice(metalBar.toString());
-      }
-      if (planks !== null) {
-        console.log("Setting planks price to:", planks);
-        setPlanksPrice(planks.toString());
-      }
+    loadPrices();
+  }, [selectedTier, selectedEnchantment, currentItem, mounted]);
+
+  // Auto-load artifact price
+  useEffect(() => {
+    const artifact = (currentItem?.Crafting as any)?.Artifact;
+    if (!artifact || !mounted) {
+      setArtifactPrice("");
+      return;
     }
 
-    fetchPrices();
-  }, [
-    selectedTier,
-    selectedEnchantment,
-    setClothPrice,
-    setLeatherPrice,
-    setMetalBarPrice,
-    setPlanksPrice,
-  ]);
+    const loadArtifactPrice = async () => {
+      const prices = await fetchArtifactPrices([artifact], selectedTier);
 
-  // Auto-fetch artifact price when tier or selected item changes
-  useEffect(() => {
-    async function fetchArtifactPrice() {
-      if (!hasArtifact || !currentItem?.Crafting.Artifact) {
-        setArtifactPrice("");
-        return;
-      }
+      const fullId = `T${selectedTier}_${artifact.replace(/T\d+_/, "")}`;
+      const price = prices[fullId];
 
-      const artifactId = `${selectedTier}_${currentItem.Crafting.Artifact}`;
-      console.log(`Fetching median artifact price for ${artifactId}`);
-
-      const price = await getArtefactMedianPriceWithCache(artifactId);
-      console.log(`Fetched median artifact price: ${price}`);
-
-      if (price > 0) {
+      if (price) {
         setArtifactPrice(price.toString());
       }
-    }
+    };
 
-    fetchArtifactPrice();
-  }, [selectedTier, selectedItem, hasArtifact, currentItem, setArtifactPrice]);
+    loadArtifactPrice();
+  }, [selectedTier, currentItem, mounted]);
 
   const handleCalculate = () => {
-    const amountNum = parseFloat(amount) || 0;
+    if (!currentItem) return;
 
-    // Get return rate
-    const rateValue = parseFloat(returnRate) || 0;
-    const returnRateDecimal = rateValue / 100;
+    const amountNum = parseFloat(amount) || 1;
+    const artifactPriceNum = parseFloat(artifactPrice) || 0;
+    const sellValueNum = parseFloat(sellValue) || 0;
 
-    // Calculate total quantities with return rate applied and rounded up
-    const totalCloth = Math.ceil(
-      clothQty * amountNum * (1 - returnRateDecimal)
+    // Calculate craft cost manually for legacy structure
+    const crafting = currentItem.Crafting as any;
+    const returnRateDecimal = parseFloat(returnRate) / 100;
+
+    const clothQty = Math.ceil(
+      (crafting.Cloth || 0) * amountNum * (1 - returnRateDecimal)
     );
-    const totalLeather = Math.ceil(
-      leatherQty * amountNum * (1 - returnRateDecimal)
+    const leatherQty = Math.ceil(
+      (crafting.Leather || 0) * amountNum * (1 - returnRateDecimal)
     );
-    const totalMetalBar = Math.ceil(
-      metalBarQty * amountNum * (1 - returnRateDecimal)
+    const metalBarQty = Math.ceil(
+      (crafting.Metal_Bars || 0) * amountNum * (1 - returnRateDecimal)
     );
-    const totalPlanks = Math.ceil(
-      planksQty * amountNum * (1 - returnRateDecimal)
+    const planksQty = Math.ceil(
+      (crafting.Planks || 0) * amountNum * (1 - returnRateDecimal)
     );
-    const totalArtifact = hasArtifact ? Math.ceil(1 * amountNum) : 0;
 
-    setTotalResources({
-      cloth: totalCloth,
-      leather: totalLeather,
-      metalBar: totalMetalBar,
-      planks: totalPlanks,
-      artifact: totalArtifact,
-    });
+    const clothCost =
+      clothQty * (resourcePrices["T" + selectedTier + "_CLOTH"] || 0);
+    const leatherCost =
+      leatherQty * (resourcePrices["T" + selectedTier + "_LEATHER"] || 0);
+    const metalBarCost =
+      metalBarQty * (resourcePrices["T" + selectedTier + "_METALBAR"] || 0);
+    const planksCost =
+      planksQty * (resourcePrices["T" + selectedTier + "_PLANKS"] || 0);
+    const artifactCost = artifactPriceNum * amountNum;
 
-    // Calculate total cost
-    const clothCost = totalCloth * (parseFloat(clothPrice) || 0);
-    const leatherCost = totalLeather * (parseFloat(leatherPrice) || 0);
-    const metalBarCost = totalMetalBar * (parseFloat(metalBarPrice) || 0);
-    const planksCost = totalPlanks * (parseFloat(planksPrice) || 0);
-    const artifactCost = totalArtifact * (parseFloat(artifactPrice) || 0);
-
-    const total =
+    const cost =
       clothCost + leatherCost + metalBarCost + planksCost + artifactCost;
-    setTotalCost(total);
 
-    // Calculate sell value after tax and profit
-    const sellValueNum = parseFloat(sellValue) * amountNum || 0;
-    const tax = Math.ceil(sellValueNum * MARKET_TAX);
-    const sellAfterTaxValue = sellValueNum - tax;
-    const profitValue = sellAfterTaxValue - total;
+    // Calculate sell value after tax
+    const totalSellValue = sellValueNum * amountNum;
+    const tax = Math.ceil(totalSellValue * MARKET_TAX);
+    const sellAfter = totalSellValue - tax;
+    const profitCalc = sellAfter - cost;
 
-    setTaxAmount(tax);
-    setSellAfterTax(sellAfterTaxValue);
-    setProfit(profitValue);
+    setCraftCost(cost);
+    setSellAfterTax(sellAfter);
+    setProfit(profitCalc);
   };
+
+  if (!mounted) {
+    return <div className="focus-crafting-page">Loading...</div>;
+  }
+
+  const profitPercentage = craftCost > 0 ? (profit / craftCost) * 100 : 0;
 
   return (
     <main className="page focus-crafting-page">
       <h1>Focus Crafting</h1>
 
+      {/* Filters */}
       <div className="filters">
         <div className="filter-field">
           <label>Item</label>
-          <div className="filter-combo">
-            <select
-              value={selectedItem}
-              onChange={(e) => setSelectedItem(e.target.value)}
-            >
-              {ALL_ITEMS.map((item) => (
-                <option key={item.UniqueName} value={item.UniqueName}>
-                  {item.Name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <select
+            value={selectedItem}
+            onChange={(e) => setSelectedItem(e.target.value)}
+          >
+            {ALL_ITEMS.map((item) => (
+              <option key={item.UniqueName} value={item.UniqueName}>
+                {(item as any).Name || item.UniqueName}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="filter-field">
           <label>Amount</label>
           <input
-            type="text"
-            inputMode="decimal"
+            type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            placeholder="1"
+            min="1"
           />
         </div>
 
@@ -250,13 +217,13 @@ export default function FocusCraftingPage() {
           <label>Tier</label>
           <select
             value={selectedTier}
-            onChange={(e) => setSelectedTier(e.target.value)}
+            onChange={(e) => setSelectedTier(e.target.value as TierOption)}
           >
-            <option value={TIER_4}>T4</option>
-            <option value={TIER_5}>T5</option>
-            <option value={TIER_6}>T6</option>
-            <option value={TIER_7}>T7</option>
-            <option value={TIER_8}>T8</option>
+            <option value="4">T4</option>
+            <option value="5">T5</option>
+            <option value="6">T6</option>
+            <option value="7">T7</option>
+            <option value="8">T8</option>
           </select>
         </div>
 
@@ -264,136 +231,75 @@ export default function FocusCraftingPage() {
           <label>Enchantment</label>
           <select
             value={selectedEnchantment}
-            onChange={(e) => setSelectedEnchantment(e.target.value)}
+            onChange={(e) =>
+              setSelectedEnchantment(e.target.value as EnchantmentOption)
+            }
           >
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
+            <option value="0">.0</option>
+            <option value="1">.1</option>
+            <option value="2">.2</option>
+            <option value="3">.3</option>
+            <option value="4">.4</option>
           </select>
         </div>
 
         <ReturnRateInput
           returnRate={returnRate}
-          setReturnRate={setReturnRate}
+          setReturnRate={(value) => setReturnRate(value as ReturnRateOption)}
         />
       </div>
 
-      <div className="resource-counts">
-        <p className="muted">Resource quantities</p>
-        <div className="resource-grid">
-          <label className="resource-field">
-            <span>Cloth</span>
-            <input inputMode="decimal" value={clothQty} readOnly />
-            <input
-              inputMode="decimal"
-              value={clothPrice}
-              onChange={(e) => setClothPrice(e.target.value)}
-              placeholder="Price"
-            />
-          </label>
-          <label className="resource-field">
-            <span>Leather</span>
-            <input inputMode="decimal" value={leatherQty} readOnly />
-            <input
-              inputMode="decimal"
-              value={leatherPrice}
-              onChange={(e) => setLeatherPrice(e.target.value)}
-              placeholder="Price"
-            />
-          </label>
-          <label className="resource-field">
-            <span>Metal Bar</span>
-            <input inputMode="decimal" value={metalBarQty} readOnly />
-            <input
-              inputMode="decimal"
-              value={metalBarPrice}
-              onChange={(e) => setMetalBarPrice(e.target.value)}
-              placeholder="Price"
-            />
-          </label>
-          <label className="resource-field">
-            <span>Planks</span>
-            <input inputMode="decimal" value={planksQty} readOnly />
-            <input
-              inputMode="decimal"
-              value={planksPrice}
-              onChange={(e) => setPlanksPrice(e.target.value)}
-              placeholder="Price"
-            />
-          </label>
-          <label className="resource-field">
-            <span>Artifact</span>
-            <input
-              inputMode="decimal"
-              value={hasArtifact ? "1" : "0"}
-              readOnly
-            />
-            <input
-              inputMode="decimal"
-              value={artifactPrice}
-              onChange={(e) => setArtifactPrice(e.target.value)}
-              placeholder="Price"
-            />
-          </label>
+      {/* Price Inputs */}
+      <div className="price-inputs" style={{ marginTop: "1rem" }}>
+        <div className="filter-field">
+          <label>Artifact Price</label>
+          <input
+            type="number"
+            value={artifactPrice}
+            onChange={(e) => setArtifactPrice(e.target.value)}
+            placeholder="Auto-loaded"
+          />
+        </div>
+
+        <div className="filter-field">
+          <label>Sell Value (per item)</label>
+          <input
+            type="number"
+            value={sellValue}
+            onChange={(e) => setSellValue(e.target.value)}
+            placeholder="Enter sell price"
+          />
         </div>
       </div>
 
-      <label className="field">
-        <span>Sell Value</span>
-        <input
-          inputMode="decimal"
-          value={sellValue}
-          onChange={(e) => setSellValue(e.target.value)}
-          placeholder="Enter sell price"
-        />
-      </label>
-
-      <div className="actions">
+      {/* Calculate Button */}
+      <div className="actions" style={{ marginTop: "1rem" }}>
         <button type="button" className="btn" onClick={handleCalculate}>
           Calculate
         </button>
       </div>
 
-      {totalCost !== null && totalResources && (
-        <section className="result">
-          <h2>Results</h2>
-          <p>Total Resources Needed:</p>
+      {/* Results */}
+      {craftCost > 0 && (
+        <div className="results" style={{ marginTop: "1.5rem" }}>
+          <h3>Results</h3>
           <p>
-            Cloth: <strong>{totalResources.cloth.toLocaleString()}</strong> |
-            Leather: <strong>{totalResources.leather.toLocaleString()}</strong>{" "}
-            | Metal Bar:{" "}
-            <strong>{totalResources.metalBar.toLocaleString()}</strong> |
-            Planks: <strong>{totalResources.planks.toLocaleString()}</strong> |
-            Artifact:{" "}
-            <strong>{totalResources.artifact.toLocaleString()}</strong>
-          </p>
-          <hr className="sep" />
-          <p>
-            Total Cost: <strong>{totalCost.toLocaleString()}</strong>
+            <strong>Craft Cost ({amount}x):</strong>{" "}
+            <span style={{ fontWeight: "600" }}>{formatSilver(craftCost)}</span>
           </p>
           <p>
-            Market Tax (6.5%):{" "}
-            <strong>{taxAmount?.toLocaleString() || "0"}</strong>
+            <strong>Sell Value After Tax:</strong>{" "}
+            <span style={{ fontWeight: "600" }}>
+              {formatSilver(sellAfterTax)}
+            </span>
           </p>
           <p>
-            Sell After Tax:{" "}
-            <strong>{sellAfterTax?.toLocaleString() || "0"}</strong>
+            <strong>Profit:</strong>{" "}
+            <span style={{ color: getProfitColor(profit), fontWeight: "600" }}>
+              {formatSilver(profit)} ({formatPercentage(profitPercentage)})
+            </span>
           </p>
-          <hr className="sep" />
-          <p>
-            Profit: <strong>{profit?.toLocaleString() || "0"}</strong>
-          </p>
-          <p>
-            Profit %:{" "}
-            <strong>
-              {totalCost > 0 && profit !== null
-                ? ((profit / totalCost) * 100).toFixed(2) + "%"
-                : "N/A"}
-            </strong>
-          </p>
-        </section>
+        </div>
       )}
     </main>
   );

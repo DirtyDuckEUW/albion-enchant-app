@@ -3,7 +3,11 @@
 import { useState } from "react";
 import "./calculate.css";
 import { useResourcePrices } from "@/hooks/useResourcePrices";
-import { calculateProfit } from "@/lib/calculations";
+import {
+  calculateProfit,
+  formatSilver,
+  formatPercentage,
+} from "@/lib/calculations";
 import type { ItemKey, Tier, PriceBreakdown } from "@/types";
 import ItemSelect from "@/components/ItemSelect/ItemSelect";
 import TierSelect from "@/components/TierSelect/TierSelect";
@@ -166,48 +170,38 @@ export default function CalculatePage() {
           <>
             <p>
               Artifact total:{" "}
-              <strong>
-                {breakdown ? breakdown.artifactTotal.toLocaleString() : "0"}
-              </strong>
+              <strong>{formatSilver(breakdown?.artifactTotal ?? 0)}</strong>
             </p>
             <p>
               Resource costs:{" "}
-              <strong>
-                {breakdown ? breakdown.materialTotal.toLocaleString() : "0"}
-              </strong>
+              <strong>{formatSilver(breakdown?.materialTotal ?? 0)}</strong>
             </p>
             <p>
               Total cost:{" "}
-              <strong>
-                {breakdown ? breakdown.totalCost.toLocaleString() : "0"}
-              </strong>
+              <strong>{formatSilver(breakdown?.totalCost ?? 0)}</strong>
             </p>
 
             <hr className="sep" />
 
             <p>
               Market tax (6.5%):{" "}
-              <strong>
-                {breakdown ? breakdown.taxAmount.toLocaleString() : "0"}
-              </strong>
+              <strong>{formatSilver(breakdown?.taxAmount ?? 0)}</strong>
             </p>
             <p>
               Sell after tax:{" "}
-              <strong>
-                {breakdown ? breakdown.sellAfterTax.toLocaleString() : "0"}
-              </strong>
+              <strong>{formatSilver(breakdown?.sellAfterTax ?? 0)}</strong>
             </p>
 
             <hr className="sep" />
 
             <p>
-              Profit: <strong>{result.toLocaleString()}</strong>
+              Profit: <strong>{formatSilver(result)}</strong>
             </p>
             <p>
               Profit %:{" "}
               <strong>
                 {Number.isFinite(result) && breakdown && breakdown.totalCost > 0
-                  ? ((result / breakdown.totalCost) * 100).toFixed(2) + "%"
+                  ? formatPercentage((result / breakdown.totalCost) * 100)
                   : "N/A"}
               </strong>
             </p>

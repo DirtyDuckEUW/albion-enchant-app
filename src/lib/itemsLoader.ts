@@ -11,69 +11,112 @@ export interface AllItemsStructure {
 
 const typedAllItems = allItemsData as AllItemsStructure;
 
+// Main categories
+export type MainCategory = keyof AllItemsStructure;
+
 // Get all items as flat array
 export function getAllItems(): ItemData[] {
-  const items: ItemData[] = [];
+  const allCategories: MainCategory[] = [
+    "Weapons",
+    "Head Armor",
+    "Chest Armor",
+    "Foot Armor",
+    "Off-Hands",
+  ];
 
-  // Weapons
-  Object.values(typedAllItems.Weapons).forEach((weaponGroup) => {
-    items.push(...weaponGroup);
-  });
-
-  // Head Armor
-  Object.values(typedAllItems["Head Armor"]).forEach((armorGroup) => {
-    items.push(...armorGroup);
-  });
-
-  // Chest Armor
-  Object.values(typedAllItems["Chest Armor"]).forEach((armorGroup) => {
-    items.push(...armorGroup);
-  });
-
-  // Foot Armor
-  Object.values(typedAllItems["Foot Armor"]).forEach((armorGroup) => {
-    items.push(...armorGroup);
-  });
-
-  // Off-Hands
-  Object.values(typedAllItems["Off-Hands"]).forEach((offhandGroup) => {
-    items.push(...offhandGroup);
-  });
-
-  return items;
+  return allCategories.flatMap((category) =>
+    Object.values(typedAllItems[category]).flat()
+  );
 }
 
-// Get head armor items
+// Get items by main category
+export function getItemsByMainCategory(category: MainCategory): ItemData[] {
+  return Object.values(typedAllItems[category]).flat();
+}
+
+// Get items by subcategory
+export function getItemsBySubcategory(
+  mainCategory: MainCategory,
+  subCategory: string
+): ItemData[] {
+  return typedAllItems[mainCategory][subCategory] || [];
+}
+
+// Get all subcategories for a main category
+export function getSubcategories(category: MainCategory): string[] {
+  return Object.keys(typedAllItems[category]);
+}
+
+// Get all category options for dropdowns
+export function getAllCategoryOptions(): Array<{
+  key: string;
+  label: string;
+}> {
+  const options: Array<{ key: string; label: string }> = [];
+
+  const mainCategories: MainCategory[] = [
+    "Weapons",
+    "Head Armor",
+    "Chest Armor",
+    "Foot Armor",
+    "Off-Hands",
+  ];
+
+  mainCategories.forEach((mainCat) => {
+    getSubcategories(mainCat).forEach((subCat) => {
+      options.push({
+        key: `${mainCat}.${subCat}`,
+        label: `${mainCat}: ${subCat}`,
+      });
+    });
+  });
+
+  return options;
+}
+
+// Parse category key "MainCategory.SubCategory"
+export function parseCategoryKey(key: string): {
+  mainCategory: MainCategory;
+  subCategory: string;
+} {
+  const [mainCategory, subCategory] = key.split(".");
+  return {
+    mainCategory: mainCategory as MainCategory,
+    subCategory: subCategory || "",
+  };
+}
+
+// Get items by category key
+export function getItemsByCategoryKey(categoryKey: string): ItemData[] {
+  const { mainCategory, subCategory } = parseCategoryKey(categoryKey);
+  return getItemsBySubcategory(mainCategory, subCategory);
+}
+
+// Legacy functions for backward compatibility
 export function getHeadArmorItems(): ItemData[] {
-  return Object.values(typedAllItems["Head Armor"]).flat();
+  return getItemsByMainCategory("Head Armor");
 }
 
-// Get chest armor items
 export function getChestArmorItems(): ItemData[] {
-  return Object.values(typedAllItems["Chest Armor"]).flat();
+  return getItemsByMainCategory("Chest Armor");
 }
 
-// Get foot armor items
 export function getFootArmorItems(): ItemData[] {
-  return Object.values(typedAllItems["Foot Armor"]).flat();
+  return getItemsByMainCategory("Foot Armor");
 }
 
-// Get off-hand items
 export function getOffHandItems(): ItemData[] {
-  return Object.values(typedAllItems["Off-Hands"]).flat();
+  return getItemsByMainCategory("Off-Hands");
 }
 
-// Get weapon items
 export function getWeaponItems(): ItemData[] {
-  return Object.values(typedAllItems.Weapons).flat();
+  return getItemsByMainCategory("Weapons");
 }
 
-// Get onehand weapons
 export function getOneHandWeapons(): ItemData[] {
   return getWeaponItems().filter((item) => item.Category === "onehand");
 }
 
-// Get twohand weapons
 export function getTwoHandWeapons(): ItemData[] {
   return getWeaponItems().filter((item) => item.Category === "twohand");
 }
