@@ -6,10 +6,6 @@
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
-  padding: 1rem;
-  background: var(--panel);
-  border: 1px solid var(--cp-overlay2);
-  border-radius: 8px;
 }
 
 .filter-field {

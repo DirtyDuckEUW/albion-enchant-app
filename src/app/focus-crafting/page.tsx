@@ -14,18 +14,11 @@ import {
   MARKET_TAX,
 } from "@/lib/constants";
 import type { ItemData, Tier, Enchantment } from "@/types";
-import headArmorData from "../../albion-ids/head-armor.json";
-import chestArmorData from "../../albion-ids/chest-armor.json";
-import footArmorData from "../../albion-ids/foot-armor.json";
-import offHandsData from "../../albion-ids/off-hands.json";
+import { getAllItems } from "@/lib/itemsLoader";
+import ReturnRateInput from "@/components/ReturnRateInput/ReturnRateInput";
 
 // Combine all items for selection
-const ALL_ITEMS: ItemData[] = [
-  ...(headArmorData as ItemData[]),
-  ...(chestArmorData as ItemData[]),
-  ...(footArmorData as ItemData[]),
-  ...(offHandsData as ItemData[]),
-];
+const ALL_ITEMS: ItemData[] = getAllItems();
 
 export default function FocusCraftingPage() {
   const [selectedItem, setSelectedItem] = useLocalStorage<string>(
@@ -172,11 +165,8 @@ export default function FocusCraftingPage() {
   const handleCalculate = () => {
     const amountNum = parseFloat(amount) || 0;
 
-    // Get return rate (use custom input if selected, otherwise use dropdown value)
-    const rateValue =
-      returnRate === "custom"
-        ? parseFloat(returnRateInput) || 0
-        : parseFloat(returnRate) || 0;
+    // Get return rate
+    const rateValue = parseFloat(returnRate) || 0;
     const returnRateDecimal = rateValue / 100;
 
     // Calculate total quantities with return rate applied and rounded up
@@ -284,27 +274,10 @@ export default function FocusCraftingPage() {
           </select>
         </div>
 
-        <div className="filter-field">
-          <label>Return Rate (%)</label>
-          <div className="filter-combo">
-            <select
-              value={returnRate}
-              onChange={(e) => setReturnRate(e.target.value)}
-            >
-              <option value="47.92">47.92%</option>
-              <option value="57.49">57.49%</option>
-              <option value="custom">Custom</option>
-            </select>
-            <input
-              type="text"
-              inputMode="decimal"
-              value={returnRateInput}
-              onChange={(e) => setReturnRateInput(e.target.value)}
-              placeholder="Custom %"
-              disabled={returnRate !== "custom"}
-            />
-          </div>
-        </div>
+        <ReturnRateInput
+          returnRate={returnRate}
+          setReturnRate={setReturnRate}
+        />
       </div>
 
       <div className="resource-counts">

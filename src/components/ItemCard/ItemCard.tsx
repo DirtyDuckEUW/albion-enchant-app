@@ -20,9 +20,11 @@ export default function ItemCard({
 }: ItemCardProps) {
   const sellAfterTax = calculateSellAfterTax(sellPrice);
   const profit = Math.round(sellAfterTax - craftCost);
-  const profitPercentage = ((profit / sellPrice) * 100).toFixed(2);
+  const profitPercentage =
+    sellPrice > 0 ? ((profit / sellPrice) * 100).toFixed(2) : "0.00";
 
   const profitClass = profit >= 0 ? "profit positive" : "profit negative";
+  const showProfit = sellPrice > 0;
 
   return (
     <div className={`item-card ${uniqueName}`}>
@@ -54,9 +56,12 @@ export default function ItemCard({
 
         <div className="profit-row">
           <div className={profitClass}>
-            Profit: <strong>{profit.toLocaleString()}</strong>
+            Profit:{" "}
+            <strong>{showProfit ? profit.toLocaleString() : "-"}</strong>
           </div>
-          <div className={profitClass}>({profitPercentage}%)</div>
+          <div className={profitClass}>
+            ({showProfit ? `${profitPercentage}%` : "-"})
+          </div>
         </div>
       </div>
     </div>

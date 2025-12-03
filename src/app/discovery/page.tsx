@@ -12,10 +12,6 @@ import { calculateTotalCost } from "@/lib/calculations";
 import { useResourcePrices } from "@/hooks/useResourcePrices";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import {
-  HEAD_ARMOR,
-  CHEST_ARMOR,
-  FOOT_ARMOR,
-  OFF_HANDS,
   BRIDGEWATCH,
   LYMHURST,
   FORT_STERLING,
@@ -27,15 +23,15 @@ import {
   TIER_6,
   TIER_7,
   TIER_8,
-  ONEHAND_WEAPONS,
-  TWOHAND_WEAPONS,
 } from "@/lib/constants";
-import headArmorData from "../../albion-ids/head-armor.json";
-import chestArmorData from "../../albion-ids/chest-armor.json";
-import footArmorData from "../../albion-ids/foot-armor.json";
-import offHandsData from "../../albion-ids/off-hands.json";
-import onehandWeaponsData from "../../albion-ids/onehand_weapons.json";
-import twohandWeapons from "../../albion-ids/twohand_weapons.json";
+import {
+  getHeadArmorItems,
+  getChestArmorItems,
+  getFootArmorItems,
+  getOffHandItems,
+  getOneHandWeapons,
+  getTwoHandWeapons,
+} from "@/lib/itemsLoader";
 import { ITEM_COUNTS } from "@/lib/utility";
 import type { ItemKey } from "@/types";
 
@@ -50,12 +46,12 @@ type CategoryKey = Extract<
 >;
 
 const CATEGORY_DATA: Record<CategoryKey, ItemData[]> = {
-  [HEAD_ARMOR]: headArmorData as ItemData[],
-  [CHEST_ARMOR]: chestArmorData as ItemData[],
-  [FOOT_ARMOR]: footArmorData as ItemData[],
-  [OFF_HANDS]: offHandsData as ItemData[],
-  [ONEHAND_WEAPONS]: onehandWeaponsData as ItemData[],
-  [TWOHAND_WEAPONS]: twohandWeapons as ItemData[],
+  head_armor: getHeadArmorItems(),
+  chest_armor: getChestArmorItems(),
+  foot_armor: getFootArmorItems(),
+  off_hands: getOffHandItems(),
+  onehand_weapons: getOneHandWeapons(),
+  twohand_weapons: getTwoHandWeapons(),
 };
 
 export default function DiscoveryPage() {
@@ -65,9 +61,11 @@ export default function DiscoveryPage() {
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
   const [selectedCategory, setSelectedCategory] = useLocalStorage<CategoryKey>(
     "discovery_category",
-    OFF_HANDS as CategoryKey
+    "off_hands" as CategoryKey
   );
   const [selectedTier, setSelectedTier] = useLocalStorage<string>(
     "discovery_tier",
@@ -77,11 +75,19 @@ export default function DiscoveryPage() {
     "discovery_location",
     LYMHURST
   );
+  const [selectedEnchantment, setSelectedEnchantment] = useLocalStorage<string>(
+    "discovery_enchantment",
+    "0"
+  );
   const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
   const [forceUpdate, setForceUpdate] = useState<boolean>(false);
 
   const { prices: resourcePrices, loading: resourceLoading } =
     useResourcePrices();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleReload = () => {
     setRefreshTrigger((prev) => prev + 1);
@@ -105,12 +111,12 @@ export default function DiscoveryPage() {
         // Sende für jedes Item einen einzelnen API-Request
         for (const item of items) {
           try {
-            const itemNameWithTier = `${selectedTier}_${item.UniqueName}`;
-            const itemNameWithTierAndQuality = `${selectedTier}_${item.UniqueName}@3`;
+            // For enchanted items, use @X
+            const itemNameWithTierAndEnchantment = `${selectedTier}_${item.UniqueName}@${selectedEnchantment}`;
 
             // Use cached price service (skip cache if force update)
             const data = await getItemPriceWithCache(
-              itemNameWithTierAndQuality,
+              itemNameWithTierAndEnchantment,
               selectedLocation,
               forceUpdate
             );
@@ -152,7 +158,13 @@ export default function DiscoveryPage() {
     }
 
     fetchPrices();
-  }, [selectedCategory, selectedTier, selectedLocation, refreshTrigger]);
+  }, [
+    selectedCategory,
+    selectedTier,
+    selectedLocation,
+    selectedEnchantment,
+    refreshTrigger,
+  ]);
 
   return (
     <main className="page discovery-page">
@@ -168,12 +180,12 @@ export default function DiscoveryPage() {
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value as CategoryKey)}
           >
-            <option value={HEAD_ARMOR}>Head Armor</option>
-            <option value={CHEST_ARMOR}>Chest Armor</option>
-            <option value={FOOT_ARMOR}>Foot Armor</option>
-            <option value={OFF_HANDS}>Off Hands</option>
-            <option value={ONEHAND_WEAPONS}>One Handed Weapons</option>
-            <option value={TWOHAND_WEAPONS}>Two Handed Weapons</option>
+            <option value="head_armor">Head Armor</option>
+            <option value="chest_armor">Chest Armor</option>
+            <option value="foot_armor">Foot Armor</option>
+            <option value="off_hands">Off Hands</option>
+            <option value="onehand_weapons">One Handed Weapons</option>
+            <option value="twohand_weapons">Two Handed Weapons</option>
           </select>
         </div>
 
@@ -192,6 +204,18 @@ export default function DiscoveryPage() {
         </div>
 
         <div className="filter-field">
+          <label>Enchantment</label>
+          <select
+            value={selectedEnchantment}
+            onChange={(e) => setSelectedEnchantment(e.target.value)}
+          >
+            <option value="1">.1</option>
+            <option value="2">.2</option>
+            <option value="3">.3</option>
+          </select>
+        </div>
+
+        <div className="filter-field">
           <label>Location</label>
           <select
             value={selectedLocation}
@@ -202,7 +226,6 @@ export default function DiscoveryPage() {
             <option value={FORT_STERLING}>Fort Sterling</option>
             <option value={MARTLOCK}>Martlock</option>
             <option value={THETFORD}>Thetford</option>
-            <option value={CAERLEON}>Caerleon</option>
           </select>
         </div>
 
@@ -225,38 +248,44 @@ export default function DiscoveryPage() {
         </div>
       </div>
 
-      <section className="example-cards" style={{ marginTop: "1rem" }}>
-        {(CATEGORY_DATA[selectedCategory] || []).map((item) => {
-          const itemNameWithTierAndQuality = `${selectedTier}_${item.UniqueName}@3`;
-          const priceData = prices[itemNameWithTierAndQuality];
-          const artifactPrice = artifactPrices[item.UniqueName] || 0;
+      {!mounted ? (
+        <p className="muted">Loading...</p>
+      ) : (
+        <section className="example-cards" style={{ marginTop: "1rem" }}>
+          {(CATEGORY_DATA[selectedCategory] || []).map((item) => {
+            // For enchanted items, use @X
+            const itemNameWithTierAndEnchantment = `${selectedTier}_${item.UniqueName}@${selectedEnchantment}`;
+            const priceData = prices[itemNameWithTierAndEnchantment];
+            const artifactPrice = artifactPrices[item.UniqueName] || 0;
 
-          const totalCost = calculateTotalCost(
-            selectedTier as any,
-            ITEM_COUNTS[selectedCategory],
-            {
-              cloth: item.Crafting.Cloth,
-              leather: item.Crafting.Leather,
-              metalBar: item.Crafting.Metal_Bars,
-              planks: item.Crafting.Planks,
-              artifact: artifactPrice,
-            },
-            resourcePrices
-          );
-          const sellPrice = priceData?.sell_price_min || 0;
+            const totalCost = calculateTotalCost(
+              selectedTier as any,
+              ITEM_COUNTS[selectedCategory],
+              {
+                cloth: item.Crafting.Cloth,
+                leather: item.Crafting.Leather,
+                metalBar: item.Crafting.Metal_Bars,
+                planks: item.Crafting.Planks,
+                artifact: artifactPrice,
+              },
+              resourcePrices,
+              selectedEnchantment
+            );
+            const sellPrice = priceData?.sell_price_min || 0;
 
-          return (
-            <ItemCard
-              key={item.UniqueName}
-              uniqueName={itemNameWithTierAndQuality}
-              name={item.Name}
-              artefactCost={artifactPrice}
-              craftCost={totalCost}
-              sellPrice={sellPrice}
-            />
-          );
-        })}
-      </section>
+            return (
+              <ItemCard
+                key={item.UniqueName}
+                uniqueName={itemNameWithTierAndEnchantment}
+                name={item.Name}
+                artefactCost={artifactPrice}
+                craftCost={totalCost}
+                sellPrice={sellPrice}
+              />
+            );
+          })}
+        </section>
+      )}
     </main>
   );
 }

@@ -6,10 +6,6 @@
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
-  padding: 1rem;
-  background: var(--panel);
-  border: 1px solid var(--cp-overlay2);
-  border-radius: 8px;
 }
 
 .filter-field {
@@ -101,10 +97,6 @@
 
 .resource-counts {
   margin-top: 1rem;
-  padding: 0.75rem;
-  background: var(--cp-surface0);
-  border-radius: 6px;
-  border: 1px solid var(--cp-overlay2);
 }
 
 .resource-counts p {

@@ -42,6 +42,7 @@ export interface ResourcePrice {
 export interface ItemData {
   Name: string;
   UniqueName: string;
+  Category?: "onehand" | "twohand";
   Crafting: {
     Cloth: number;
     Leather: number;

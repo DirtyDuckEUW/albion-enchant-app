@@ -31,10 +31,11 @@ export function calculateTotalCost(
   tier: Tier,
   count: number,
   costs: CraftingCosts,
-  prices: ResourcePriceMap
+  prices: ResourcePriceMap,
+  enchantment: string = "0"
 ) {
   return (
-    calculateArtifactCost(tier, count, prices) +
+    calculateArtifactCost(tier, count, prices, enchantment) +
     calculateCraftingCost(tier, costs, prices)
   );
 }
@@ -42,15 +43,31 @@ export function calculateTotalCost(
 export function calculateArtifactCost(
   tier: Tier,
   count: number,
-  prices: ResourcePriceMap
+  prices: ResourcePriceMap,
+  enchantment: string = "0"
 ): number {
   const runePriceForTier = parseNumber(prices.runes?.[tier]?.["0"] ?? 0);
   const soulPriceForTier = parseNumber(prices.souls?.[tier]?.["0"] ?? 0);
   const relicPriceForTier = parseNumber(prices.relics?.[tier]?.["0"] ?? 0);
 
-  const runeCost = runePriceForTier * count;
-  const soulCost = soulPriceForTier * count;
-  const relicCost = relicPriceForTier * count;
+  let runeCost = 0;
+  let soulCost = 0;
+  let relicCost = 0;
+
+  // Based on enchantment level:
+  // .0 = no runes/souls/relics
+  // .1 = only runes
+  // .2 = runes + souls
+  // .3 = runes + souls + relics
+  if (enchantment === "1" || enchantment === "2" || enchantment === "3") {
+    runeCost = runePriceForTier * count;
+  }
+  if (enchantment === "2" || enchantment === "3") {
+    soulCost = soulPriceForTier * count;
+  }
+  if (enchantment === "3") {
+    relicCost = relicPriceForTier * count;
+  }
 
   return runeCost + soulCost + relicCost;
 }
@@ -108,7 +125,12 @@ export function calculateProfit(input: CalculationInput): {
     input.prices
   );
 
-  const artifactTotal = calculateArtifactCost(input.tier, count, input.prices);
+  const artifactTotal = calculateArtifactCost(
+    input.tier,
+    count,
+    input.prices,
+    "0"
+  );
 
   const materialTotal = calculateCraftingCost(
     input.tier,

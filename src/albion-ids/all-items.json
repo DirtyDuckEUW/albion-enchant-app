@@ -98,22 +98,1477 @@
         }
       }
     ],
-    "Axe": [],
-    "Mace": [],
-    "Hammer": [],
-    "War Gloves": [],
-    "Crossbow": [],
-    "Bow": [],
-    "Dagger": [],
-    "Spear": [],
-    "Quarterstaff": [],
+    "Axe": [
+      {
+        "Name": "Battleaxe",
+        "UniqueName": "MAIN_AXE",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 16,
+          "Planks": 8,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Greataxe",
+        "UniqueName": "2H_AXE",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 12,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Halberd",
+        "UniqueName": "2H_HALBERD",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Carrioncaller",
+        "UniqueName": "2H_HALBERD_MORGANA",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_HALBERD_MORGANA"
+        }
+      },
+      {
+        "Name": "Infernal Scythe",
+        "UniqueName": "2H_SCYTHE_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 12,
+          "Artifact": "ARTEFACT_2H_SCYTHE_HELL"
+        }
+      },
+      {
+        "Name": "Bear Paws",
+        "UniqueName": "2H_DUALAXE_KEEPER",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 12,
+          "Artifact": "ARTEFACT_2H_DUALAXE_KEEPER"
+        }
+      },
+      {
+        "Name": "Realmbreaker",
+        "UniqueName": "2H_AXE_AVALON",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 12,
+          "Artifact": "ARTEFACT_2H_AXE_AVALON"
+        }
+      },
+      {
+        "Name": "Crystal Reaper",
+        "UniqueName": "2H_SCYTHE_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 12,
+          "Artifact": "ARTEFACT_2H_SCYTHE_CRYSTAL"
+        }
+      }
+    ],
+    "Mace": [
+      {
+        "Name": "Mace",
+        "UniqueName": "MAIN_MACE",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 8,
+          "Leather": 0,
+          "Metal_Bars": 16,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Heavy Mace",
+        "UniqueName": "2H_MACE",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Morning Star",
+        "UniqueName": "2H_FLAIL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "BedRock Mace",
+        "UniqueName": "MAIN_ROCKMACE_KEEPER",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 8,
+          "Leather": 0,
+          "Metal_Bars": 16,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_MAIN_ROCKMACE_KEEPER"
+        }
+      },
+      {
+        "Name": "Incubus Mace",
+        "UniqueName": "MAIN_MACE_HELL",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 8,
+          "Leather": 0,
+          "Metal_Bars": 16,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_MAIN_MACE_HELL"
+        }
+      },
+      {
+        "Name": "Camlann Mace",
+        "UniqueName": "2H_MACE_MORGANA",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_MACE_MORGANA"
+        }
+      },
+      {
+        "Name": "Oathkeepers",
+        "UniqueName": "2H_DUALMACE_AVALON",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_DUALMACE_AVALON"
+        }
+      },
+      {
+        "Name": "Dreadstorm Monarch",
+        "UniqueName": "MAIN_MACE_CRYSTAL",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 8,
+          "Leather": 0,
+          "Metal_Bars": 16,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_MAIN_MACE_CRYSTAL"
+        }
+      }
+    ],
+    "Hammer": [
+      {
+        "Name": "Hammer",
+        "UniqueName": "MAIN_HAMMER",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 24,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Polehammer",
+        "UniqueName": "2H_POLEHAMMER",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Great Hammer",
+        "UniqueName": "2H_HAMMER",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Tombhammer",
+        "UniqueName": "2H_HAMMER_UNDEAD",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_HAMMER_UNDEAD"
+        }
+      },
+      {
+        "Name": "Forge Hammers",
+        "UniqueName": "2H_DUALHAMMER_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_DUALHAMMER_HELL"
+        }
+      },
+      {
+        "Name": "Grovekeeper",
+        "UniqueName": "2H_RAM_KEEPER",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_RAM_KEEPER"
+        }
+      },
+      {
+        "Name": "Hand of Justice",
+        "UniqueName": "2H_HAMMER_AVALON",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_HAMMER_AVALON"
+        }
+      },
+      {
+        "Name": "Truebolt Hammer",
+        "UniqueName": "2H_HAMMER_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_HAMMER_CRYSTAL"
+        }
+      }
+    ],
+    "War Gloves": [
+      {
+        "Name": "Brawler Gloves",
+        "UniqueName": "2H_KNUCKLES_SET1",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Battle Bracers",
+        "UniqueName": "2H_KNUCKLES_SET2",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Spiked Gauntlets",
+        "UniqueName": "2H_KNUCKLES_SET3",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Ursine Maulers",
+        "UniqueName": "2H_KNUCKLES_KEEPER",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_KNUCKLES_KEEPER"
+        }
+      },
+      {
+        "Name": "Hellfire Hands",
+        "UniqueName": "2H_KNUCKLES_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_KNUCKLES_HELL"
+        }
+      },
+      {
+        "Name": "Ravenstrike Cestus",
+        "UniqueName": "2H_KNUCKLES_MORGANA",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_KNUCKLES_MORGANA"
+        }
+      },
+      {
+        "Name": "Fists of Avalon",
+        "UniqueName": "2H_KNUCKLES_AVALON",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_KNUCKLES_AVALON"
+        }
+      },
+      {
+        "Name": "Forcepulse Bracers",
+        "UniqueName": "2H_KNUCKLES_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_KNUCKLES_CRYSTAL"
+        }
+      }
+    ],
+    "Crossbow": [
+      {
+        "Name": "Crossbow",
+        "UniqueName": "2H_CROSSBOW",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Heavy Crossbow",
+        "UniqueName": "2H_CROSSBOWLARGE",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Light Crossbow",
+        "UniqueName": "MAIN_1HCROSSBOW",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Weeping Repeater",
+        "UniqueName": "2H_REPEATINGCROSSBOW_UNDEAD",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_REPEATINGCROSSBOW_UNDEAD"
+        }
+      },
+      {
+        "Name": "Boltcasters",
+        "UniqueName": "2H_DUALCROSSBOW_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_DUALCROSSBOW_HELL"
+        }
+      },
+      {
+        "Name": "Siegebow",
+        "UniqueName": "2H_CROSSBOWLARGE_MORGANA",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_CROSSBOWLARGE_MORGANA"
+        }
+      },
+      {
+        "Name": "Energy Shaper",
+        "UniqueName": "2H_CROSSBOW_CANNON_AVALON",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_CROSSBOW_CANNON_AVALON"
+        }
+      },
+      {
+        "Name": "Arclight Blasters",
+        "UniqueName": "2H_DUALCROSSBOW_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_DUALCROSSBOW_CRYSTAL"
+        }
+      }
+    ],
+    "Bow": [
+      {
+        "Name": "Bow",
+        "UniqueName": "2H_BOW",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 32,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Warbow",
+        "UniqueName": "2H_WARBOW",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 32,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Longbow",
+        "UniqueName": "2H_LONGBOW",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 32,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Whispering Bow",
+        "UniqueName": "2H_LONGBOW_UNDEAD",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 32,
+          "Artifact": "ARTEFACT_2H_LONGBOW_UNDEAD"
+        }
+      },
+      {
+        "Name": "Wailing Bow",
+        "UniqueName": "2H_BOW_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 32,
+          "Artifact": "ARTEFACT_2H_BOW_HELL"
+        }
+      },
+      {
+        "Name": "Bow of Badon",
+        "UniqueName": "2H_BOW_KEEPER",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 32,
+          "Artifact": "ARTEFACT_2H_BOW_KEEPER"
+        }
+      },
+      {
+        "Name": "Mistpiercer",
+        "UniqueName": "2H_BOW_AVALON",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 32,
+          "Artifact": "ARTEFACT_2H_BOW_AVALON"
+        }
+      },
+      {
+        "Name": "Skystrider Bow",
+        "UniqueName": "2H_BOW_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 32,
+          "Artifact": "ARTEFACT_2H_BOW_CRYSTAL"
+        }
+      }
+    ],
+    "Dagger": [
+      {
+        "Name": "Dagger",
+        "UniqueName": "MAIN_DAGGER",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 12,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Dagger Pair",
+        "UniqueName": "2H_DAGGERPAIR",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 16,
+          "Metal_Bars": 16,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Claws",
+        "UniqueName": "2H_CLAWPAIR",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Bloodletter",
+        "UniqueName": "MAIN_RAPIER_MORGANA",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 8,
+          "Metal_Bars": 16,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_MAIN_RAPIER_MORGANA"
+        }
+      },
+      {
+        "Name": "Demonfang",
+        "UniqueName": "MAIN_DAGGER_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 12,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_MAIN_DAGGER_HELL"
+        }
+      },
+      {
+        "Name": "Deathgivers",
+        "UniqueName": "2H_DUALSICKLE_UNDEAD",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 16,
+          "Metal_Bars": 16,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_DUALSICKLE_UNDEAD"
+        }
+      },
+      {
+        "Name": "Bridled Fury",
+        "UniqueName": "2H_DAGGER_KATAR_AVALON",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_DAGGER_KATAR_AVALON"
+        }
+      },
+      {
+        "Name": "Twin Slayers",
+        "UniqueName": "2H_DAGGERPAIR_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 16,
+          "Metal_Bars": 16,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_DAGGERPAIR_CRYSTAL"
+        }
+      }
+    ],
+    "Spear": [
+      {
+        "Name": "Spear",
+        "UniqueName": "MAIN_SPEAR",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Pike",
+        "UniqueName": "2H_SPEAR",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Glaive",
+        "UniqueName": "2H_GLAIVE",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 12,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Heron Spear",
+        "UniqueName": "MAIN_SPEAR_KEEPER",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_SPEAR_KEEPER"
+        }
+      },
+      {
+        "Name": "Spirithunter",
+        "UniqueName": "2H_HARPOON_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_HARPOON_HELL"
+        }
+      },
+      {
+        "Name": "Trinity Spear",
+        "UniqueName": "2H_TRIDENT_UNDEAD",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_TRIDENT_UNDEAD"
+        }
+      },
+      {
+        "Name": "Daybreaker",
+        "UniqueName": "MAIN_SPEAR_LANCE_AVALON",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_SPEAR_LANCE_AVALON"
+        }
+      },
+      {
+        "Name": "Rift Glaive",
+        "UniqueName": "2H_GLAIVE_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 20,
+          "Planks": 12,
+          "Artifact": "ARTEFACT_2H_GLAIVE_CRYSTAL"
+        }
+      }
+    ],
+    "Quarterstaff": [
+      {
+        "Name": "Quarterstaff",
+        "UniqueName": "2H_QUARTERSTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Iron-clad Staff",
+        "UniqueName": "2H_IRONCLADEDSTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Double Bladed Staff",
+        "UniqueName": "2H_DOUBLEBLADEDSTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Black Monk Stave",
+        "UniqueName": "2H_COMBATSTAFF_MORGANA",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_COMBATSTAFF_MORGANA"
+        }
+      },
+      {
+        "Name": "Soulscythe",
+        "UniqueName": "2H_TWINSCYTHE_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_TWINSCYTHE_HELL"
+        }
+      },
+      {
+        "Name": "Staff of Balance",
+        "UniqueName": "2H_ROCKSTAFF_KEEPER",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_ROCKSTAFF_KEEPER"
+        }
+      },
+      {
+        "Name": "Grailseeker",
+        "UniqueName": "2H_QUARTERSTAFF_AVALON",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_QUARTERSTAFF_AVALON"
+        }
+      },
+      {
+        "Name": "Phantom Twinblade",
+        "UniqueName": "2H_DOUBLEBLADEDSTAFF_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 20,
+          "Metal_Bars": 12,
+          "Planks": 0,
+          "Artifact": "ARTEFACT_2H_DOUBLEBLADEDSTAFF_CRYSTAL"
+        }
+      }
+    ],
     "Shapeshifter": [],
-    "Nature Staff": [],
-    "Fire Staff": [],
-    "Holy Staff": [],
-    "Arcane Staff": [],
-    "Frost Staff": [],
-    "Curesed Staff": []
+    "Nature Staff": [
+      {
+        "Name": "Nature Staff",
+        "UniqueName": "MAIN_NATURESTAFF",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 8,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 16,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Great Nature Staff",
+        "UniqueName": "2H_NATURESTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Wild Staff",
+        "UniqueName": "2H_WILDSTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Druidic Staff",
+        "UniqueName": "MAIN_NATURESTAFF_KEEPER",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 8,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_NATURESTAFF_KEEPER"
+        }
+      },
+      {
+        "Name": "Blight Staff",
+        "UniqueName": "2H_NATURESTAFF_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_NATURESTAFF_HELL"
+        }
+      },
+      {
+        "Name": "Rampant Staff",
+        "UniqueName": "2H_NATURESTAFF_KEEPER",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_NATURESTAFF_KEEPER"
+        }
+      },
+      {
+        "Name": "Ironroot Staff",
+        "UniqueName": "MAIN_NATURESTAFF_AVALON",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 8,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_NATURESTAFF_AVALON"
+        }
+      },
+      {
+        "Name": "Forgebark Staff",
+        "UniqueName": "MAIN_NATURESTAFF_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 8,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_NATURESTAFF_CRYSTAL"
+        }
+      }
+    ],
+    "Fire Staff": [
+      {
+        "Name": "Fire Staff",
+        "UniqueName": "MAIN_FIRESTAFF",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Great Fire Staff",
+        "UniqueName": "2H_FIRESTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Infernal Staff",
+        "UniqueName": "2H_INFERNOSTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Wildfire Staff",
+        "UniqueName": "MAIN_FIRESTAFF_KEEPER",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_FIRESTAFF_KEEPER"
+        }
+      },
+      {
+        "Name": "Brimstone Staff",
+        "UniqueName": "2H_FIRESTAFF_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_FIRESTAFF_HELL"
+        }
+      },
+      {
+        "Name": "Blazing Staff",
+        "UniqueName": "2H_INFERNOSTAFF_MORGANA",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_INFERNOSTAFF_MORGANA"
+        }
+      },
+      {
+        "Name": "Dawnsong",
+        "UniqueName": "2H_FIRE_RINGPAIR_AVALON",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_FIRE_RINGPAIR_AVALON"
+        }
+      },
+      {
+        "Name": "Flamewalker Staff",
+        "UniqueName": "MAIN_FIRESTAFF_CRYSTAL",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_FIRESTAFF_CRYSTAL"
+        }
+      }
+    ],
+    "Holy Staff": [
+      {
+        "Name": "Holy Staff",
+        "UniqueName": "MAIN_HOLYSTAFF",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 8,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 16,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Great Holy Staff",
+        "UniqueName": "2H_HOLYSTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Divine Staff",
+        "UniqueName": "2H_DIVINESTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Lifetouch Staff",
+        "UniqueName": "MAIN_HOLYSTAFF_MORGANA",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 8,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_HOLYSTAFF_MORGANA"
+        }
+      },
+      {
+        "Name": "Fallen Staff",
+        "UniqueName": "2H_HOLYSTAFF_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_HOLYSTAFF_HELL"
+        }
+      },
+      {
+        "Name": "Redemption Staff",
+        "UniqueName": "2H_HOLYSTAFF_UNDEAD",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_HOLYSTAFF_UNDEAD"
+        }
+      },
+      {
+        "Name": "Hallowfall",
+        "UniqueName": "MAIN_HOLYSTAFF_AVALON",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 8,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_HOLYSTAFF_AVALON"
+        }
+      },
+      {
+        "Name": "Exalted Staff",
+        "UniqueName": "2H_HOLYSTAFF_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 12,
+          "Leather": 0,
+          "Metal_Bars": 0,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_HOLYSTAFF_CRYSTAL"
+        }
+      }
+    ],
+    "Arcane Staff": [
+      {
+        "Name": "Arcane Staff",
+        "UniqueName": "MAIN_ARCANESTAFF",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Great Arcane Staff",
+        "UniqueName": "2H_ARCANESTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Enigmatic Staff",
+        "UniqueName": "2H_ENIGMATICSTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Witchwork Staff",
+        "UniqueName": "MAIN_ARCANESTAFF_UNDEAD",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_ARCANESTAFF_UNDEAD"
+        }
+      },
+      {
+        "Name": "Occult Staff",
+        "UniqueName": "2H_ARCANESTAFF_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_ARCANESTAFF_HELL"
+        }
+      },
+      {
+        "Name": "Malevolent Locus",
+        "UniqueName": "2H_ENIGMATICORB_MORGANA",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_ENIGMATICORB_MORGANA"
+        }
+      },
+      {
+        "Name": "Evensong",
+        "UniqueName": "2H_ARCANE_RINGPAIR_AVALON",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_ARCANE_RINGPAIR_AVALON"
+        }
+      },
+      {
+        "Name": "Astral Staff",
+        "UniqueName": "2H_ARCANESTAFF_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_2H_ARCANESTAFF_CRYSTAL"
+        }
+      }
+    ],
+    "Frost Staff": [
+      {
+        "Name": "Frost Staff",
+        "UniqueName": "MAIN_FROSTSTAFF",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Great Frost Staff",
+        "UniqueName": "2H_FROSTSTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Glacial Staff",
+        "UniqueName": "2H_GLACIALSTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Hoarfrost Staff",
+        "UniqueName": "MAIN_FROSTSTAFF_KEEPER",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_FROSTSTAFF_KEEPER"
+        }
+      },
+      {
+        "Name": "Icicle Staff",
+        "UniqueName": "2H_ICEGAUNTLETS_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_ICEGAUNTLETS_HELL"
+        }
+      },
+      {
+        "Name": "Permafrost Prism",
+        "UniqueName": "2H_ICECRYSTAL_UNDEAD",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_ICECRYSTAL_UNDEAD"
+        }
+      },
+      {
+        "Name": "Chillhowl",
+        "UniqueName": "MAIN_FROSTSTAFF_AVALON",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_FROSTSTAFF_AVALON"
+        }
+      },
+      {
+        "Name": "Arctic Staff",
+        "UniqueName": "2H_FROSTSTAFF_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_2H_FROSTSTAFF_CRYSTAL"
+        }
+      }
+    ],
+    "Cursed Staff": [
+      {
+        "Name": "Cursed Staff",
+        "UniqueName": "MAIN_CURSEDSTAFF",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Great Cursed Staff",
+        "UniqueName": "2H_CURSEDSTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Demonic Staff",
+        "UniqueName": "2H_DEMONICSTAFF",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": ""
+        }
+      },
+      {
+        "Name": "Lifecurse Staff",
+        "UniqueName": "MAIN_CURSEDSTAFF_UNDEAD",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_CURSEDSTAFF_UNDEAD"
+        }
+      },
+      {
+        "Name": "Cursed Skull",
+        "UniqueName": "2H_SKULLORB_HELL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_SKULLORB_HELL"
+        }
+      },
+      {
+        "Name": "Damnation Staff",
+        "UniqueName": "2H_CURSEDSTAFF_MORGANA",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 12,
+          "Planks": 20,
+          "Artifact": "ARTEFACT_2H_CURSEDSTAFF_MORGANA"
+        }
+      },
+      {
+        "Name": "Shadowcaller",
+        "UniqueName": "MAIN_CURSEDSTAFF_AVALON",
+        "Category": "onehand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_CURSEDSTAFF_AVALON"
+        }
+      },
+      {
+        "Name": "Rotcaller Staff",
+        "UniqueName": "MAIN_CURSEDSTAFF_CRYSTAL",
+        "Category": "twohand",
+        "Crafting": {
+          "Cloth": 0,
+          "Leather": 0,
+          "Metal_Bars": 8,
+          "Planks": 16,
+          "Artifact": "ARTEFACT_MAIN_CURSEDSTAFF_CRYSTAL"
+        }
+      }
+    ]
   },
   "Head Armor": {
     "Cloth Helmet": [
