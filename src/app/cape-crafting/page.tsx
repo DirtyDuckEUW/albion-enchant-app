@@ -632,8 +632,7 @@ export default function CapeCraftingPage() {
             const heartQuantity = heartQuantityMap[selectedTier] || 1;
 
             // Calculate per-item craft cost for profit calculation
-            const perItemCraftCost =
-              capeAmount > 0 ? Math.round(craftCost / capeAmount) : 0;
+            const perItemCraftCost = Math.round(craftCost / capeAmount);
 
             return (
               <CapeCard
