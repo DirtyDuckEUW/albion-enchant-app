@@ -65,12 +65,14 @@ export default function LongTermItemCard({
       <div className="card-field">
         <label>Amount/Day</label>
         <input
-          type="text"
-          inputMode="decimal"
+          type="number"
+          min="0"
+          step="1"
           value={amountPerDay}
-          onChange={(e) =>
-            onAmountPerDayChange(parseFloat(e.target.value) || 0)
-          }
+          onChange={(e) => {
+            const val = parseInt(e.target.value, 10);
+            onAmountPerDayChange(isNaN(val) ? 0 : val);
+          }}
         />
       </div>
       <div className="card-field">

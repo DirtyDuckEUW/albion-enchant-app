@@ -10,8 +10,9 @@ import type {
   ProfitCalculation,
   BulkProfitCalculation,
   ReturnRateOption,
-  RETURN_RATES,
 } from "@/types/shared";
+
+import { RETURN_RATES } from "@/types/shared";
 
 // Legacy imports for backward compatibility
 import type { Tier, ItemKey, PriceBreakdown, ResourcePriceMap } from "@/types";
@@ -30,12 +31,12 @@ import {
  * Get decimal return rate from option
  */
 export function getReturnRateDecimal(returnRate: ReturnRateOption): number {
-  const rates: typeof RETURN_RATES = {
-    "43.50": { value: "43.50", decimal: 0.435, percentage: "43.50%" },
-    "47.92": { value: "47.92", decimal: 0.4792, percentage: "47.92%" },
-    "57.49": { value: "57.49", decimal: 0.5749, percentage: "57.49%" },
-  };
-  return rates[returnRate].decimal;
+  if (!returnRate) {
+    console.warn("returnRate is undefined, using default 47.92");
+    returnRate = "47.92";
+  }
+
+  return RETURN_RATES[returnRate]?.decimal || 0.4792;
 }
 
 /**
@@ -111,26 +112,63 @@ export function calculateCraftCostWithReturnRate(
 ): number {
   if (!item.Crafting) return 0;
 
+  const crafting = item.Crafting;
+  const returnRateDecimal = getReturnRateDecimal(returnRate);
+
   // Main resource (artifact) - no return rate
   const mainResourceCost = artifactPrice * amount;
 
-  // Additional resources with return rate
-  const additionalResourcesCost = (
-    item.Crafting.AdditionalResources || []
-  ).reduce((sum: number, resource: any) => {
-    const price = resourcePrices[resource.Resource] || 0;
-    const quantityNeeded = calculateResourceWithReturnRate(
-      resource.Count,
-      amount,
-      returnRate
+  // Calculate resource costs with return rate
+  let resourceCost = 0;
+
+  // Check if using legacy format (Cloth, Leather, Metal_Bars, Planks)
+  if (crafting.Cloth !== undefined || crafting.Leather !== undefined) {
+    // Legacy format from all-items.json
+    const resourceTypes = [
+      { key: "CLOTH", count: crafting.Cloth || 0 },
+      { key: "LEATHER", count: crafting.Leather || 0 },
+      { key: "METALBAR", count: crafting.Metal_Bars || 0 },
+      { key: "PLANKS", count: crafting.Planks || 0 },
+    ];
+
+    resourceTypes.forEach(({ key, count }) => {
+      if (count > 0) {
+        // Build resource key - need tier and enchantment from resourcePrices
+        // Find matching key in resourcePrices
+        const matchingKey = Object.keys(resourcePrices).find((k) =>
+          k.includes(key)
+        );
+        if (matchingKey) {
+          const price = resourcePrices[matchingKey] || 0;
+          const quantityNeeded = calculateResourceWithReturnRate(
+            count,
+            amount,
+            returnRate
+          );
+          resourceCost += price * quantityNeeded;
+        }
+      }
+    });
+  } else if (crafting.AdditionalResources) {
+    // New format with AdditionalResources
+    resourceCost = crafting.AdditionalResources.reduce(
+      (sum: number, resource: any) => {
+        const price = resourcePrices[resource.Resource] || 0;
+        const quantityNeeded = calculateResourceWithReturnRate(
+          resource.Count,
+          amount,
+          returnRate
+        );
+        return sum + price * quantityNeeded;
+      },
+      0
     );
-    return sum + price * quantityNeeded;
-  }, 0);
+  }
 
   // Silver cost
-  const silverCost = (item.Crafting.Silver || 0) * amount;
+  const silverCost = (crafting.Silver || 0) * amount;
 
-  return mainResourceCost + additionalResourcesCost + silverCost;
+  return mainResourceCost + resourceCost + silverCost;
 }
 
 // ============================================================================

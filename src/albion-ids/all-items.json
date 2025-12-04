@@ -2591,5 +2591,145 @@
         }
       }
     ]
+  },
+  "Capes": {
+    "Cape": [
+      {
+        "Name": "Cape",
+        "UniqueName": "CAPE",
+        "Crafting": {
+          "Cloth": 4,
+          "Leather": 4,
+          "Metal_Bars": 0,
+          "Planks": 0
+        }
+      },
+      {
+        "Name": "Bridgewatch Cape",
+        "UniqueName": "CAPEITEM_FW_BRIDGEWATCH",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_FW_BRIDGEWATCH_BP",
+          "Heart": "T1_FACTION_STEPPE_TOKEN_1"
+        }
+      },
+      {
+        "Name": "Fort Sterling Cape",
+        "UniqueName": "CAPEITEM_FW_FORTSTERLING",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_FW_FORTSTERLING_BP",
+          "Heart": "T1_FACTION_MOUNTAIN_TOKEN_1"
+        }
+      },
+      {
+        "Name": "Lymhurst Cape",
+        "UniqueName": "CAPEITEM_FW_LYMHURST",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_FW_LYMHURST_BP",
+          "Heart": "T1_FACTION_FOREST_TOKEN_1"
+        }
+      },
+      {
+        "Name": "Martlock Cape",
+        "UniqueName": "CAPEITEM_FW_MARTLOCK",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_FW_MARTLOCK_BP",
+          "Heart": "T1_FACTION_HIGHLAND_TOKEN_1"
+        }
+      },
+      {
+        "Name": "Thetford Cape",
+        "UniqueName": "CAPEITEM_FW_THETFORD",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_FW_THETFORD_BP",
+          "Heart": "T1_FACTION_SWAMP_TOKEN_1"
+        }
+      },
+      {
+        "Name": "Caerleon Cape",
+        "UniqueName": "CAPEITEM_FW_CAERLEON",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_FW_CAERLEON_BP",
+          "Heart": "T1_FACTION_CAERLEON_TOKEN_1"
+        }
+      },
+      {
+        "Name": "Brecilien Cape",
+        "UniqueName": "CAPEITEM_FW_BRECILIEN",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_FW_BRECILIEN_BP",
+          "Heart": "QUESTITEM_TOKEN_MISTS"
+        }
+      },
+      {
+        "Name": "Heretic Cape",
+        "UniqueName": "CAPEITEM_HERETIC",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_HERETIC_BP",
+          "Heart": "T1_FACTION_FOREST_TOKEN_1"
+        }
+      },
+      {
+        "Name": "Undead Cape",
+        "UniqueName": "CAPEITEM_UNDEAD",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_UNDEAD_BP",
+          "Heart": "T1_FACTION_MOUNTAIN_TOKEN_1"
+        }
+      },
+      {
+        "Name": "Keeper Cape",
+        "UniqueName": "CAPEITEM_KEEPER",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_KEEPER_BP",
+          "Heart": "T1_FACTION_HIGHLAND_TOKEN_1"
+        }
+      },
+      {
+        "Name": "Morgana Cape",
+        "UniqueName": "CAPEITEM_MORGANA",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_MORGANA_BP",
+          "Heart": "T1_FACTION_SWAMP_TOKEN_1"
+        }
+      },
+      {
+        "Name": "Avalonian Cape",
+        "UniqueName": "CAPEITEM_AVALON",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_AVALON_BP",
+          "Heart": ""
+        }
+      },
+      {
+        "Name": "Demon Cape",
+        "UniqueName": "CAPEITEM_DEMON",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_DEMON_BP",
+          "Heart": "T1_FACTION_STEPPE_TOKEN_1"
+        }
+      },
+      {
+        "Name": "Smuggler Cape",
+        "UniqueName": "CAPEITEM_SMUGGLER",
+        "Crafting": {
+          "Cape": 1,
+          "Crest": "CAPEITEM_SMUGGLER_BP",
+          "Heart": "T1_FACTION_CAERLEON_TOKEN_1"
+        }
+      }
+    ]
   }
 }

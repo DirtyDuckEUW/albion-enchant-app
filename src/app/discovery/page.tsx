@@ -1,5 +1,4 @@
 /**
- * Discovery Page (Refactored)
  * Browse and compare items across categories with auto-loaded prices
  */
 
@@ -9,8 +8,8 @@ import { useEffect, useState } from "react";
 import "./discovery.css";
 import ItemCard from "../../components/ItemCard/ItemCard";
 import type { ItemData } from "@/types";
-import { useResourcePrices } from "@/hooks/useResourcePrices";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { supabase } from "@/lib/supabase";
 import {
   BRIDGEWATCH,
   LYMHURST,
@@ -32,7 +31,8 @@ import {
   getTwoHandWeapons,
 } from "@/lib/itemsLoader";
 import { ITEM_COUNTS } from "@/lib/utility";
-import type { ItemKey, TierOption, CityOption } from "@/types";
+import type { ItemKey } from "@/types";
+import type { TierOption, CityOption } from "@/types/shared";
 import { fetchItemSellPrices, fetchArtifactPrices } from "@/lib/priceLoader";
 import { calculateTotalCost } from "@/lib/calculations";
 
@@ -58,8 +58,12 @@ const CATEGORY_DATA: Record<CategoryKey, ItemData[]> = {
 export default function DiscoveryPage() {
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
   const [sellPrices, setSellPrices] = useState<Record<string, number>>({});
   const [artifactPrices, setArtifactPrices] = useState<Record<string, number>>(
+    {}
+  );
+  const [resourcePrices, setResourcePrices] = useState<Record<string, number>>(
     {}
   );
 
@@ -80,12 +84,37 @@ export default function DiscoveryPage() {
     "1"
   );
 
-  const { prices: resourcePrices, loading: resourceLoading } =
-    useResourcePrices();
-
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Load resource prices from item_price_cache
+  useEffect(() => {
+    if (!mounted) return;
+
+    const loadResourcePrices = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("item_price_cache")
+          .select("item_id, sell_price_min")
+          .eq("location", "Manual");
+
+        if (!error && data) {
+          const priceMap: Record<string, number> = {};
+          data.forEach((row) => {
+            priceMap[row.item_id] = row.sell_price_min;
+          });
+          setResourcePrices(priceMap);
+        } else if (error) {
+          console.error("Error loading resource prices:", error);
+        }
+      } catch (err) {
+        console.error("Failed to load resource prices:", err);
+      }
+    };
+
+    loadResourcePrices();
+  }, [mounted]);
 
   // Auto-load prices when filters change
   useEffect(() => {
@@ -107,13 +136,11 @@ export default function DiscoveryPage() {
           .map((item) => (item.Crafting as any).Artifact);
 
         // Fetch prices in parallel
+        const tierNumber = selectedTier.replace("T", "") as TierOption;
         const [sellPriceMap, artifactPriceMap] = await Promise.all([
           fetchItemSellPrices(uniqueNames, selectedLocation as CityOption),
           artifactIds.length > 0
-            ? fetchArtifactPrices(
-                artifactIds,
-                selectedTier.replace("T", "") as any
-              )
+            ? fetchArtifactPrices(artifactIds, tierNumber)
             : Promise.resolve({}),
         ]);
 
@@ -122,9 +149,12 @@ export default function DiscoveryPage() {
         items.forEach((item) => {
           const artifact = (item.Crafting as any)?.Artifact;
           if (artifact) {
-            const fullId = `${selectedTier}_${artifact}`;
+            // Check if artifact ID already has tier prefix
+            const artifactKey = /^T\d+_/.test(artifact)
+              ? artifact
+              : `${selectedTier}_${artifact}`;
             artifactsByUniqueName[item.UniqueName] =
-              artifactPriceMap[fullId] || 0;
+              (artifactPriceMap as Record<string, number>)[artifactKey] || 0;
           }
         });
 
@@ -132,6 +162,13 @@ export default function DiscoveryPage() {
         setArtifactPrices(artifactsByUniqueName);
       } catch (error) {
         console.error("Failed to load prices:", error);
+        console.error("Error details:", {
+          category: selectedCategory,
+          tier: selectedTier,
+          location: selectedLocation,
+          enchantment: selectedEnchantment,
+          itemCount: items.length,
+        });
       } finally {
         setLoading(false);
       }
@@ -144,6 +181,7 @@ export default function DiscoveryPage() {
     selectedLocation,
     selectedEnchantment,
     mounted,
+    reloadTrigger,
   ]);
 
   if (!mounted) {
@@ -154,7 +192,7 @@ export default function DiscoveryPage() {
 
   const handleReload = () => {
     // Re-trigger the auto-load useEffect
-    setSelectedCategory(selectedCategory);
+    setReloadTrigger((prev) => prev + 1);
   };
 
   const handleForceUpdate = async () => {
@@ -174,13 +212,11 @@ export default function DiscoveryPage() {
       // Force reload from API with skipCache = true parameter
       // This would require modifying fetchItemSellPrices to accept skipCache
       // For now, just reload normally
+      const tierNumber = selectedTier.replace("T", "") as TierOption;
       const [sellPriceMap, artifactPriceMap] = await Promise.all([
         fetchItemSellPrices(uniqueNames, selectedLocation as CityOption),
         artifactIds.length > 0
-          ? fetchArtifactPrices(
-              artifactIds,
-              selectedTier.replace("T", "") as any
-            )
+          ? fetchArtifactPrices(artifactIds, tierNumber)
           : Promise.resolve({}),
       ]);
 
@@ -188,9 +224,12 @@ export default function DiscoveryPage() {
       items.forEach((item) => {
         const artifact = (item.Crafting as any)?.Artifact;
         if (artifact) {
-          const fullId = `${selectedTier}_${artifact}`;
+          // Check if artifact ID already has tier prefix
+          const artifactKey = /^T\d+_/.test(artifact)
+            ? artifact
+            : `${selectedTier}_${artifact}`;
           artifactsByUniqueName[item.UniqueName] =
-            artifactPriceMap[fullId] || 0;
+            (artifactPriceMap as Record<string, number>)[artifactKey] || 0;
         }
       });
 
@@ -293,19 +332,48 @@ export default function DiscoveryPage() {
             const artifactPrice = artifactPrices[item.UniqueName] || 0;
             const sellPrice = sellPrices[itemNameWithTierAndEnchantment] || 0;
 
-            const totalCost = calculateTotalCost(
-              selectedTier as any,
-              ITEM_COUNTS[selectedCategory],
-              {
-                cloth: (item.Crafting as any).Cloth || 0,
-                leather: (item.Crafting as any).Leather || 0,
-                metalBar: (item.Crafting as any).Metal_Bars || 0,
-                planks: (item.Crafting as any).Planks || 0,
-                artifact: artifactPrice,
-              },
-              resourcePrices,
-              selectedEnchantment
-            );
+            // Calculate craft cost from resources
+            const crafting = item.Crafting as any;
+            const tierPrefix = selectedTier;
+
+            // Always use .0 (base) resources
+            const clothPrice = resourcePrices[`${tierPrefix}_CLOTH`] || 0;
+            const leatherPrice = resourcePrices[`${tierPrefix}_LEATHER`] || 0;
+            const metalBarPrice = resourcePrices[`${tierPrefix}_METALBAR`] || 0;
+            const planksPrice = resourcePrices[`${tierPrefix}_PLANKS`] || 0;
+
+            // Calculate base resource cost
+            const baseResourceCost =
+              (crafting.Cloth || 0) * clothPrice +
+              (crafting.Leather || 0) * leatherPrice +
+              (crafting.Metal_Bars || 0) * metalBarPrice +
+              (crafting.Planks || 0) * planksPrice;
+
+            // Calculate enchanting cost (runes, souls, relics)
+            const itemCount = ITEM_COUNTS[selectedCategory] || 1;
+            let enchantingCost = 0;
+
+            if (selectedEnchantment !== "0") {
+              const runePrice = resourcePrices[`${tierPrefix}_RUNE`] || 0;
+              const soulPrice = resourcePrices[`${tierPrefix}_SOUL`] || 0;
+              const relicPrice = resourcePrices[`${tierPrefix}_RELIC`] || 0;
+
+              // .1 = only runes
+              // .2 = runes + souls
+              // .3 = runes + souls + relics
+              if (selectedEnchantment === "1") {
+                enchantingCost += runePrice * itemCount;
+              }
+              if (selectedEnchantment === "2") {
+                enchantingCost += (runePrice + soulPrice) * itemCount;
+              }
+              if (selectedEnchantment === "3") {
+                enchantingCost +=
+                  (runePrice + soulPrice + relicPrice) * itemCount;
+              }
+            }
+
+            const totalCost = baseResourceCost + enchantingCost + artifactPrice;
 
             return (
               <ItemCard

@@ -117,7 +117,7 @@ export interface BulkProfitCalculation {
 // Return Rate Types
 // ============================================================================
 
-export type ReturnRateOption = "43.50" | "47.92" | "57.49";
+export type ReturnRateOption = "15.25" | "24.81" | "43.50" | "47.92" | "57.49";
 
 export interface ReturnRateInfo {
   value: ReturnRateOption;
@@ -126,6 +126,8 @@ export interface ReturnRateInfo {
 }
 
 export const RETURN_RATES: Record<ReturnRateOption, ReturnRateInfo> = {
+  "15.25": { value: "15.25", decimal: 0.1525, percentage: "15.25%" },
+  "24.81": { value: "24.81", decimal: 0.2481, percentage: "24.81%" },
   "43.50": { value: "43.50", decimal: 0.435, percentage: "43.50%" },
   "47.92": { value: "47.92", decimal: 0.4792, percentage: "47.92%" },
   "57.49": { value: "57.49", decimal: 0.5749, percentage: "57.49%" },

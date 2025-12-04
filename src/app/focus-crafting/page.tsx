@@ -65,6 +65,7 @@ export default function FocusCraftingPage() {
   );
 
   // Results
+  const [showResults, setShowResults] = useState<boolean>(false);
   const [craftCost, setCraftCost] = useState<number>(0);
   const [profit, setProfit] = useState<number>(0);
   const [sellAfterTax, setSellAfterTax] = useState<number>(0);
@@ -118,8 +119,18 @@ export default function FocusCraftingPage() {
     const loadArtifactPrice = async () => {
       const prices = await fetchArtifactPrices([artifact], selectedTier);
 
-      const fullId = `T${selectedTier}_${artifact.replace(/T\d+_/, "")}`;
-      const price = prices[fullId];
+      // fetchArtifactPrices returns keys with tier already included
+      const artifactId = /^T\d+_/.test(artifact)
+        ? artifact
+        : `T${selectedTier}_${artifact}`;
+      const price = prices[artifactId];
+
+      console.log("Artifact price lookup:", {
+        artifact,
+        artifactId,
+        price,
+        allPrices: prices,
+      });
 
       if (price) {
         setArtifactPrice(price.toString());
@@ -135,6 +146,14 @@ export default function FocusCraftingPage() {
     const amountNum = parseFloat(amount) || 1;
     const artifactPriceNum = parseFloat(artifactPrice) || 0;
     const sellValueNum = parseFloat(sellValue) || 0;
+
+    console.log("Calculate clicked:", {
+      currentItem: currentItem.UniqueName,
+      amount: amountNum,
+      artifactPrice: artifactPriceNum,
+      sellValue: sellValueNum,
+      resourcePrices,
+    });
 
     // Calculate craft cost manually for legacy structure
     const crafting = currentItem.Crafting as any;
@@ -153,18 +172,37 @@ export default function FocusCraftingPage() {
       (crafting.Planks || 0) * amountNum * (1 - returnRateDecimal)
     );
 
-    const clothCost =
-      clothQty * (resourcePrices["T" + selectedTier + "_CLOTH"] || 0);
-    const leatherCost =
-      leatherQty * (resourcePrices["T" + selectedTier + "_LEATHER"] || 0);
-    const metalBarCost =
-      metalBarQty * (resourcePrices["T" + selectedTier + "_METALBAR"] || 0);
-    const planksCost =
-      planksQty * (resourcePrices["T" + selectedTier + "_PLANKS"] || 0);
+    // Build resource keys with enchantment
+    const enchSuffix =
+      selectedEnchantment !== "0"
+        ? `_LEVEL${selectedEnchantment}@${selectedEnchantment}`
+        : "";
+    const clothKey = `T${selectedTier}_CLOTH${enchSuffix}`;
+    const leatherKey = `T${selectedTier}_LEATHER${enchSuffix}`;
+    const metalBarKey = `T${selectedTier}_METALBAR${enchSuffix}`;
+    const planksKey = `T${selectedTier}_PLANKS${enchSuffix}`;
+
+    const clothCost = clothQty * (resourcePrices[clothKey] || 0);
+    const leatherCost = leatherQty * (resourcePrices[leatherKey] || 0);
+    const metalBarCost = metalBarQty * (resourcePrices[metalBarKey] || 0);
+    const planksCost = planksQty * (resourcePrices[planksKey] || 0);
     const artifactCost = artifactPriceNum * amountNum;
 
     const cost =
       clothCost + leatherCost + metalBarCost + planksCost + artifactCost;
+
+    console.log("Calculated costs:", {
+      clothKey,
+      leatherKey,
+      metalBarKey,
+      planksKey,
+      clothCost,
+      leatherCost,
+      metalBarCost,
+      planksCost,
+      artifactCost,
+      totalCost: cost,
+    });
 
     // Calculate sell value after tax
     const totalSellValue = sellValueNum * amountNum;
@@ -172,9 +210,16 @@ export default function FocusCraftingPage() {
     const sellAfter = totalSellValue - tax;
     const profitCalc = sellAfter - cost;
 
+    console.log("Final results:", {
+      craftCost: cost,
+      sellAfterTax: sellAfter,
+      profit: profitCalc,
+    });
+
     setCraftCost(cost);
     setSellAfterTax(sellAfter);
     setProfit(profitCalc);
+    setShowResults(true);
   };
 
   if (!mounted) {
@@ -280,9 +325,115 @@ export default function FocusCraftingPage() {
       </div>
 
       {/* Results */}
-      {craftCost > 0 && (
+      {showResults && (
         <div className="results" style={{ marginTop: "1.5rem" }}>
           <h3>Results</h3>
+
+          {/* Resource Price Breakdown */}
+          <div className="resource-breakdown">
+            <h4>Resource Prices</h4>
+            <div className="resource-breakdown-items">
+              {(() => {
+                const crafting = currentItem?.Crafting as any;
+                const returnRateDecimal = parseFloat(returnRate) / 100;
+                const amountNum = parseFloat(amount) || 1;
+
+                const enchSuffix =
+                  selectedEnchantment !== "0"
+                    ? `_LEVEL${selectedEnchantment}@${selectedEnchantment}`
+                    : "";
+
+                const resources = [];
+
+                if (crafting?.Cloth) {
+                  const qty = Math.ceil(
+                    (crafting.Cloth || 0) * amountNum * (1 - returnRateDecimal)
+                  );
+                  const key = `T${selectedTier}_CLOTH${enchSuffix}`;
+                  const price = resourcePrices[key] || 0;
+                  resources.push({
+                    name: "Cloth",
+                    qty,
+                    price,
+                    total: qty * price,
+                  });
+                }
+
+                if (crafting?.Leather) {
+                  const qty = Math.ceil(
+                    (crafting.Leather || 0) *
+                      amountNum *
+                      (1 - returnRateDecimal)
+                  );
+                  const key = `T${selectedTier}_LEATHER${enchSuffix}`;
+                  const price = resourcePrices[key] || 0;
+                  resources.push({
+                    name: "Leather",
+                    qty,
+                    price,
+                    total: qty * price,
+                  });
+                }
+
+                if (crafting?.Metal_Bars) {
+                  const qty = Math.ceil(
+                    (crafting.Metal_Bars || 0) *
+                      amountNum *
+                      (1 - returnRateDecimal)
+                  );
+                  const key = `T${selectedTier}_METALBAR${enchSuffix}`;
+                  const price = resourcePrices[key] || 0;
+                  resources.push({
+                    name: "Metal Bar",
+                    qty,
+                    price,
+                    total: qty * price,
+                  });
+                }
+
+                if (crafting?.Planks) {
+                  const qty = Math.ceil(
+                    (crafting.Planks || 0) * amountNum * (1 - returnRateDecimal)
+                  );
+                  const key = `T${selectedTier}_PLANKS${enchSuffix}`;
+                  const price = resourcePrices[key] || 0;
+                  resources.push({
+                    name: "Planks",
+                    qty,
+                    price,
+                    total: qty * price,
+                  });
+                }
+
+                if (crafting?.Artifact && artifactPrice) {
+                  const qty = amountNum;
+                  const price = parseFloat(artifactPrice) || 0;
+                  resources.push({
+                    name: "Artifact",
+                    qty,
+                    price,
+                    total: qty * price,
+                  });
+                }
+
+                return resources.map((res, idx) => (
+                  <div key={idx} className="resource-item">
+                    <div>
+                      <span className="resource-item-name">{res.name}</span>
+                      <span className="resource-item-details">
+                        {" "}
+                        ({res.qty}x @ {formatSilver(res.price)})
+                      </span>
+                    </div>
+                    <span className="resource-item-total">
+                      {formatSilver(res.total)}
+                    </span>
+                  </div>
+                ));
+              })()}
+            </div>
+          </div>
+
           <p>
             <strong>Craft Cost ({amount}x):</strong>{" "}
             <span style={{ fontWeight: "600" }}>{formatSilver(craftCost)}</span>
