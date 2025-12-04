@@ -39,3 +39,59 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Resource breakdown styling */
+.resource-breakdown {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--cp-surface0);
+  border-radius: 8px;
+  border: 1px solid var(--cp-surface1);
+  max-width: 350px;
+}
+
+.resource-breakdown h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
+  color: var(--cp-subtext1);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.resource-breakdown-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.resource-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background: var(--cp-surface1);
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.resource-item:hover {
+  background: var(--cp-surface2);
+}
+
+.resource-item-name {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.resource-item-details {
+  color: var(--cp-subtext0);
+  font-size: 0.85rem;
+}
+
+.resource-item-total {
+  color: var(--cp-blue);
+  font-weight: 600;
+  font-size: 0.95rem;
+}

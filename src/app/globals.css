@@ -41,6 +41,19 @@
   /* additional convenience mappings */
   --crust: var(--cp-crust);
   --overlay2: var(--cp-overlay2);
+
+  /* Card and component styling */
+  --card-bg: var(--cp-surface0);
+  --border-color: var(--cp-surface2);
+  --text-primary: var(--cp-text);
+  --text-secondary: var(--cp-subtext1);
+  --text-muted: var(--cp-subtext0);
+  --input-bg: var(--cp-surface1);
+  --hover-bg: var(--cp-surface1);
+  --primary-color: var(--cp-blue);
+  --success-color: var(--cp-green);
+  --error-color: var(--cp-red);
+  --thumb-bg: var(--cp-surface2);
 }
 
 @theme inline {

@@ -1,3 +1,142 @@
 .cape-crafting-page {
   padding: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.cape-crafting-page h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: var(--text-primary);
+}
+
+.cape-crafting-page h2 {
+  margin: 2rem 0 1rem 0;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.cape-crafting-page .filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.cape-crafting-page .filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 150px;
+}
+
+.cape-crafting-page .filter-field label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.cape-crafting-page .filter-field select,
+.cape-crafting-page .filter-field input[type="number"],
+.cape-crafting-page .filter-field .btn {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--input-bg, #1a1a1a);
+  color: var(--text-primary);
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+}
+
+.cape-crafting-page .filter-field select:hover,
+.cape-crafting-page .filter-field input[type="number"]:hover,
+.cape-crafting-page .filter-field .btn:hover:not(:disabled) {
+  border-color: var(--primary-color, #3b82f6);
+}
+
+.cape-crafting-page .filter-field input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primary-color, #3b82f6);
+}
+
+.cape-crafting-page .filter-field .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cape-crafting-page .cape-section {
+  margin-bottom: 3rem;
+}
+
+.cape-crafting-page .example-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.cape-crafting-page .summary-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cape-crafting-page .summary-card h3 {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.cape-crafting-page .summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.cape-crafting-page .summary-row span {
+  color: var(--text-secondary);
+}
+
+.cape-crafting-page .summary-row strong {
+  color: var(--text-primary);
+  font-size: 1.125rem;
+}
+
+.cape-crafting-page .summary-row strong.positive {
+  color: #a6e3a1;
+}
+
+.cape-crafting-page .summary-row strong.negative {
+  color: #f38ba8;
+}
+
+@media (max-width: 768px) {
+  .cape-crafting-page .example-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .cape-crafting-page .filters {
+    flex-direction: column;
+  }
+
+  .cape-crafting-page .filter-field {
+    min-width: 100%;
+  }
 }

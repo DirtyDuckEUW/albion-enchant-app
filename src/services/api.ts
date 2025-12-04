@@ -31,7 +31,14 @@ export const getPrice = async (
   if (!locations) throw new Error("getPrice: location is required");
   if (!qualities) throw new Error("getPrice: qualities is required");
 
-  console.log("Sending api request for " + itemIds + " in " + locations);
+  console.log(
+    "Sending api request for " +
+      itemIds +
+      " in " +
+      locations +
+      "for qualities: " +
+      qualities
+  );
   const response = await fetch(
     `${BASE_URL}/api/v2/stats/Prices/${encodeURIComponent(itemIds)}.json?locations=${encodeURIComponent(locations)}&qualities=${qualities}`
   );

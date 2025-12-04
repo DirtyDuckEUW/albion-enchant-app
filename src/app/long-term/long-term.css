@@ -4,10 +4,103 @@
   padding: 1.5rem;
 }
 
-/* Page-specific styles */
+/* Filter Group Styling */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+  max-width: 200px;
+}
+
+.filter-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--cp-subtext0);
+}
+
+.filter-group select,
+.filter-group input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--cp-overlay2);
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--cp-surface1);
+  color: var(--foreground);
+  height: 38px;
+  box-sizing: border-box;
+}
+
+.filter-group select {
+  cursor: pointer;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(137, 180, 250, 0.2);
+}
+
+.filter-group select:hover,
+.filter-group input:hover {
+  border-color: var(--cp-overlay1);
+}
+
+/* Calculate Button */
+.calculate-button {
+  padding: 0.5rem 1.5rem;
+  background: var(--primary);
+  color: var(--crust, #111);
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: opacity 0.2s;
+  align-self: flex-end;
+  height: 38px;
+  margin-top: auto;
+}
+
+.calculate-button:hover {
+  opacity: 0.9;
+}
+
+/* Results Summary */
+.results-summary {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: var(--cp-surface0);
+  border-radius: 8px;
+  border: 1px solid var(--cp-surface1);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.result-label {
+  font-size: 0.9rem;
+  color: var(--cp-subtext0);
+  font-weight: 500;
+}
+
+.result-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Item Cards */
 .long-term-items {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }

@@ -16,7 +16,7 @@ import {
   fetchResourcePrices,
   fetchArtifactPrices,
   fetchItemSellPrices,
-} from "../priceLoader";
+} from "@/lib/priceLoader";
 
 // ============================================================================
 // Editable Prices Hook
@@ -84,8 +84,8 @@ export function useEditablePrices(): EditablePricesState {
     setAmountsPerDay((prev) => {
       const updated = { ...prev };
       Object.entries(amounts).forEach(([key, value]) => {
-        // Only set if not already set
-        if (updated[key] === undefined) {
+        // Only set if not already set (don't override existing values, even if 0)
+        if (!(key in updated)) {
           updated[key] = value;
         }
       });
@@ -126,10 +126,21 @@ export function useAutoLoadResourcePrices(
       // Collect all resource IDs
       const resourceIds = new Set<string>();
       items.forEach((item) => {
-        if (item.Crafting?.AdditionalResources) {
-          item.Crafting.AdditionalResources.forEach((res) => {
-            resourceIds.add(res.Resource);
-          });
+        // Check for legacy format (Cloth, Leather, Metal_Bars, Planks)
+        if (item.Crafting) {
+          const crafting = item.Crafting as any;
+          if (crafting.Cloth !== undefined || crafting.Leather !== undefined) {
+            // Legacy format
+            if (crafting.Cloth > 0) resourceIds.add("CLOTH");
+            if (crafting.Leather > 0) resourceIds.add("LEATHER");
+            if (crafting.Metal_Bars > 0) resourceIds.add("METALBAR");
+            if (crafting.Planks > 0) resourceIds.add("PLANKS");
+          } else if (crafting.AdditionalResources) {
+            // New format
+            crafting.AdditionalResources.forEach((res: any) => {
+              resourceIds.add(res.Resource);
+            });
+          }
         }
       });
 
@@ -165,10 +176,20 @@ export function useAutoLoadArtifactPrices(
       // Collect unique artifact IDs
       const artifactIds = new Set<string>();
       items.forEach((item) => {
-        if (item.Crafting?.Resource) {
-          artifactIds.add(item.Crafting.Resource);
+        if (item.Crafting) {
+          const crafting = item.Crafting as any;
+          // Check legacy format (Artifact field)
+          if (crafting.Artifact && crafting.Artifact !== "") {
+            artifactIds.add(crafting.Artifact);
+          }
+          // Check new format (Resource field)
+          else if (crafting.Resource) {
+            artifactIds.add(crafting.Resource);
+          }
         }
       });
+
+      if (artifactIds.size === 0) return;
 
       // Fetch artifact prices
       const artifactPriceMap = await fetchArtifactPrices(
@@ -178,12 +199,24 @@ export function useAutoLoadArtifactPrices(
 
       // Map to unique names
       const pricesByUniqueName: EditablePriceMap = {};
+      const tierNumber = tier.toString().replace(/^T/, "");
       items.forEach((item) => {
-        if (item.Crafting?.Resource) {
-          const artifactId = `T${tier}_${item.Crafting.Resource.replace(/T\d+_/, "")}`;
-          const price = artifactPriceMap[artifactId];
-          if (price) {
-            pricesByUniqueName[item.UniqueName] = price;
+        if (item.Crafting) {
+          const crafting = item.Crafting as any;
+          let artifactId = "";
+
+          // Get artifact ID from either format
+          if (crafting.Artifact && crafting.Artifact !== "") {
+            artifactId = `T${tierNumber}_${crafting.Artifact.replace(/T\d+_/, "")}`;
+          } else if (crafting.Resource) {
+            artifactId = `T${tierNumber}_${crafting.Resource.replace(/T\d+_/, "")}`;
+          }
+
+          if (artifactId) {
+            const price = artifactPriceMap[artifactId];
+            if (price) {
+              pricesByUniqueName[item.UniqueName] = price;
+            }
           }
         }
       });
@@ -211,13 +244,14 @@ export function useAutoLoadSellPrices(
     if (!items || items.length === 0) return;
 
     const loadPrices = async () => {
+      const tierNumber = tier.toString().replace(/^T/, "");
       // Build unique names with tier and enchantment
       const uniqueNames = items.map((item) => {
         const baseId = item.UniqueName.replace(/T\d+_/, "").replace(
           /@\d+$/,
           ""
         );
-        return `T${tier}_${baseId}${enchantment !== "0" ? `@${enchantment}` : ""}`;
+        return `T${tierNumber}_${baseId}${enchantment !== "0" ? `@${enchantment}` : ""}`;
       });
 
       // Fetch sell prices
@@ -232,7 +266,7 @@ export function useAutoLoadSellPrices(
           /@\d+$/,
           ""
         );
-        const fullId = `T${tier}_${baseId}${enchantment !== "0" ? `@${enchantment}` : ""}`;
+        const fullId = `T${tierNumber}_${baseId}${enchantment !== "0" ? `@${enchantment}` : ""}`;
         const price = sellPriceMap[fullId];
 
         if (price) {

@@ -1,0 +1,224 @@
+.cape-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.cape-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cape-card .card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cape-card .thumb {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background: var(--thumb-bg, #2a2a2a);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cape-card .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cape-card .title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cape-card .title .price-input {
+  width: 50px;
+  padding: 0.125rem 0.375rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  text-align: center;
+  font-weight: 600;
+  transition: border-color 0.2s;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.cape-card .title .price-input::-webkit-outer-spin-button,
+.cape-card .title .price-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.cape-card .title .price-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.cape-card .title .price-input:hover {
+  border-color: var(--primary-color);
+}
+
+.cape-card .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cape-card h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cape-card .crafting-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cape-card .cost-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  padding: 0.25rem 0;
+}
+
+.cape-card .cost-row .price-input {
+  width: 100px;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  text-align: right;
+  font-weight: 600;
+  transition: border-color 0.2s;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.cape-card .cost-row .price-input::-webkit-outer-spin-button,
+.cape-card .cost-row .price-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.cape-card .cost-row .price-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.cape-card .cost-row .price-input:hover {
+  border-color: var(--primary-color);
+}
+
+.cape-card .cost-row.total {
+  margin-top: 0.25rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+}
+
+.cape-card .city-prices-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cape-card .sell-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cape-card .sell-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  padding: 0.25rem 0;
+}
+
+.cape-card .sell-row .price-input {
+  width: 100px;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  text-align: right;
+  font-weight: 600;
+  transition: border-color 0.2s;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.cape-card .sell-row .price-input::-webkit-outer-spin-button,
+.cape-card .sell-row .price-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.cape-card .sell-row .price-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.cape-card .sell-row .price-input:hover {
+  border-color: var(--primary-color);
+}
+
+.cape-card .profit-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9375rem;
+  padding: 0.5rem 0;
+  margin-top: 0.25rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.cape-card .sell-row .label,
+.cape-card .profit-row .label {
+  color: var(--text-muted);
+}
+
+.cape-card .profit-row strong.positive {
+  color: var(--success-color, #10b981);
+}
+
+.cape-card .profit-row strong.negative {
+  color: var(--error-color, #ef4444);
+}

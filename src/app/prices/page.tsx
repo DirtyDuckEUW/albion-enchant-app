@@ -2,223 +2,196 @@
 
 import { useEffect, useState } from "react";
 import "./prices.css";
-import {
-  getAllResourcePrices,
-  upsertMultipleResourcePrices,
-} from "@/lib/supabase";
-import type {
-  ResourceType,
-  Tier,
-  ResourceInputMap,
-  Enchantment,
-} from "@/types";
-import {
-  TIERS,
-  RESOURCE_TYPES,
-  ENCHANTMENTS,
-  createDefaultTierEnchantmentValues,
-  parseNumber,
-} from "@/lib/utility";
-import PriceInputSection from "@/components/PriceInputSection/PriceInputSection";
+import { supabase } from "@/lib/supabase";
+import resourcesData from "@/albion-ids/resources.json";
+
+type ResourceCategory = "Cloth" | "Leather" | "Metal Bars" | "Planks";
+type PriceMap = Record<string, string>; // item_id -> price
 
 export default function PricesPage() {
-  const defaultTierValues = createDefaultTierEnchantmentValues();
-
-  const [resourcePrices, setResourcePrices] = useState<ResourceInputMap>({
-    runes: { ...defaultTierValues },
-    souls: { ...defaultTierValues },
-    relics: { ...defaultTierValues },
-    cloth: { ...defaultTierValues },
-    leather: { ...defaultTierValues },
-    metalBar: { ...defaultTierValues },
-    planks: { ...defaultTierValues },
-  });
+  const [prices, setPrices] = useState<PriceMap>({});
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
-  // Load prices from Supabase on mount
+  // Load prices from item_price_cache
   useEffect(() => {
     async function loadPrices() {
       setLoading(true);
-      const prices = await getAllResourcePrices();
 
-      console.log("Loaded prices from Supabase:", prices);
+      try {
+        const { data, error } = await supabase
+          .from("item_price_cache")
+          .select("item_id, sell_price_min")
+          .eq("location", "Manual"); // Use "Manual" location for manually entered prices
 
-      const newPrices: ResourceInputMap = {
-        runes: createDefaultTierEnchantmentValues(),
-        souls: createDefaultTierEnchantmentValues(),
-        relics: createDefaultTierEnchantmentValues(),
-        cloth: createDefaultTierEnchantmentValues(),
-        leather: createDefaultTierEnchantmentValues(),
-        metalBar: createDefaultTierEnchantmentValues(),
-        planks: createDefaultTierEnchantmentValues(),
-      };
-
-      prices.forEach((p) => {
-        if (newPrices[p.resource_type]) {
-          console.log(
-            `Setting price for ${p.resource_type} ${p.tier}.${p.enchantment}: ${p.price}`
-          );
-          newPrices[p.resource_type][p.tier][p.enchantment] =
-            p.price.toString();
+        if (error) {
+          console.error("Error loading prices:", error);
+        } else if (data) {
+          const priceMap: PriceMap = {};
+          data.forEach((row) => {
+            priceMap[row.item_id] = row.sell_price_min.toString();
+          });
+          setPrices(priceMap);
+          console.log("Loaded prices:", priceMap);
         }
-      });
+      } catch (err) {
+        console.error("Failed to load prices:", err);
+      }
 
-      console.log("Final prices state:", newPrices);
-      setResourcePrices(newPrices);
       setLoading(false);
     }
 
     loadPrices();
   }, []);
 
-  function handleChange(
-    resource: ResourceType,
-    tier: Tier,
-    enchantment: Enchantment,
-    value: string
-  ) {
-    setResourcePrices((prev) => ({
+  const handleChange = (itemId: string, value: string) => {
+    setPrices((prev) => ({
       ...prev,
-      [resource]: {
-        ...prev[resource],
-        [tier]: {
-          ...prev[resource][tier],
-          [enchantment]: value,
-        },
-      },
+      [itemId]: value,
     }));
-  }
+  };
 
-  async function saveAll() {
-    const allPrices: Array<{
-      resourceType: ResourceType;
-      tier: Tier;
-      enchantment: Enchantment;
-      price: number;
-    }> = [];
+  const saveAll = async () => {
+    setSaving(true);
 
-    RESOURCE_TYPES.forEach((resourceType) => {
-      TIERS.forEach((tier) => {
-        ENCHANTMENTS.forEach((enchantment) => {
-          const price = parseNumber(
-            resourcePrices[resourceType][tier][enchantment]
-          );
-          if (Number.isFinite(price)) {
-            allPrices.push({ resourceType, tier, enchantment, price });
-          }
-        });
-      });
-    });
+    try {
+      const records = Object.entries(prices)
+        .filter(([_, price]) => price && !isNaN(parseFloat(price)))
+        .map(([itemId, price]) => ({
+          item_id: itemId,
+          location: "Manual",
+          quality: 1,
+          sell_price_min: parseFloat(price),
+          sell_price_max: parseFloat(price),
+          buy_price_min: 0,
+          buy_price_max: 0,
+          sell_price_min_date: new Date().toISOString(),
+          sell_price_max_date: new Date().toISOString(),
+          buy_price_min_date: new Date().toISOString(),
+          buy_price_max_date: new Date().toISOString(),
+          cached_at: new Date().toISOString(),
+        }));
 
-    if (allPrices.length === 0) {
-      alert("No valid prices to save.");
-      return;
+      console.log("Saving records:", records.length);
+
+      const { error } = await supabase
+        .from("item_price_cache")
+        .upsert(records, { onConflict: "item_id,location" });
+
+      if (error) {
+        console.error("Error saving prices:", error);
+        alert("Failed to save prices. Check console for errors.");
+      } else {
+        alert(`Successfully saved ${records.length} prices to database.`);
+      }
+    } catch (err) {
+      console.error("Save failed:", err);
+      alert("Failed to save prices.");
     }
 
-    console.log("Saving prices:", allPrices);
-    const success = await upsertMultipleResourcePrices(allPrices);
-    console.log("Save result:", success);
+    setSaving(false);
+  };
 
-    if (success) {
-      alert(`Successfully saved ${allPrices.length} prices to database.`);
-    } else {
-      alert("Failed to save prices. Check console for errors.");
-    }
-  }
+  const resetAll = () => {
+    setPrices({});
+  };
 
-  function resetAll() {
-    setResourcePrices({
-      runes: createDefaultTierEnchantmentValues(),
-      souls: createDefaultTierEnchantmentValues(),
-      relics: createDefaultTierEnchantmentValues(),
-      cloth: createDefaultTierEnchantmentValues(),
-      leather: createDefaultTierEnchantmentValues(),
-      metalBar: createDefaultTierEnchantmentValues(),
-      planks: createDefaultTierEnchantmentValues(),
-    });
-  }
+  const renderResourceSection = (category: ResourceCategory) => {
+    const resources = resourcesData.Resources[category];
+
+    return (
+      <div key={category} className="price-section">
+        <h3>{category}</h3>
+        <div className="price-inputs-grid">
+          {resources.map((resource) => (
+            <div key={resource.UniqueName} className="price-input-item">
+              <img
+                src={`https://render.albiononline.com/v1/item/${resource.UniqueName}.png`}
+                alt={resource.Name}
+                className="item-icon"
+              />
+              <label>{resource.Name}</label>
+              <input
+                type="number"
+                value={prices[resource.UniqueName] || ""}
+                onChange={(e) =>
+                  handleChange(resource.UniqueName, e.target.value)
+                }
+                placeholder="0"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderArtifactSection = () => {
+    const artifacts = resourcesData.Artifacts;
+    const runes = artifacts.filter((a) => a.UniqueName.includes("RUNE"));
+    const souls = artifacts.filter((a) => a.UniqueName.includes("SOUL"));
+    const relics = artifacts.filter((a) => a.UniqueName.includes("RELIC"));
+
+    const renderArtifactColumn = (items: typeof artifacts, title: string) => (
+      <div className="price-section">
+        <h3>{title}</h3>
+        <div className="price-inputs-grid">
+          {items.map((artifact) => (
+            <div key={artifact.UniqueName} className="price-input-item">
+              <img
+                src={`https://render.albiononline.com/v1/item/${artifact.UniqueName}.png`}
+                alt={artifact.Name}
+                className="item-icon"
+              />
+              <label>{artifact.Name}</label>
+              <input
+                type="number"
+                value={prices[artifact.UniqueName] || ""}
+                onChange={(e) =>
+                  handleChange(artifact.UniqueName, e.target.value)
+                }
+                placeholder="0"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+
+    return (
+      <>
+        {renderArtifactColumn(runes, "Runes")}
+        {renderArtifactColumn(souls, "Souls")}
+        {renderArtifactColumn(relics, "Relics")}
+      </>
+    );
+  };
 
   return (
     <main className="page prices-page">
       <h1>Prices</h1>
       <h2>Manual resource price input for artifacts (T4–T8).</h2>
 
-      {loading && <p className="muted">Loading prices from database...</p>}
+      {loading && <p className="loading">Loading prices from database...</p>}
 
-      <div className="prices-grid">
-        <PriceInputSection
-          title="Runes"
-          resourceKey="runes"
-          values={resourcePrices.runes}
-          onChange={(tier, enchantment, value) =>
-            handleChange("runes", tier, enchantment, value)
-          }
-        />
-        <PriceInputSection
-          title="Souls"
-          resourceKey="souls"
-          values={resourcePrices.souls}
-          onChange={(tier, enchantment, value) =>
-            handleChange("souls", tier, enchantment, value)
-          }
-        />
-        <PriceInputSection
-          title="Relics"
-          resourceKey="relics"
-          values={resourcePrices.relics}
-          onChange={(tier, enchantment, value) =>
-            handleChange("relics", tier, enchantment, value)
-          }
-        />
-      </div>
+      <div className="artifacts-grid">{renderArtifactSection()}</div>
+
       <br />
       <h2>Manual resource price input.</h2>
 
       <div className="prices-grid">
-        <PriceInputSection
-          title="Cloth"
-          resourceKey="cloth"
-          values={resourcePrices.cloth}
-          onChange={(tier, enchantment, value) =>
-            handleChange("cloth", tier, enchantment, value)
-          }
-          showEnchantments
-        />
-        <PriceInputSection
-          title="Leather"
-          resourceKey="leather"
-          values={resourcePrices.leather}
-          onChange={(tier, enchantment, value) =>
-            handleChange("leather", tier, enchantment, value)
-          }
-          showEnchantments
-        />
-        <PriceInputSection
-          title="Metal Bar"
-          resourceKey="metalBar"
-          values={resourcePrices.metalBar}
-          onChange={(tier, enchantment, value) =>
-            handleChange("metalBar", tier, enchantment, value)
-          }
-          showEnchantments
-        />
-        <PriceInputSection
-          title="Planks"
-          resourceKey="planks"
-          values={resourcePrices.planks}
-          onChange={(tier, enchantment, value) =>
-            handleChange("planks", tier, enchantment, value)
-          }
-          showEnchantments
-        />
+        {renderResourceSection("Cloth")}
+        {renderResourceSection("Leather")}
+        {renderResourceSection("Metal Bars")}
+        {renderResourceSection("Planks")}
       </div>
 
       <div className="actions">
-        <button className="btn" onClick={saveAll}>
-          Save
+        <button className="btn" onClick={saveAll} disabled={saving}>
+          {saving ? "Saving..." : "Save All Prices"}
         </button>
-        <button className="btn btn-ghost" onClick={resetAll}>
-          Reset
+        <button className="btn btn-ghost" onClick={resetAll} disabled={saving}>
+          Reset All
         </button>
       </div>
     </main>

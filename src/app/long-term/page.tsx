@@ -84,6 +84,22 @@ export default function LongTermPage() {
     setMounted(true);
   }, []);
 
+  // Auto-calculate when return rate, amounts, artifact prices, or sell prices change
+  useEffect(() => {
+    if (mounted && items.length > 0) {
+      handleCalculate();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    returnRate,
+    JSON.stringify(editablePrices.amountsPerDay),
+    JSON.stringify(editablePrices.artifactPrices),
+    JSON.stringify(editablePrices.sellPrices),
+    days,
+    premiumCost,
+    items.length,
+  ]);
+
   // Calculate results
   const handleCalculate = () => {
     if (!items || items.length === 0) return;
@@ -92,7 +108,7 @@ export default function LongTermPage() {
     const premiumNum = parseInt(premiumCost) || 0;
 
     const itemsWithCalculations = items.map((item) => {
-      const amountPerDay = editablePrices.amountsPerDay[item.UniqueName] || 1;
+      const amountPerDay = editablePrices.amountsPerDay[item.UniqueName] ?? 1;
       const artifactPrice = editablePrices.artifactPrices[item.UniqueName] || 0;
       const sellPrice = editablePrices.sellPrices[item.UniqueName] || 0;
 
@@ -213,74 +229,65 @@ export default function LongTermPage() {
           returnRate={returnRate}
           setReturnRate={(value) => setReturnRate(value as ReturnRateOption)}
         />
-
-        {/* Calculate Button */}
-        <button onClick={handleCalculate} className="calculate-button">
-          Calculate
-        </button>
       </div>
 
       {/* Results Summary */}
-      {totalInvestmentPerDay > 0 && (
-        <div className="results-summary">
-          <div className="result-item">
-            <span className="result-label">Daily Investment:</span>
-            <span
-              className="result-value"
-              style={{ color: getInvestmentColor() }}
-            >
-              {formatSilver(totalInvestmentPerDay)}
-            </span>
-          </div>
-          <div className="result-item">
-            <span className="result-label">Daily Profit:</span>
-            <span
-              className="result-value"
-              style={{ color: getProfitColor(totalProfitPerDay) }}
-            >
-              {formatSilver(totalProfitPerDay)} (
-              {formatPercentage(
-                totalInvestmentPerDay > 0
-                  ? (totalProfitPerDay / totalInvestmentPerDay) * 100
-                  : 0
-              )}
-              )
-            </span>
-          </div>
-          <div className="result-item">
-            <span className="result-label">
-              Total Investment ({days} days):
-            </span>
-            <span
-              className="result-value"
-              style={{ color: getInvestmentColor() }}
-            >
-              {formatSilver(totalInvestmentForDays)}
-            </span>
-          </div>
-          <div className="result-item">
-            <span className="result-label">Total Profit ({days} days):</span>
-            <span
-              className="result-value"
-              style={{ color: getProfitColor(totalProfitForDays) }}
-            >
-              {formatSilver(totalProfitForDays)} (
-              {formatPercentage(
-                totalInvestmentForDays > 0
-                  ? (totalProfitForDays / totalInvestmentForDays) * 100
-                  : 0
-              )}
-              )
-            </span>
-          </div>
+      <div className="results-summary">
+        <div className="result-item">
+          <span className="result-label">Daily Investment:</span>
+          <span
+            className="result-value"
+            style={{ color: getInvestmentColor() }}
+          >
+            {formatSilver(totalInvestmentPerDay)}
+          </span>
         </div>
-      )}
+        <div className="result-item">
+          <span className="result-label">Daily Profit:</span>
+          <span
+            className="result-value"
+            style={{ color: getProfitColor(totalProfitPerDay) }}
+          >
+            {formatSilver(totalProfitPerDay)} (
+            {formatPercentage(
+              totalInvestmentPerDay > 0
+                ? (totalProfitPerDay / totalInvestmentPerDay) * 100
+                : 0
+            )}
+            )
+          </span>
+        </div>
+        <div className="result-item">
+          <span className="result-label">Total Investment ({days} days):</span>
+          <span
+            className="result-value"
+            style={{ color: getInvestmentColor() }}
+          >
+            {formatSilver(totalInvestmentForDays)}
+          </span>
+        </div>
+        <div className="result-item">
+          <span className="result-label">Total Profit ({days} days):</span>
+          <span
+            className="result-value"
+            style={{ color: getProfitColor(totalProfitForDays) }}
+          >
+            {formatSilver(totalProfitForDays)} (
+            {formatPercentage(
+              totalInvestmentForDays > 0
+                ? (totalProfitForDays / totalInvestmentForDays) * 100
+                : 0
+            )}
+            )
+          </span>
+        </div>
+      </div>
 
       {/* Item Cards */}
       <div className="long-term-items">
         {items.map((item) => {
           const amountPerDay =
-            editablePrices.amountsPerDay[item.UniqueName] || 1;
+            editablePrices.amountsPerDay[item.UniqueName] ?? 1;
           const artifactPrice =
             editablePrices.artifactPrices[item.UniqueName] || 0;
           const sellPrice = editablePrices.sellPrices[item.UniqueName] || 0;
@@ -298,15 +305,15 @@ export default function LongTermPage() {
           const profitPercentage =
             craftCost > 0 ? (profit / craftCost) * 100 : 0;
 
+          // Build unique name with tier and enchantment for image
+          const tierNumber = selectedTier.toString().replace(/^T/, "");
+          const uniqueNameWithTier = `T${tierNumber}_${item.UniqueName}${selectedEnchantment !== "0" ? `@${selectedEnchantment}` : ""}`;
+
           return (
             <LongTermItemCard
               key={item.UniqueName}
-              uniqueName={item.UniqueName}
-              name={
-                (item as any).LocalizedNames?.["EN-US"] ||
-                (item as any).Name ||
-                item.UniqueName
-              }
+              uniqueName={uniqueNameWithTier}
+              name={(item as any).Name || item.UniqueName}
               artefactCost={artifactPrice}
               craftCost={craftCost}
               sellPrice={sellPrice}
