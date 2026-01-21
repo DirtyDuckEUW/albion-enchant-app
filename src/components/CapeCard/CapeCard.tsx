@@ -11,6 +11,7 @@ export type CapeCardProps = {
   crestCost?: number;
   heartCost?: number;
   heartQuantity?: number;
+  heartLabel?: string;
   baseCapePrice?: number;
   resourceCost?: number;
   totalCraftCost: number;
@@ -35,6 +36,7 @@ export default function CapeCard({
   crestCost,
   heartCost,
   heartQuantity = 1,
+  heartLabel = "Heart",
   baseCapePrice,
   resourceCost,
   totalCraftCost,
@@ -115,7 +117,7 @@ export default function CapeCard({
           {heartCost !== undefined && (
             <div className="cost-row">
               <span>
-                Heart ({heartQuantity}x @ {heartCost.toLocaleString()}):
+                {heartLabel} ({heartQuantity}x):
               </span>
               {isEditableHeart && heartId && onHeartPriceChange ? (
                 <input

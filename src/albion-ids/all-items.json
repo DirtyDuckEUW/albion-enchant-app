@@ -2709,7 +2709,8 @@
         "Crafting": {
           "Cape": 1,
           "Crest": "CAPEITEM_AVALON_BP",
-          "Heart": ""
+          "Heart": "",
+          "AvalonianEnergy": "QUESTITEM_TOKEN_AVALON"
         }
       },
       {
